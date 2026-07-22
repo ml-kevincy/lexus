@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LEXUS · 首頁 Wireframe</title>
+<link rel="stylesheet" href="ds/styles.css" />
+<link rel="stylesheet" href="nx-assets/nx.css" />
+<link rel="stylesheet" href="nx-assets/home.css" />
+<link rel="stylesheet" href="nx-assets/menu.css" />
+</head>
+<body>
+<div class="wf-stage" id="wf-stage">
+  <div class="wf-canvas" id="wf-canvas" data-device="desktop" data-screen-label="首頁">
+
+    <!-- HEADER -->
+    <div class="wf-headwrap" data-mm-wrap>
+      <header class="wf-header">
+        <button class="wf-burger" aria-label="開啟選單" data-drawer-open><i></i><i></i><i></i></button>
+        <a class="wf-logo" href="index.html">LOGO</a>
+        <nav class="wf-nav">
+          <a href="#" data-mm="models">車款介紹</a><a href="#" data-mm="buy">購車資訊</a><a href="#" data-mm="brand">品牌專區</a>
+          <a href="#" data-mm="service">售後服務</a><a href="#">認證中古車</a><a href="#">最新消息</a>
+        </nav>
+        <div class="wf-header__actions">
+          <span class="wf-icon" title="會員登入">會員</span>
+        </div>
+      </header>
+
+      <!-- 桌機 mega menu · 下拉大面板 -->
+      <div class="mm" data-mm-root>
+        <div class="mm__panel" data-mm-panel="models">
+          <div class="mm__inner">
+            <div class="mm-cats" data-model-cats></div>
+            <div class="mm-models__grid" data-model-grid></div>
+          </div>
+        </div>
+        <div class="mm__panel" data-mm-panel="buy"><div class="mm__inner"><div class="mm-links" data-links="buy"></div></div></div>
+        <div class="mm__panel" data-mm-panel="brand"><div class="mm__inner"><div class="mm-links" data-links="brand"></div></div></div>
+        <div class="mm__panel" data-mm-panel="service"><div class="mm__inner"><div class="mm-links" data-links="service"></div></div></div>
+      </div>
+    </div>
+
+    <!-- 手機 drawer · 全屏抽屜 -->
+    <div class="mm-drawer" data-drawer>
+      <div class="mm-drawer__scrim" data-drawer-close></div>
+      <div class="mm-drawer__panel">
+        <div class="mm-drawer__bar">
+          <button class="mm-drawer__close" data-drawer-close aria-label="關閉選單">✕</button>
+          <a class="wf-logo mm-drawer__logo" href="index.html">LOGO</a>
+          <span class="mm-drawer__spacer"></span>
+          <span class="wf-icon" title="會員登入">會員</span>
+        </div>
+        <div class="mm-drawer__body" data-drawer-body></div>
+        <div class="mm-drawer__cta">
+          <a class="mm-cta" href="#"><span>聯絡我們</span><span class="mm-cta__arw">→</span></a>
+          <a class="mm-cta" href="#"><span>AI 客服</span><span class="mm-cta__arw">→</span></a>
+          <a class="mm-cta" href="#"><span>LINE 官方帳號</span><span class="mm-cta__arw">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1 · HERO（主視覺輪播 · auto + 手動）-->
+    <section class="home-hero home-hero--carousel" data-screen-label="Hero" data-hero-carousel>
+      <div class="home-hero__viewport">
+        <div class="home-hero__track" data-hero-track>
+
+          <div class="home-hero__slide" data-hero-slide>
+            <div class="wf-img wf-img--dark home-hero__media"><span class="wf-img__label">HERO 01 · NX 情境主視覺</span></div>
+            <div class="home-hero__overlay">
+              <h2 class="home-hero__title home-hero__title--model">NX</h2>
+              <div class="home-hero__cta">
+                <a class="wf-btn wf-btn--primary" href="NX 車款介紹 Wireframe.html">了解更多 ›</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-hero__slide" data-hero-slide>
+            <div class="wf-img wf-img--dark home-hero__media"><span class="wf-img__label">HERO 02 · RZ 純電主視覺</span></div>
+            <div class="home-hero__overlay">
+              <h2 class="home-hero__title home-hero__title--model">RZ</h2>
+              <div class="home-hero__cta">
+                <a class="wf-btn wf-btn--primary" href="#">了解更多 ›</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-hero__slide" data-hero-slide>
+            <div class="wf-img wf-img--dark home-hero__media"><span class="wf-img__label">HERO 03 · RX 旗艦主視覺</span></div>
+            <div class="home-hero__overlay">
+              <h2 class="home-hero__title home-hero__title--model">RX</h2>
+              <div class="home-hero__cta">
+                <a class="wf-btn wf-btn--primary" href="#">了解更多 ›</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-hero__slide" data-hero-slide>
+            <div class="wf-img wf-img--dark home-hero__media"><span class="wf-img__label">HERO 04 · LM 尊榮主視覺</span></div>
+            <div class="home-hero__overlay">
+              <h2 class="home-hero__title home-hero__title--model">LM</h2>
+              <div class="home-hero__cta">
+                <a class="wf-btn wf-btn--primary" href="#">了解更多 ›</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-hero__slide" data-hero-slide>
+            <div class="wf-img wf-img--dark home-hero__media"><span class="wf-img__label">HERO 05 · ES 主視覺</span></div>
+            <div class="home-hero__overlay">
+              <h2 class="home-hero__title home-hero__title--model">ES</h2>
+              <div class="home-hero__cta">
+                <a class="wf-btn wf-btn--primary" href="#">了解更多 ›</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="home-hero__controls">
+        <button class="home-hero__arw home-hero__play" data-hero-play aria-label="暫停輪播">❙❙</button>
+        <div class="home-hero__dots" data-hero-dots>
+          <button class="home-hero__dot is-active" data-hero-dot="0" aria-label="第 1 張"></button>
+          <button class="home-hero__dot" data-hero-dot="1" aria-label="第 2 張"></button>
+          <button class="home-hero__dot" data-hero-dot="2" aria-label="第 3 張"></button>
+          <button class="home-hero__dot" data-hero-dot="3" aria-label="第 4 張"></button>
+          <button class="home-hero__dot" data-hero-dot="4" aria-label="第 5 張"></button>
+        </div>
+        <button class="home-hero__arw home-hero__arw--prev" data-hero-prev aria-label="上一張">‹</button>
+        <button class="home-hero__arw home-hero__arw--next" data-hero-next aria-label="下一張">›</button>
+      </div>
+    </section>
+
+    <!-- 2 · 重點車款（3–4 款）-->
+    <div class="wf-container home-blk" id="lineup">
+      <div class="home-sechead" data-screen-label="重點車款">
+        <div class="home-sechead__l">
+          <h2 class="home-sechead__cn">重點車款</h2>
+        </div>
+      </div>
+      <div class="home-lineup">
+        <a class="home-model" href="ES車款介紹.html">
+          <div class="wf-img home-model__media"><span class="wf-img__label">NX KEY VISUAL</span></div>
+          <div class="home-model__row">
+            <span class="home-model__name">NX</span>
+            <div class="home-model__tags"><span class="wf-tag">HEV<i class="wf-tag__cn">油電混合</i></span><span class="wf-tag">PHEV<i class="wf-tag__cn">插電式油電</i></span></div>
+          </div>
+          <p class="home-model__desc">從容穿行都會，設計與油電兼備的中型豪華休旅。</p>
+          <span class="home-model__cta">車款介紹 →</span>
+        </a>
+        <a class="home-model" href="ES車款介紹.html">
+          <div class="wf-img home-model__media"><span class="wf-img__label">RX KEY VISUAL</span></div>
+          <div class="home-model__row">
+            <span class="home-model__name">RX</span>
+            <div class="home-model__tags"><span class="wf-tag">HEV<i class="wf-tag__cn">油電混合</i></span><span class="wf-tag">PHEV<i class="wf-tag__cn">插電式油電</i></span></div>
+          </div>
+          <p class="home-model__desc">從容穿行都會，設計與油電兼備的中型豪華休旅。</p>
+          <span class="home-model__cta">車款介紹 →</span>
+        </a>
+        <a class="home-model" href="ES車款介紹.html">
+          <div class="wf-img home-model__media"><span class="wf-img__label">LM KEY VISUAL</span></div>
+          <div class="home-model__row">
+            <span class="home-model__name">LM</span>
+            <div class="home-model__tags"><span class="wf-tag">HEV<i class="wf-tag__cn">油電混合</i></span></div>
+          </div>
+          <p class="home-model__desc">移動中的頭等艙，陸上頂級豪華 MPV。</p>
+          <span class="home-model__cta">車款介紹 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3 · 購車優惠 -->
+    <section class="home-grey" id="offer">
+      <div class="wf-container home-blk">
+        <div class="home-sechead" data-screen-label="購車優惠">
+          <div class="home-sechead__l">
+            <h2 class="home-sechead__cn">購車優惠</h2>
+          </div>
+        </div>
+        <div class="home-offerc" data-offer-carousel>
+          <div class="home-offerc__viewport">
+            <div class="home-offerc__track" data-offer-track>
+              <div class="home-offerc__slide" data-offer-slide>
+                <div class="home-offer">
+                  <div class="home-offer__body">
+                    <h3 class="home-offer__title">RX、NX 車系<br />零利率方案</h3>
+                    <p class="home-offer__desc">指定車型享購車優惠金與彈性分期，並可同步預約專人試乘諮詢，由業務顧問為您試算最適方案。</p>
+                    <div class="home-offer__cta">
+                      <a class="wf-btn wf-btn--primary" href="#">瞭解更多 ›</a>
+                    </div>
+                  </div>
+                  <div class="wf-img home-offer__media"><span class="wf-img__label">OFFER 01 · RX / NX 主視覺</span></div>
+                </div>
+              </div>
+              <div class="home-offerc__slide" data-offer-slide>
+                <div class="home-offer">
+                  <div class="home-offer__body">
+                    <h3 class="home-offer__title">RZ 純電領航<br />首購金優惠</h3>
+                    <p class="home-offer__desc">入主 RZ 純電車系享首購金與家用充電設備補助，並提供公共充電點數禮遇，開啟零排放移動生活。</p>
+                    <div class="home-offer__cta">
+                      <a class="wf-btn wf-btn--primary" href="#">瞭解更多 ›</a>
+                    </div>
+                  </div>
+                  <div class="wf-img home-offer__media"><span class="wf-img__label">OFFER 02 · RZ 純電主視覺</span></div>
+                </div>
+              </div>
+              <div class="home-offerc__slide" data-offer-slide>
+                <div class="home-offer">
+                  <div class="home-offer__body">
+                    <h3 class="home-offer__title">LM、ES 車系<br />尊榮試乘禮遇</h3>
+                    <p class="home-offer__desc">完成指定車型專人試乘，即享限量禮遇與保養套餐升級，由業務顧問規劃專屬入主方案。</p>
+                    <div class="home-offer__cta">
+                      <a class="wf-btn wf-btn--primary" href="#">瞭解更多 ›</a>
+                    </div>
+                  </div>
+                  <div class="wf-img home-offer__media"><span class="wf-img__label">OFFER 03 · LM / ES 主視覺</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="home-offerc__ctrl">
+            <button class="home-offerc__arw home-offerc__arw--prev" data-offer-prev aria-label="上一張優惠">‹</button>
+            <div class="home-offerc__dots" data-offer-dots>
+              <button class="home-offerc__dot is-active" data-offer-dot="0" aria-label="第 1 張"></button>
+              <button class="home-offerc__dot" data-offer-dot="1" aria-label="第 2 張"></button>
+              <button class="home-offerc__dot" data-offer-dot="2" aria-label="第 3 張"></button>
+            </div>
+            <button class="home-offerc__arw home-offerc__arw--next" data-offer-next aria-label="下一張優惠">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · 最新消息（新車上市／全球發表會）-->
+    <section class="home-grey">
+      <div class="wf-container home-blk home-blk--tight">
+        <div class="home-sechead home-sechead--inline" data-screen-label="最新消息">
+          <div class="home-sechead__l">
+            <h2 class="home-sechead__cn">最新消息</h2>
+          </div>
+          <a class="wf-link" href="#">所有消息 →</a>
+        </div>
+        <div class="home-news">
+          <article class="wf-card home-newscard">
+            <div class="wf-card__main">
+              <div class="wf-card__media wf-img"><span class="wf-img__label">NEWS 16:10</span></div>
+              <div class="wf-card__text">
+                <div class="home-newscard__meta">
+                  <span class="wf-card__date">2026/06/10</span>
+                  <span class="home-newscard__tag">新車上市</span>
+                </div>
+                <h3 class="wf-card__title">全新世代 RX 正式登台，導入第四代油電與插電動力系統</h3>
+              </div>
+            </div>
+          </article>
+          <article class="wf-card home-newscard">
+            <div class="wf-card__main">
+              <div class="wf-card__media wf-img"><span class="wf-img__label">NEWS 16:10</span></div>
+              <div class="wf-card__text">
+                <div class="home-newscard__meta">
+                  <span class="wf-card__date">2026/05/28</span>
+                  <span class="home-newscard__tag">全球發表</span>
+                </div>
+                <h3 class="wf-card__title">LEXUS 於全球發表會揭示次世代純電概念車與品牌願景</h3>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.5 · 聯絡我們 CTA -->
+    <section class="home-grey">
+      <div class="wf-container home-blk">
+        <div class="home-contact" data-screen-label="聯絡我們">
+          <div class="home-contact__head">
+            <h2 class="home-contact__title">與 LEXUS 聯繫</h2>
+          </div>
+          <div class="home-contact__actions">
+            <a class="home-cta" href="#"><span class="home-cta__t">聯絡我們</span><span class="home-cta__arw">→</span></a>
+            <a class="home-cta" href="#"><span class="home-cta__t">AI 客服</span><span class="home-cta__arw">→</span></a>
+            <a class="home-cta" href="#"><span class="home-cta__t">LINE 官方帳號</span><span class="home-cta__arw">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · 全車系列表入口（輕量索引）-->
+    <div class="wf-container home-blk">
+      <div class="home-sechead" data-screen-label="全車系">
+        <div class="home-sechead__l">
+          <h2 class="home-sechead__cn home-sechead__cn--outline">EXPERIENCE AMAZING</h2>
+        </div>
+      </div>
+      <div class="home-dir">
+        <div class="home-dir__col">
+          <span class="wf-eyebrow">SEDAN</span>
+          <div class="home-dir__list"><a class="home-dir__m" href="#">ES</a><a class="home-dir__m" href="#">IS</a><a class="home-dir__m" href="#">LS</a></div>
+        </div>
+        <div class="home-dir__col">
+          <span class="wf-eyebrow">SUV / MPV</span>
+          <div class="home-dir__list"><a class="home-dir__m" href="#">LBX</a><a class="home-dir__m" href="#">UX</a><a class="home-dir__m" href="NX 車款介紹 Wireframe.html">NX</a><a class="home-dir__m" href="#">RX</a><a class="home-dir__m" href="#">LM</a></div>
+        </div>
+        <div class="home-dir__col">
+          <span class="wf-eyebrow">BEV</span>
+          <div class="home-dir__list"><a class="home-dir__m" href="#">RZ</a></div>
+        </div>
+        <div class="home-dir__col">
+          <span class="wf-eyebrow">CONCEPT</span>
+          <div class="home-dir__list"><a class="home-dir__m is-concept" href="#">Lexus Electrified Sport Concept</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="wf-footer">
+      <button class="nx-sitemap__toggle" data-sitemap-toggle aria-expanded="true">
+        <span class="wf-eyebrow">SITEMAP</span>
+        <span class="chev">▴</span>
+      </button>
+      <div class="wf-footer__links" data-sitemap>
+        <ul><li>購車優惠</li><li>試乘・諮詢</li><li>據點查詢</li><li>尊榮科技展演</li><li>認證中古車</li><li>聯絡我們</li></ul>
+        <ul><li>品牌介紹</li><li>創新科技</li><li>駕馭樂趣</li><li>榮耀里程碑</li><li>LEXUS 驚探生活誌</li><li>LEXUS LINE</li><li>LEXUS ELECTRIFIED</li><li>LEXUS LINK</li><li>Lexus Plus App</li><li>車主尊享活動</li><li>HOTAI購</li><li>LEXUS Careers</li></ul>
+        <ul><li>車主尊榮回饋</li><li>保證方案 / 延長保證</li><li>服務特色</li><li>保養計劃</li><li>電動車專區</li></ul>
+        <ul><li>和泰Points 點數</li><li>原廠機油</li><li>原廠換胎</li><li>板噴服務</li><li>服務新訊</li></ul>
+        <ul><li>最新消息</li><li>車主專區</li><li>購車和泰Pay支付</li></ul>
+      </div>
+      <div class="wf-footer__bar">
+        <button class="wf-footer__top" data-backtotop aria-label="回到頂端"><span class="chev">↑</span><span class="t">TOP</span></button>
+        <div class="wf-footer__legal"><a>全球 LEXUS</a><a>隱私權條款</a><a>車輛買賣契約書</a></div>
+        <div class="wf-footer__social"><span class="wf-icon">L</span><span class="wf-icon">◎</span><span class="wf-icon">f</span><span class="wf-icon">▶</span></div>
+        <span class="wf-footer__copy">© HOTAI MOTOR CO.,LTD.</span>
+      </div>
+    </footer>
+
+    <!-- 固定 CTA（always-on）· 同車款介紹內頁 -->
+    <div class="nx-fab home-fab" data-screen-label="固定CTA" style="grid-template-columns:repeat(3,1fr)">
+      <button class="nx-fab__btn">購車優惠</button>
+      <button class="nx-fab__btn">據點查詢</button>
+      <button class="nx-fab__btn nx-fab__btn--primary">試乘諮詢</button>
+    </div>
+
+  </div>
+</div>
+
+<div id="tweaks-root"></div>
+
+<!-- 裝置切換（與車款頁共用 localStorage 鍵，跨頁保留選擇）-->
+<script>
+  window.WF_WIDTHS = { mobile: 390, tablet: 834, desktop: 1440 };
+  window.__wf = { device: 'desktop', fit: true };
+  function wfReadLS(k, d){ try { var v = localStorage.getItem(k); return v == null ? d : v; } catch(e){ return d; } }
+  window.wfApply = function () {
+    var canvas = document.getElementById('wf-canvas'), stage = document.getElementById('wf-stage');
+    if (!canvas || !stage) return;
+    var dev = window.__wf.device, fit = window.__wf.fit, w = window.WF_WIDTHS[dev] || 1440;
+    canvas.setAttribute('data-device', dev);
+    canvas.style.width = w + 'px';
+    var avail = stage.clientWidth - 48, scale = (fit && w > avail) ? (avail / w) : 1;
+    canvas.style.zoom = scale;
+    if (window.__wfFabFollow) window.__wfFabFollow();
+    if (window.wfSitemapSync) window.wfSitemapSync();
+  };
+  // FAB（平板／桌機左側垂直列）鎖定畫布左緣；裝置切換含 .28s 過渡，逐幀跟隨
+  window.__wfFabFollow = function () {
+    var canvas = document.getElementById('wf-canvas'); if (!canvas) return;
+    var fab = canvas.querySelector('.nx-fab'); if (!fab) return;
+    function place() {
+      if (window.__wf.device === 'mobile') { fab.style.left = ''; return; }
+      var z = parseFloat(getComputedStyle(canvas).zoom) || 1;
+      fab.style.left = (canvas.getBoundingClientRect().left / z) + 'px';
+    }
+    place();
+    if (window.__wfFabRAF) cancelAnimationFrame(window.__wfFabRAF);
+    var t0 = performance.now();
+    (function loop() { place(); if (performance.now() - t0 < 420) window.__wfFabRAF = requestAnimationFrame(loop); })();
+  };
+  window.__wf.device = wfReadLS('wf-nx-device', 'desktop');
+  window.__wf.fit = wfReadLS('wf-nx-fit', '1') !== '0';
+  window.wfApply();
+  window.addEventListener('resize', window.wfApply);
+  // 回到頂端（錨點連結沿用瀏覽器原生跳轉）
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-backtotop]'); if (t) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  });
+  // 頁尾 SITEMAP 展開／收起（依裝置：桌機展開、平板／手機收起）
+  (function () {
+    var btn = document.querySelector('[data-sitemap-toggle]');
+    var map = document.querySelector('[data-sitemap]');
+    if (!btn || !map) return;
+    function setOpen(open) {
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      map.classList.toggle('is-collapsed', !open);
+      btn.querySelector('.chev').textContent = open ? '▴' : '▾';
+    }
+    btn.addEventListener('click', function () { setOpen(btn.getAttribute('aria-expanded') === 'false'); });
+    var lastDev = null;
+    window.wfSitemapSync = function () {
+      var dev = (window.__wf && window.__wf.device) || 'desktop';
+      if (dev === lastDev) return;
+      lastDev = dev;
+      setOpen(dev === 'desktop');
+    };
+    window.wfSitemapSync();
+  })();
+
+  // 主選單 · mega menu（桌機下拉）＋ drawer（手機抽屜）
+  (function () {
+    var MODELS = [
+      { name: 'ES', cat: 'sedan', badge: 'NEW', price: 'NT$177~250萬', grade: '500e / 300h', href: 'ES車款介紹.html' },
+      { name: 'IS', cat: 'sedan', price: 'NT$189~214萬', grade: '300h' },
+      { name: 'LS', cat: 'sedan', price: 'NT$515~590萬', grade: '500h' },
+      { name: 'RX', cat: 'suv', price: 'NT$246~361萬', grade: '500h / 450h / 350h / 350' },
+      { name: 'NX', cat: 'suv', price: 'NT$171~284.5萬', grade: '450h+ / 350h / 350 / 200' },
+      { name: 'UX', cat: 'suv', price: 'NT$149.9~171.9萬', grade: '300h' },
+      { name: 'LBX', cat: 'suv', price: 'NT$127.9~169萬', grade: 'Relax + / Relax / Cool / Active + / Active' },
+      { name: 'LM', cat: 'suv', price: 'NT$429~596萬', grade: '500h / 350h' },
+      { name: 'RZ', cat: 'bev', price: 'NT$215~255萬', grade: '550e / 500e' },
+      { name: 'Lexus Electrified Sport Concept', cat: 'concept', concept: true },
+      { name: 'LF-ZC', cat: 'concept', concept: true }
+    ];
+    var CATS = [
+      { key: 'sedan', en: 'SEDAN', zh: '轎車' },
+      { key: 'suv', en: 'SUV/MPV', zh: '休旅車' },
+      { key: 'bev', en: 'BEV', zh: '純電車' },
+      { key: 'concept', en: 'CONCEPT', zh: '概念車' }
+    ];
+    var LINKS = {
+      buy: ['購車優惠', '試乘・諮詢', '據點查詢', '尊榮科技展演'],
+      brand: ['品牌介紹', '創新科技', '駕馭樂趣', '榮耀里程碑', 'LEXUS 驚探生活誌', 'LEXUS LINE',
+        'LEXUS ELECTRIFIED', 'LEXUS LINK', 'Lexus Plus App', '車主尊享活動', 'HOTAI購', 'LEXUS Careers'],
+      service: ['預約回廠', '保證方案 / 延長保證', '服務特色', '保養計劃', '電動車專區', '和泰Points 點數', '零件與服務']
+    };
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    function modelCard(m, mediaCls) {
+      var badge = '';
+      if (m.ev) badge = '<span class="mm-badge mm-badge--ev">EV</span>';
+      else if (m.badge) badge = '<span class="mm-badge' + (m.concept ? ' mm-badge--concept' : '') + '">' + m.badge + '</span>';
+      var href = m.href || '#';
+      var info = '';
+      if (m.price) info += '<span class="mm-model__price">' + esc(m.price) + '</span>';
+      if (m.grade) info += '<span class="mm-model__grade">' + esc(m.grade) + '</span>';
+      return '<a class="mm-model" href="' + href + '" data-cat="' + m.cat + '">' +
+        '<div class="wf-img ' + mediaCls + ' mm-model__media"><span class="wf-img__label">' + esc(m.name.toUpperCase()) + '</span></div>' +
+        '<div class="mm-model__row"><span class="mm-model__name">' + esc(m.name) + '</span>' + badge + '</div>' +
+        (info ? '<div class="mm-model__info">' + info + '</div>' : '') + '</a>';
+    }
+    function catTabs() {
+      return CATS.map(function (c, i) {
+        return '<button class="mm-cat" data-cat="' + c.key + '" aria-selected="' + (i === 0 ? 'true' : 'false') + '">' +
+          '<span class="mm-cat__en">' + c.en + '</span><span class="mm-cat__zh">' + c.zh + '</span></button>';
+      }).join('');
+    }
+    function bindCats(catsBox, grid) {
+      if (!catsBox || !grid) return;
+      var tabs = catsBox.querySelectorAll('.mm-cat');
+      function apply(key) {
+        tabs.forEach(function (t) { t.setAttribute('aria-selected', t.getAttribute('data-cat') === key ? 'true' : 'false'); });
+        grid.querySelectorAll('.mm-model').forEach(function (card) {
+          card.style.display = card.getAttribute('data-cat') === key ? '' : 'none';
+        });
+      }
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function (e) { e.preventDefault(); apply(t.getAttribute('data-cat')); });
+      });
+      apply(CATS[0].key);
+    }
+    function linkItem(t) { return '<a class="mm-link" href="#">' + esc(t) + '</a>'; }
+    var LINK_COLS = { buy: 4, brand: 6, service: 4 };
+
+    // 填入桌機面板內容
+    var grid = document.querySelector('[data-model-grid]');
+    var catsBox = document.querySelector('[data-model-cats]');
+    if (grid) grid.innerHTML = MODELS.map(function (m) { return modelCard(m, 'wf-img--plain'); }).join('');
+    if (catsBox) catsBox.innerHTML = catTabs() + '<a class="wf-btn wf-btn--ghost wf-btn--sm mm-compare" href="#">前往全車系比較 ›</a>';
+    bindCats(catsBox, grid);
+    Object.keys(LINKS).forEach(function (k) {
+      var box = document.querySelector('[data-links="' + k + '"]');
+      if (box) { box.innerHTML = LINKS[k].map(linkItem).join(''); box.style.setProperty('--mm-cols', LINK_COLS[k] || 4); }
+    });
+
+    // 桌機 hover 下拉
+    var wrap = document.querySelector('[data-mm-wrap]');
+    var allNav = wrap ? wrap.querySelectorAll('.wf-nav a') : [];
+    var panels = wrap ? wrap.querySelectorAll('.mm__panel') : [];
+    function showPanel(id) {
+      panels.forEach(function (p) { p.classList.toggle('is-open', p.getAttribute('data-mm-panel') === id); });
+    }
+    function hidePanels() { panels.forEach(function (p) { p.classList.remove('is-open'); }); }
+    allNav.forEach(function (a) {
+      a.addEventListener('mouseenter', function () {
+        var id = a.getAttribute('data-mm');
+        if (id) showPanel(id); else hidePanels();
+      });
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+    // 點擊範圍外才關閉（滑出不自動關閉）
+    document.addEventListener('click', function (e) {
+      if (wrap && !wrap.contains(e.target)) hidePanels();
+    });
+
+    // 手機 drawer 內容（accordion）
+    var NAV = [
+      { key: 'models', label: '車款介紹' },
+      { key: 'buy', label: '購車資訊' },
+      { key: 'brand', label: '品牌專區' },
+      { key: 'service', label: '售後服務' },
+      { key: null, label: '認證中古車' },
+      { key: null, label: '最新消息' }
+    ];
+    var body = document.querySelector('[data-drawer-body]');
+    if (body) {
+      var html = NAV.map(function (item) {
+        if (!item.key) {
+          return '<div class="mm-acc mm-acc--plain"><button class="mm-acc__head" data-plain>' + item.label + '</button></div>';
+        }
+        var inner;
+        if (item.key === 'models') {
+          inner = '<a class="wf-btn wf-btn--ghost wf-btn--sm wf-btn--block mm-compare-d" href="#">前往全車系比較 ›</a>' +
+            '<div class="mm-cats mm-cats--drawer" data-dcats>' + catTabs() + '</div>' +
+            '<div class="mm-dgrid" data-dgrid>' + MODELS.map(function (m) { return modelCard(m, 'wf-img--plain'); }).join('') + '</div>';
+        } else {
+          inner = '<div class="mm-dlinks">' + LINKS[item.key].map(linkItem).join('') + '</div>';
+        }
+        return '<div class="mm-acc"><button class="mm-acc__head">' + item.label +
+          '<span class="chev">▾</span></button><div class="mm-acc__body">' + inner + '</div></div>';
+      }).join('');
+      html += '<div class="mm-drawer__film"><button class="wf-btn wf-btn--film wf-btn--block">LEXUS MY FILM ›</button></div>';
+      body.innerHTML = html;
+      bindCats(body.querySelector('[data-dcats]'), body.querySelector('[data-dgrid]'));
+      body.querySelectorAll('.mm-acc:not(.mm-acc--plain) .mm-acc__head').forEach(function (h) {
+        h.addEventListener('click', function () { h.parentNode.classList.toggle('is-open'); });
+      });
+    }
+
+    // drawer 開關
+    var drawer = document.querySelector('[data-drawer]');
+    function setDrawer(open) { if (drawer) drawer.classList.toggle('is-open', open); }
+    document.querySelectorAll('[data-drawer-open]').forEach(function (b) {
+      b.addEventListener('click', function () { setDrawer(true); });
+    });
+    document.querySelectorAll('[data-drawer-close]').forEach(function (b) {
+      b.addEventListener('click', function () { setDrawer(false); });
+    });
+  })();
+
+  // 購車優惠輪播（一次一張 · 箭頭／圓點手動切換）
+  (function () {
+    var root = document.querySelector('[data-offer-carousel]'); if (!root) return;
+    var track = root.querySelector('[data-offer-track]');
+    var slides = root.querySelectorAll('[data-offer-slide]');
+    var dots = root.querySelectorAll('[data-offer-dot]');
+    var n = slides.length, i = 0;
+    function go(to) {
+      i = (to + n) % n;
+      track.style.transform = 'translateX(' + (-i * 100) + '%)';
+      dots.forEach(function (d, k) { d.classList.toggle('is-active', k === i); });
+    }
+    root.querySelector('[data-offer-prev]').addEventListener('click', function () { go(i - 1); });
+    root.querySelector('[data-offer-next]').addEventListener('click', function () { go(i + 1); });
+    dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.getAttribute('data-offer-dot')); }); });
+    go(0);
+  })();
+
+  // HERO 主視覺輪播（auto 6s · 箭頭／圓點手動 · hover 暫停）
+  (function () {
+    var root = document.querySelector('[data-hero-carousel]'); if (!root) return;
+    var track = root.querySelector('[data-hero-track]');
+    var slides = root.querySelectorAll('[data-hero-slide]');
+    var dots = root.querySelectorAll('[data-hero-dot]');
+    var n = slides.length, i = 0, timer = null, playing = true;
+    var playBtn = root.querySelector('[data-hero-play]');
+    function go(to) {
+      i = (to + n) % n;
+      track.style.transform = 'translateX(' + (-i * 100) + '%)';
+      dots.forEach(function (d, k) { d.classList.toggle('is-active', k === i); });
+    }
+    function run() { stop(); timer = setInterval(function () { go(i + 1); }, 6000); }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    function setPlaying(p) {
+      playing = p;
+      playBtn.textContent = p ? '❙❙' : '▶';
+      playBtn.setAttribute('aria-label', p ? '暫停輪播' : '播放輪播');
+      if (p) run(); else stop();
+    }
+    playBtn.addEventListener('click', function () { setPlaying(!playing); });
+    root.querySelector('[data-hero-prev]').addEventListener('click', function () { go(i - 1); if (playing) run(); });
+    root.querySelector('[data-hero-next]').addEventListener('click', function () { go(i + 1); if (playing) run(); });
+    dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.getAttribute('data-hero-dot')); if (playing) run(); }); });
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', function () { if (playing) run(); });
+    go(0); setPlaying(true);
+  })();
+</script>
+
+<!-- Tweaks -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="nx-assets/tweaks-panel.jsx"></script>
+<script type="text/babel">
+  function App() {
+    const init = { device: window.__wf.device, fitWidth: window.__wf.fit };
+    const [t, setTweak] = useTweaks(init);
+    React.useEffect(() => { window.__wf.device = t.device; window.__wf.fit = t.fitWidth; window.wfApply(); }, [t.device, t.fitWidth]);
+    return (
+      <TweaksPanel title="Tweaks">
+        <div className="wf-anno" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 2px 10px', marginBottom: '4px', borderBottom: '1px solid var(--wf-line)' }}><span>首頁 · 0722 提案版</span><b>提案</b></div>
+        <TweakSection label="版本 Version" />
+        <TweakRadio label="檢視版本" value="proposal"
+          options={[{ value: 'edit', label: '編輯用版本 v2.6.1' }, { value: 'proposal', label: '0722 提案版' }]}
+          onChange={(v) => { if (v === 'edit') window.location.href = 'index.html'; }} />
+        <TweakSection label="Device · 裝置尺寸" />
+        <TweakRadio label="Viewport" value={t.device}
+          options={[{ value: 'mobile', label: '手機' }, { value: 'tablet', label: '平板' }, { value: 'desktop', label: '桌機' }]}
+          onChange={(v) => setTweak('device', v)} />
+        <TweakToggle label="Fit · 縮放至視窗" value={t.fitWidth} onChange={(v) => setTweak('fitWidth', v)} />
+        <div className="wf-anno" style={{ padding: '8px 2px 2px', lineHeight: 1.7 }}>手機 <b>390</b> · 平板 <b>834</b> · 桌機 <b>1440</b></div>
+      </TweaksPanel>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+</body>
+</html>
