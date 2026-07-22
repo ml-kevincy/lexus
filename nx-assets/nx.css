@@ -262,8 +262,8 @@ body { margin: 0; }
 .nx-spec__bar { display: flex; align-items: center; justify-content: flex-end; padding: 14px 20px; background: var(--wf-fill); border-bottom: 1px solid var(--wf-line); }
 /* 規格表（RWD：手機單欄／平板桌機三欄）*/
 .nx-spec3 { border: 1px solid var(--wf-line); border-radius: var(--wf-r-lg); overflow: hidden; background: var(--wf-paper); }
-.nx-spec3__filter { display: flex; justify-content: flex-end; padding: 14px 20px; border-bottom: 1px solid var(--wf-line); background: var(--wf-paper); }
-.wf-canvas[data-device="mobile"] .nx-spec3__filter { display: none; }
+.nx-spec3__filter { display: flex; justify-content: flex-end; gap: 20px; flex-wrap: wrap; padding: 0 2px 12px; }
+.wf-canvas[data-device="mobile"] .nx-spec3__filter { display: flex; }
 .nx-spec3__top { border-bottom: 1px solid var(--wf-line); }
 .nx-spec3__pick { display: none; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; }
 .nx-spec3__toplabel { font-size: 15px; font-weight: 600; color: var(--wf-ink); }
@@ -297,6 +297,17 @@ body { margin: 0; }
 .wf-canvas[data-device="mobile"] .nx-spec3[data-sel="0"] .nx-spec3__v[data-col="0"],
 .wf-canvas[data-device="mobile"] .nx-spec3[data-sel="1"] .nx-spec3__v[data-col="1"],
 .wf-canvas[data-device="mobile"] .nx-spec3[data-sel="2"] .nx-spec3__v[data-col="2"] { display: block; }
+/* Mobile：改為三車型並列，超出寬度水平捲動（覆寫上方單欄規則）*/
+.wf-canvas[data-device="mobile"] .nx-spec3 { overflow-x: auto; }
+.wf-canvas[data-device="mobile"] .nx-spec3 > * { min-width: 560px; }
+.wf-canvas[data-device="mobile"] .nx-spec3__pick { display: none; }
+.wf-canvas[data-device="mobile"] .nx-spec3__row--head { display: grid; }
+.wf-canvas[data-device="mobile"] .nx-spec3__row { grid-template-columns: 112px repeat(3, minmax(0, 1fr)); }
+.wf-canvas[data-device="mobile"] .nx-spec3__v { display: block; }
+/* 首欄（項目名稱）固定於左側、縮窄，捲動時仍可辨識 */
+.wf-canvas[data-device="mobile"] .nx-spec3__k { position: sticky; left: 0; z-index: 5; background: var(--wf-paper); box-shadow: 1px 0 0 var(--wf-line-2); }
+.wf-canvas[data-device="mobile"] .nx-spec3__row--head .nx-spec3__k { background: var(--wf-fill); }
+.wf-canvas[data-device="mobile"] .nx-spec3__ghead > span:first-child { position: sticky; left: 20px; }
 .nx-switch { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--wf-ink); cursor: pointer; user-select: none; }
 .nx-switch input { position: absolute; opacity: 0; pointer-events: none; }
 .nx-switch__t { width: 40px; height: 22px; border-radius: var(--wf-r-pill); background: var(--wf-fill-2); border: 1px solid var(--wf-line-strong); position: relative; transition: background .15s; }

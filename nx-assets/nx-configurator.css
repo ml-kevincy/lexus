@@ -394,3 +394,61 @@
 .wf-canvas[data-device="desktop"] .nxc-flat__stage .nxc-canvas { aspect-ratio: auto; height: 450px; }
 /* 桌機選項卡每列三個（縮圖類）*/
 .wf-canvas[data-device="desktop"] .nxc-opts:not(.nxc-opts--version):not(.nxc-opts--extColor) { grid-template-columns: repeat(3, 1fr); }
+
+/* ============================================================
+   檢視我的 ES · 海報式車卡（openPoster / renderPoster）
+   ============================================================ */
+.nxc-poster { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column;
+  align-items: center; gap: 22px; padding: 0 26px 30px; background: var(--wf-paper); }
+.nxc-poster__bar { position: sticky; top: 0; z-index: 6; align-self: stretch; display: flex; justify-content: flex-end;
+  padding: 14px 0 4px; background: var(--wf-paper); }
+.nxc-poster__bar .nxc-bar__x { width: 38px; height: 38px; border: 1px solid var(--wf-line); background: var(--wf-paper);
+  border-radius: var(--wf-r); cursor: pointer; font-size: 15px; color: var(--wf-ink); display: inline-flex; align-items: center; justify-content: center; }
+.nxc-poster__bar .nxc-bar__x:hover { border-color: var(--wf-ink); }
+
+/* 主視覺：字標襯底 + 車圖（加大）*/
+.nxc-poster__hero { position: relative; width: 100%; max-width: 660px; padding-top: 34px; }
+.nxc-poster__wordmark { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); z-index: 0;
+  font-family: var(--wf-mono); font-weight: 700; font-size: clamp(58px, 17vw, 128px); line-height: .8; letter-spacing: -.02em;
+  color: transparent; -webkit-text-stroke: 1px var(--wf-line-strong); text-stroke: 1px var(--wf-line-strong);
+  white-space: nowrap; pointer-events: none; user-select: none; opacity: .42; }
+.nxc-poster__eyebrow { position: relative; z-index: 2; display: block; text-align: center;
+  font-family: var(--wf-mono); font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: var(--wf-ink-2); }
+.nxc-poster__photo { position: relative; z-index: 0; margin-top: 16px; margin-bottom: -170px; aspect-ratio: 3/2.55; width: 100%;
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--tint) 32%, transparent), color-mix(in srgb, var(--tint) 6%, transparent)); }
+.nxc-poster__photo::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(to bottom, transparent 34%, color-mix(in srgb, var(--wf-paper) 72%, transparent) 62%, var(--wf-paper) 90%); }
+.nxc-poster__photo .wf-img__label { position: absolute; left: 50%; top: 12px; bottom: auto; transform: translateX(-50%); white-space: nowrap; z-index: 3; }
+
+/* 品牌 + 車名 + 色票 + 售價（左齊，疊於車圖下方）*/
+.nxc-poster__head { position: relative; z-index: 4; width: 100%; max-width: 660px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; text-align: left; }
+.nxc-poster__brand { font-family: var(--wf-mono); font-size: 13px; font-weight: 600; letter-spacing: .16em; color: var(--wf-ink-2); }
+.nxc-poster__model { font-size: 38px; font-weight: 600; letter-spacing: -.01em; line-height: 1; color: var(--wf-ink); }
+.nxc-poster__colorline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
+.nxc-poster__swatch { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--wf-line-strong); }
+.nxc-poster__cname { font-size: 14px; font-weight: 500; color: var(--wf-ink); }
+.nxc-poster__price { font-family: var(--wf-mono); font-size: 13px; color: var(--wf-ink-2); padding-left: 10px; border-left: 1px solid var(--wf-line); }
+
+/* 規格（來自上方重點規格）— 小標題 + 內文堆疊，兩欄左齊 */
+.nxc-poster__specs { position: relative; z-index: 4; width: 100%; max-width: 660px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px; }
+.nxc-poster__spec { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
+.nxc-poster__spec .k { font-size: 12px; font-weight: 400; letter-spacing: .01em; color: var(--wf-muted); }
+.nxc-poster__spec .v { font-size: 20px; font-weight: 700; color: var(--wf-ink); line-height: 1.2; }
+
+/* 分享列 */
+.nxc-poster__share { position: relative; z-index: 4; width: 100%; max-width: 660px; display: flex; flex-direction: column; gap: 12px;
+  border-top: 1px solid var(--wf-line); padding-top: 20px; }
+.nxc-poster__sharehd { color: var(--wf-muted); }
+.nxc-poster__sharebtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.nxc-poster__sharebtns .wf-btn { justify-content: center; gap: 7px; }
+.nxc-poster__ic { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px;
+  border: 1px solid var(--wf-line-strong); border-radius: 50%; font-family: var(--wf-mono); font-size: 10px; line-height: 1; }
+
+.wf-canvas[data-device="mobile"] .nxc-poster { padding: 0 20px 26px; gap: 16px; }
+.wf-canvas[data-device="mobile"] .nxc-poster__photo { margin-bottom: -120px; }
+.wf-canvas[data-device="mobile"] .nxc-poster__model { font-size: 32px; }
+.wf-canvas[data-device="mobile"] .nxc-poster__specs { gap: 16px 28px; }
+.wf-canvas[data-device="mobile"] .nxc-poster__spec .v { font-size: 18px; }
+
+/* 入口下方「檢視我的 ES」按鈕 */
+.nx-viewcard-cta { display: flex; justify-content: center; margin-top: 20px; }

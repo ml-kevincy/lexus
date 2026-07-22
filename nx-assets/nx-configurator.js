@@ -890,6 +890,88 @@
     screen.appendChild(cta);
   }
 
+  /* ---- 6b · 檢視我的 ES（海報式車卡 + 分享）--------------- */
+  function openPoster() {
+    ensureOverlay();
+    overlay.dataset.device = device();
+    setScreenWidth();
+    state.mode = 'poster';
+    renderPoster();
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function renderPoster() {
+    const screen = overlay.querySelector('.nxc-screen');
+    const toast = screen.querySelector('[data-toast]');
+    screen.innerHTML = ''; screen.appendChild(toast);
+
+    const v = ver();
+    const hl = (window.NXData && window.NXData.highlights) || [];
+    // 車卡規格：外觀配色置頂 + 上方重點規格
+    const specs = [{ k: '外觀配色', v: extName() }].concat(hl.map(h => ({ k: h.title, v: h.text })));
+
+    const card = el('div', 'nxc-poster');
+    // 頂列關閉
+    const bar = el('div', 'nxc-poster__bar');
+    bar.innerHTML = '<button class="nxc-bar__x" data-x aria-label="關閉">✕</button>';
+    bar.querySelector('[data-x]').addEventListener('click', close);
+
+    // 主視覺：背景字標 + 車圖（依所選外觀色淡染）
+    const hero = el('div', 'nxc-poster__hero');
+    hero.innerHTML =
+      '<span class="nxc-poster__wordmark" aria-hidden="true">LEXUS</span>' +
+      '<span class="nxc-poster__eyebrow">LEXUS · ES</span>' +
+      '<div class="wf-img wf-img--plain nxc-poster__photo" style="--tint:' + extHex() + '">' +
+        '<span class="wf-img__label">' + v.name + ' · ' + extName() + ' · 側面 KEY VISUAL</span>' +
+      '</div>';
+
+    // 車名 + 色票 + 售價
+    const head = el('div', 'nxc-poster__head');
+    head.innerHTML =
+      '<div class="nxc-poster__brand">LEXUS</div>' +
+      '<div class="nxc-poster__model">' + v.name + '</div>' +
+      '<div class="nxc-poster__colorline">' +
+        '<span class="nxc-poster__swatch" style="background:' + extHex() + '"></span>' +
+        '<span class="nxc-poster__cname">' + extName() + '</span>' +
+        '<span class="nxc-poster__price">' + v.price + ' 起</span>' +
+      '</div>';
+
+    // 規格格（來自上方重點規格）
+    const specWrap = el('div', 'nxc-poster__specs');
+    specWrap.innerHTML = specs.map(s =>
+      '<div class="nxc-poster__spec"><span class="k">' + s.k + '</span><span class="v">' + s.v + '</span></div>'
+    ).join('');
+
+    // 分享列
+    const share = el('div', 'nxc-poster__share');
+    share.innerHTML =
+      '<div class="nxc-poster__sharebtns">' +
+        '<button class="wf-btn wf-btn--secondary wf-btn--sm" data-sh="copy"><span class="nxc-poster__ic">◍</span>複製連結</button>' +
+        '<button class="wf-btn wf-btn--secondary wf-btn--sm" data-sh="save"><span class="nxc-poster__ic">⤓</span>儲存圖片</button>' +
+        '<button class="wf-btn wf-btn--secondary wf-btn--sm" data-sh="fb"><span class="nxc-poster__ic">f</span>分享 FB</button>' +
+        '<button class="wf-btn wf-btn--secondary wf-btn--sm" data-sh="line"><span class="nxc-poster__ic">L</span>分享 LINE</button>' +
+      '</div>';
+    const url = location.href;
+    share.querySelector('[data-sh="copy"]').addEventListener('click', () => {
+      const done = () => showToast('已複製連結');
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done).catch(done);
+      else done();
+    });
+    share.querySelector('[data-sh="save"]').addEventListener('click', () => showToast('圖片已儲存'));
+    share.querySelector('[data-sh="fb"]').addEventListener('click', () =>
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank', 'noopener'));
+    share.querySelector('[data-sh="line"]').addEventListener('click', () =>
+      window.open('https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url), '_blank', 'noopener'));
+
+    card.appendChild(bar);
+    card.appendChild(hero);
+    card.appendChild(head);
+    card.appendChild(specWrap);
+    card.appendChild(share);
+    screen.appendChild(card);
+  }
+
   /* ---- 7 · 放大看細節 ------------------------------------- */
   function openZoom() {
     let lb = document.getElementById('nxc-zoom');
@@ -912,6 +994,7 @@
     renderEntry: renderEntry,
     renderFlat: renderFlat,
     open: open,
+    openPoster: openPoster,
     close: close,
     setDevice: function (dev) {
       if (overlay) { overlay.dataset.device = dev; setScreenWidth(); }

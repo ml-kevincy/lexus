@@ -409,5 +409,5 @@ window.NXData = (function () {
     ]},
   ];
 
-  return { highlights, threeSixty, features, compare, grades, spec, equipGradesC, equipCompare, equip, equipGrades: GRADES, faq };
+  return { highlights, threeSixty, features: features.filter(function (f) { return f.id === 'ext' || f.id === 'int'; }), compare, grades, spec, equipGradesC, equipCompare, equip, equipGrades: GRADES, faq };
 })();

@@ -391,6 +391,7 @@
   function buildSpecTable(mount, G, S) {
     if (!mount) return;
     const open = S.groups.map(() => false);
+    let allOpen = false;
     let cols = [0, 1, 2].slice(0, G.length);
     let sel = Math.max(0, cols.indexOf(G.indexOf(S.model)));
     let diffOnly = false;
@@ -410,8 +411,8 @@
         }).join('') + '</div>';
     }
     function build() {
-      let html = '<div class="nx-spec3" data-sel="' + sel + '">';
-      html += '<div class="nx-spec3__filter"><label class="nx-switch"><input type="checkbox" data-diff' + (diffOnly ? ' checked' : '') + '><span class="nx-switch__t"></span>僅顯示差異規格</label></div>';
+      let html = '<div class="nx-spec3__filter"><label class="nx-switch"><input type="checkbox" data-allopen' + (allOpen ? ' checked' : '') + '><span class="nx-switch__t"></span>全部展開</label><label class="nx-switch"><input type="checkbox" data-diff' + (diffOnly ? ' checked' : '') + '><span class="nx-switch__t"></span>僅顯示差異規格</label></div>';
+      html += '<div class="nx-spec3" data-sel="' + sel + '">';
       html += '<div class="nx-spec3__top">' +
         '<div class="nx-spec3__pick"><span class="nx-spec3__toplabel">車型</span>' +
           '<div class="nx-eqfilter__select"><select data-specmodel>' +
@@ -431,9 +432,10 @@
       mount.innerHTML = html;
       const root = $('.nx-spec3', mount);
       $('[data-diff]', mount).addEventListener('change', e => { diffOnly = e.target.checked; build(); });
+      $('[data-allopen]', mount).addEventListener('change', e => { allOpen = e.target.checked; open.forEach((_, i) => open[i] = allOpen); build(); });
       $('[data-specmodel]', mount).addEventListener('change', e => { sel = +e.target.value; root.dataset.sel = sel; });
       $$('[data-colsel]', mount).forEach(s => s.addEventListener('change', e => { cols[+e.target.dataset.colsel] = e.target.selectedIndex; build(); }));
-      $$('[data-g]', mount).forEach(h => h.addEventListener('click', () => { const i = +h.dataset.g; open[i] = !open[i]; build(); }));
+      $$('[data-g]', mount).forEach(h => h.addEventListener('click', () => { const i = +h.dataset.g; open[i] = !open[i]; allOpen = open.every(Boolean); build(); }));
     }
     build();
   }

@@ -4,6 +4,22 @@
    依現行官網主選單結構；灰階 wireframe，車圖用佔位框
    裝置切換由 .wf-canvas[data-device] 驅動
    ============================================================ */
+/* Header 版面覆寫：LOGO 置中、選單與會員按鈕交換位置 */
+.wf-header { position: relative; }
+.wf-logo { position: absolute; left: 50%; transform: translateX(-50%); margin: 0; }
+.wf-burger { order: 0; }
+.wf-header__actions { order: 1; flex: 1; }
+.wf-nav { order: 2; }
+.wf-canvas[data-device="desktop"] .wf-header__actions,
+.wf-canvas[data-device="tablet"] .wf-header__actions { justify-content: flex-start; }
+.wf-canvas[data-device="desktop"] .wf-nav,
+.wf-canvas[data-device="tablet"] .wf-nav { justify-content: flex-end; }
+.wf-canvas[data-device="mobile"] .wf-header__actions { justify-content: flex-end; }
+/* 平板改用手機版漢堡選單 */
+.wf-canvas[data-device="tablet"] .wf-nav { display: none; }
+.wf-canvas[data-device="tablet"] .wf-burger { display: flex; }
+.wf-canvas[data-device="tablet"] .mm-drawer { display: block; }
+.wf-canvas[data-device="tablet"] .wf-header__actions { justify-content: flex-end; }
 
 /* 讓 header 與下拉面板成為定位容器 */
 .wf-headwrap { position: relative; z-index: 60; }
@@ -106,7 +122,13 @@
 .mm-drawer__logo { width: 96px; height: 30px; }
 .mm-drawer__spacer { flex: 1; }
 
-.mm-drawer__body { padding: 12px 20px 40px; }
+.mm-drawer__body { flex: 1 1 auto; overflow-y: auto; padding: 12px 20px 40px; }
+/* drawer 底部固定 CTA */
+.mm-drawer__cta { flex: none; background: var(--wf-paper); border-top: 1px solid var(--wf-line); }
+.mm-cta { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; text-decoration: none; color: var(--wf-ink); font-size: 16px; font-weight: 700; border-bottom: 1px solid var(--wf-line); transition: background .15s; }
+.mm-cta:last-child { border-bottom: 0; }
+.mm-cta:hover { background: var(--wf-fill); }
+.mm-cta__arw { color: var(--wf-muted); font-size: 15px; font-weight: 400; }
 .mm-acc { border-bottom: 1px solid var(--wf-ink); }
 .mm-acc__head {
   width: 100%; background: none; border: 0; cursor: pointer;
@@ -140,3 +162,58 @@
 .mm-dlinks .mm-link { font-size: 14px; white-space: normal; }
 
 .mm-drawer__film { margin-top: 24px; }
+
+/* ============================================================
+   車款 panel · 兩維度篩選（分類 × 動力，皆多選）
+   ============================================================ */
+/* 桌機：左側展開式篩選 ＋ 右側車款 grid */
+.mm-modelsview { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: start; }
+.mm-filters { display: flex; flex-direction: column; gap: 26px; border-right: 1px solid var(--wf-line); padding-right: 32px; }
+.mm-fgroup__head { font-size: 15px; font-weight: 600; color: var(--wf-ink); letter-spacing: .04em; margin-bottom: 12px; }
+.mm-fgroup__opts { display: flex; flex-direction: column; gap: 8px; }
+.mm-fchip {
+  display: flex; align-items: baseline; gap: 8px; width: 100%; text-align: left; cursor: pointer;
+  background: none; border: 1px solid var(--wf-line); border-radius: var(--wf-r);
+  padding: 9px 12px; color: var(--wf-ink-2); transition: border-color .15s, color .15s, background .15s;
+}
+.mm-fchip:hover { border-color: var(--wf-ink); color: var(--wf-ink); }
+.mm-fchip[aria-pressed="true"] { border-color: var(--wf-accent); background: var(--wf-accent-soft); color: var(--wf-ink); }
+.mm-fchip[disabled] { opacity: .35; cursor: not-allowed; }
+.mm-fchip[disabled]:hover { border-color: var(--wf-line); color: var(--wf-ink-2); }
+.mm-fchip__l { font-family: var(--wf-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.mm-fchip__z { font-size: 12px; color: var(--wf-ink-3); }
+.mm-fchip[aria-pressed="true"] .mm-fchip__z { color: var(--wf-ink-2); }
+.mm-fclear {
+  align-self: flex-start; background: none; border: 0; cursor: pointer; padding: 2px 0;
+  font-family: var(--wf-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--wf-ink-3); border-bottom: 1px solid var(--wf-line);
+}
+.mm-fclear:hover { color: var(--wf-ink); border-color: var(--wf-ink); }
+.mm-models__main { min-width: 0; }
+.mm-models__bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.mm-count { font-family: var(--wf-mono); font-size: 13px; letter-spacing: .08em; color: var(--wf-ink-2); }
+.mm-modelsview .mm-models__grid { max-width: none; margin: 0; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 20px; }
+
+/* 手機／平板 drawer：兩個多選下拉 */
+.mm-selrow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.mm-sel { position: relative; }
+.mm-sel__btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer;
+  background: var(--wf-paper); border: 1px solid var(--wf-line); border-radius: var(--wf-r);
+  padding: 12px 14px; font-size: 14px; color: var(--wf-ink); transition: border-color .15s;
+}
+.mm-sel.is-active .mm-sel__btn { border-color: var(--wf-accent); }
+.mm-sel__btn .chev { font-size: 12px; color: var(--wf-ink-2); transition: transform .2s ease; }
+.mm-sel.is-open .mm-sel__btn .chev { transform: rotate(180deg); }
+.mm-sel__pop {
+  display: none; position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 5;
+  background: var(--wf-paper); border: 1px solid var(--wf-line); border-radius: var(--wf-r);
+  box-shadow: 0 18px 32px -22px rgba(20, 24, 30, .4); padding: 6px;
+}
+.mm-sel.is-open .mm-sel__pop { display: block; }
+.mm-sel__opt { display: flex; align-items: center; gap: 10px; padding: 10px 10px; cursor: pointer; font-size: 14px; color: var(--wf-ink); border-radius: var(--wf-r-sm); }
+.mm-sel__opt:hover { background: var(--wf-fill); }
+.mm-sel__opt input { width: 16px; height: 16px; accent-color: var(--wf-accent); cursor: pointer; }
+.mm-sel__opt:has(input:disabled) { opacity: .35; cursor: not-allowed; }
+.mm-sel__opt input:disabled { cursor: not-allowed; }
+.mm-fbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; min-height: 20px; }
