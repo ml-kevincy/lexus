@@ -9,6 +9,7 @@ const ORIGIN = 'https://www.lexus.com.tw';
 const PAGES = [
   { url: ORIGIN + '/', file: 'index.html' },
   { url: ORIGIN + '/showroom/NX', file: 'showroom/NX.html' },
+  { url: ORIGIN + '/showroom/ES', file: 'showroom/ES.html' },
   { url: ORIGIN + '/testdrive.aspx', file: 'testdrive.html' },
 ];
 const MIRROR_HOSTS = { 'www.lexus.com.tw': '', 'lexuscdn.lexus.com.tw': '_cdn/' };

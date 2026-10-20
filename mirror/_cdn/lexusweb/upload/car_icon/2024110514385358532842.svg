@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+
+      .cls-2 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.2, SVG Export Plug-In . SVG Version: 1.2.0 Build 154)  -->
+  <g>
+    <g id="_圖層_1">
+      <g>
+        <path class="cls-1" d="M50,62.6c2.4-7.1,11.1-11.1,11.1-19.5s-5-11.1-11.1-11.1-11.1,5-11.1,11.1,8.7,12.4,11.1,19.5Z"/>
+        <path class="cls-1" d="M42.7,57.6c-7.5.8-12.8,2.7-12.8,5s9,5.4,20.1,5.4,20.1-2.4,20.1-5.4-5.3-4.2-12.8-5"/>
+        <polygon class="cls-2" points="50.9 37.3 50.9 42.3 53.2 42.3 49.1 48.6 49.1 43.5 46.8 43.5 50.9 37.3"/>
+      </g>
+    </g>
+  </g>
+</svg>

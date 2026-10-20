@@ -320,7 +320,7 @@
                     
                     
                         <li class="model">
-                            <a href="/showroom/ES">
+                            <a href=(window.__MIRROR_ROOT||"")+"showroom/ES.html">
                                 <div class="model__image"><img src="https://lexuscdn.lexus.com.tw/lexusweb/upload/car/202604272201341G04G64G.png"></div>
                                 <div class="model__series model__detail">SEDAN</div>
                                 <div class="model__info">
@@ -690,7 +690,7 @@
                 
                 
                 <li>
-                    <a href="/showroom/ES">ES</a>
+                    <a href=(window.__MIRROR_ROOT||"")+"showroom/ES.html">ES</a>
                 </li>
                 
                 <li>
