@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.2, SVG Export Plug-In . SVG Version: 1.2.0 Build 154)  -->
+  <g>
+    <g id="_圖層_1" data-name="圖層_1">
+      <g>
+        <g>
+          <path class="cls-1" d="M13.2,62.9"/>
+          <path class="cls-1" d="M13.2,62.9"/>
+          <path class="cls-1" d="M90,62.9c-7.5-15.1-13.4-24.2-13.4-24.2H10v24.2h80Z"/>
+        </g>
+        <line class="cls-1" x1="14.8" y1="45.2" x2="19.7" y2="45.2"/>
+        <line class="cls-1" x1="26.7" y1="44.9" x2="44.8" y2="44.9"/>
+        <line class="cls-1" x1="14.8" y1="45.2" x2="19.7" y2="45.2"/>
+        <g>
+          <line class="cls-1" x1="66.4" y1="51" x2="48.2" y2="51"/>
+          <line class="cls-1" x1="78.3" y1="51" x2="73.4" y2="51"/>
+        </g>
+        <g>
+          <line class="cls-1" x1="32.9" y1="57.2" x2="13.4" y2="57.2"/>
+          <line class="cls-1" x1="44.8" y1="57.2" x2="39.9" y2="57.2"/>
+        </g>
+        <line class="cls-1" x1="85.9" y1="57.2" x2="66.4" y2="57.2"/>
+      </g>
+    </g>
+  </g>
+</svg>

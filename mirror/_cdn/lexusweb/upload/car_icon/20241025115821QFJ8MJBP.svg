@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_圖層_1" data-name="圖層_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <!-- Generator: Adobe Illustrator 29.0.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 186)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <circle class="st0" cx="50" cy="50" r="18"/>
+  <path class="st0" d="M53.6,46.4c2.4,0,2.4,2.4,4.8,2.4h5.35c-.61-7.06-6.53-12.6-13.75-12.6s-13.14,5.54-13.75,12.6h5.35c2.4,0,2.4-2.4,4.8-2.4h7.2Z"/>
+  <line class="st0" x1="48.8" y1="51.2" x2="51.2" y2="51.2"/>
+  <path class="st0" d="M63.33,53.6c-1.38,5.12-5.63,9.06-10.93,9.99,0,0,0-5.19,0-5.19,0-2.65,2.15-4.8,4.8-4.8,0,0,2.14,0,6.13,0Z"/>
+  <path class="st0" d="M47.6,63.59c-5.29-.93-9.54-4.87-10.93-9.99,3.98,0,6.13,0,6.13,0,2.65,0,4.8,2.15,4.8,4.8,0,0,0,5.19,0,5.19Z"/>
+</svg>

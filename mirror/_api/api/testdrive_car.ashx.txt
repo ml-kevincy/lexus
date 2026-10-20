@@ -1,0 +1,65 @@
+{
+  "RS": "OK",
+  "DATA": [
+    {
+      "sty": "SEDAN",
+      "cars": [
+        {
+          "name": "LS",
+          "id": "43",
+          "image": "https://lexuscdn.lexus.com.tw/lexusweb/upload/car/20250527142854I396868H.png"
+        },
+        {
+          "name": "IS",
+          "id": "40",
+          "image": "https://lexuscdn.lexus.com.tw/lexusweb/upload/car/2025122922414353123020.png"
+        },
+        {
+          "name": "ES",
+          "id": "36",
+          "image": "https://lexuscdn.lexus.com.tw/lexusweb/upload/car/202604272201341G04G64G.png"
+        }
+      ]
+    },
+    {
+      "sty": "SUV/MPV",
+      "cars": [
+        {
+          "name": "LBX",
+          "id": "39",
+          "image": "upload/car/202501/20250109210703INNF9I9J.png"
+        },
+        {
+          "name": "LM",
+          "id": "33",
+          "image": "https://lexuscdn.lexus.com.tw/lexusweb/upload/car/20250527142922C2B91B87.png"
+        },
+        {
+          "name": "RX",
+          "id": "38",
+          "image": "upload/car/202501/2025010921055416106760.png"
+        },
+        {
+          "name": "NX",
+          "id": "41",
+          "image": "upload/car/202501/2025011014430600525150.png"
+        },
+        {
+          "name": "UX",
+          "id": "37",
+          "image": "https://lexuscdn.lexus.com.tw/lexusweb/upload/car/20260226171019D1R88B28.png"
+        }
+      ]
+    },
+    {
+      "sty": "BEV",
+      "cars": [
+        {
+          "name": "RZ",
+          "id": "42",
+          "image": "https://lexuscdn.lexus.com.tw/lexusweb/upload/car/202512092125293C2931A9.png"
+        }
+      ]
+    }
+  ]
+}

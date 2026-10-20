@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_圖層_1" data-name="圖層_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <!-- Generator: Adobe Illustrator 29.0.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 186)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <path class="st0" d="M54.85,39.32v-6.74c0-.32-.26-.58-.58-.58h-8.53c-.32,0-.58.26-.58.58v6.74"/>
+  <g>
+    <line class="st0" x1="50.58" y1="68" x2="50.58" y2="62.27"/>
+    <line class="st0" x1="59.25" y1="58.68" x2="63.3" y2="62.73"/>
+    <line class="st0" x1="35.87" y1="35.3" x2="39.93" y2="39.35"/>
+    <line class="st0" x1="63.66" y1="49.18" x2="69.4" y2="49.18"/>
+    <line class="st0" x1="30.6" y1="49.18" x2="36.34" y2="49.18"/>
+    <line class="st0" x1="60.07" y1="39.35" x2="64.13" y2="35.3"/>
+    <line class="st0" x1="36.7" y1="62.73" x2="40.75" y2="58.68"/>
+  </g>
+  <g>
+    <path class="st0" d="M43.04,49.29c.29,2.96,2.42,5.41,5.31,6.11.05.01.09.02.14.02"/>
+    <path class="st0" d="M50,59.05c-5.66,0-10.26-4.6-10.26-10.26s4.6-10.26,10.26-10.26,10.26,4.6,10.26,10.26-4.6,10.26-10.26,10.26Z"/>
+  </g>
+</svg>

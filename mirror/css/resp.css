@@ -1,0 +1,1867 @@
+@charset "utf-8";
+
+@media (orientation : landscape) {
+
+}
+
+
+@media (orientation : portrait) {
+
+}
+
+@media screen and (min-width:768px) {
+	.visible-d {
+		display: block;
+	}
+	.hidden-d {
+		display: none;
+	}
+	.visible-m {
+		display: none;
+	}
+}
+
+@media screen and (max-width:767px) {  /*cw 20150312修改*/
+	.visible-m {
+		display: block;
+	}
+	.visible-d {
+		display: none;
+	}
+	.hidden-m {
+		display: none;
+	}
+    .kvBanner{
+        width:1000px;
+        background-attachment:inherit;
+    }
+    .Foot{
+    	width:100%;
+    }
+	.oeBanner {
+		height:auto;
+		padding-top:50px;
+	}
+	.oeBanner .img{
+		display:block;
+	}
+}
+/* tablet narrow */
+@media screen and (max-width: 989px){
+
+.indexBanner .eachTxt{
+top:15%;}
+.indexBanner .eachTxt .title{
+font-size:36px;
+line-height:42px;}
+.indexBanner .eachTxt .des{
+font-size:24px;
+line-height:30px;}
+.indexBanner .eachTxt .tvcT1{
+width:133px;
+height:41px;}
+
+.wc1{
+width:auto;}
+
+
+.indexGarageBoxR .each{
+position:static;
+float:left;}
+.indexGarageBoxR .each, .indexGarageBoxR .label, .indexGarageBoxR .img{
+width:50%;}
+.indexGarageBoxR .each img{
+width:100%;}
+.featuresSlide .each{
+width:49%;
+padding-bottom:10px;}
+.featuresSlide div.right{
+float:right;}
+.featuresSlide .hr{
+display:none;}
+
+.indexNewsBottom .over{
+padding:5px 0;}
+
+.indexGarage, .indexFeatures, .indexNews{
+padding:10px 0;}
+.indexGarageBoxL, .indexFeatures .logo{
+padding:0 0 10px;}
+.indexNewsTop{
+padding:20px 0 0;}
+
+.nobelBox span{
+display:inline-block;}
+.nobelBox .ch{
+padding-left:5px;}
+.nobelBox{
+font-size:20px;
+line-height:28px;}
+
+.indexNewsTop .logo{
+position:static;}
+.indexNewsTop .btn{
+padding:10px 0;
+width:100%;
+overflow:hidden;}
+.indexNewsTop a{
+float:left;
+width:20%;
+font-size:12px;}
+
+.roomMenu, .roomBanner .aBtn, .roomBanner .service1, .roomSpec .option, .roomSpec .list .t3, .subMenuModel .list .cType, .subMenuModel .title .right{
+display:none;}
+.roomBanner .each{
+height:auto;}
+.roomBanner .aPage{
+bottom:0;}
+.roomBanner .dot{
+left:30px;
+top:110px;}
+.roomBanner .txt{
+position:static;}
+.roomBanner .service.service2{
+width: 100%;
+display:block;
+white-space:nowrap;
+overflow: auto;
+padding: 10px;
+}
+.roomBanner .service.service2 .btn a {
+	margin: 0 10px;
+}
+.roomBanner .service{
+width:100%;
+text-align:center;
+padding:10px 0;
+background-color:#ababab;}
+.roomBanner .service img, .roomBanner .service a, .roomBanner .service span{
+vertical-align:top;}
+.roomBanner .service .tvc, .roomBanner .service .tvc a{
+display:inline-block;
+vertical-align: top;
+width:131px;
+height:40px;}
+.roomBanner .service .btn{
+display:inline-block;
+vertical-align: top;
+padding:0;
+width:auto;}
+.roomBanner .service .btn a{
+text-align:left;
+line-height:38px;
+height:38px;
+float: none!important;}
+.roomBanner .each img{
+display:block;}
+.roomBanner .title{
+font-size:20px;
+line-height:30px;}
+.roomBanner .txt .name{
+font-size:40px;}
+
+
+.roomDesgin .each, .roomInter .each{
+height:auto;}
+.roomHeader .each a.tvcPop{
+background-position:center center;}
+.roomHeader .each img{
+display:inline-block;}
+.roomHeader .aTxt{
+position:static;}
+.roomHeader .info{
+height:auto;
+background-color:black;}
+.roomHeader .aPage{}
+
+.roomCMS .wc1{
+width:auto;
+padding:0 20px;}
+.roomCMST2 .each{
+width:49%;}
+.roomCMST2 .txt{
+padding:20px;}
+.roomCMST3 .each{
+width:32%;
+padding-bottom:10px;}
+.roomCMST3 .left{
+padding-right:2%;}
+.roomCMST4 .img{
+width:40%;}
+.roomCMST4 .txt{
+width:60%;}
+.roomCMST4 .title{
+padding-top:10px;}
+.roomCMST5 .set{
+padding:10px;}
+
+.roomPrice .title, .roomPrice .name, .roomPrice .each, .roomSpec .warn .left, .roomSpec .warn .right, .Foot .left, .Foot .right, .roomColor .left, .roomColorMenu, .subMenuModel .list .cPrice{
+float:none;
+width:100%;}
+
+.roomPrice .img, .roomPrice .txt{
+float:none;
+display:inline-block;
+vertical-align:middle;}
+.roomPrice .img{
+width:50%;
+padding:20px 0 0 5%;}
+.roomPrice .img img{
+width:100%;}
+.roomPrice .txt{
+padding:0 0 0 5%;
+width:35%;}
+.roomPrice .name{
+padding:0;}
+.roomPrice .each{
+padding:0 0 5px;}
+.roomSpec .warn li{
+width:auto;}
+.roomSpec .warn{
+width:auto;
+padding-right:20px;}
+
+.roomPaper .img{
+width:80%;}
+.roomPaper .res{
+width:20%;}
+.roomPaper .list{
+width:100%;
+float:none;}
+.roomPaper .list .eachBox{
+width:98%;
+overflow:hidden;
+margin:0 auto;
+padding:15px 0;}
+.roomPaper .list .eachList{
+float:left;
+width:25%;
+text-align:center;}
+.roomPaper .img, .roomPaper .res, .roomPaper .list{
+height:auto;}
+.roomPaper .img img{
+width:100%;}
+.roomPaper{
+background-color:white;}
+.roomPaper .res .btn{
+padding:0;}
+.roomPaper .list a{
+padding:10px;}
+.roomPaper .list a.ON{
+background-color:white;
+-webkit-box-shadow:0 0 5px grey;
+-moz-box-shadow:0 0 5px grey;
+-ms-box-shadow:0 0 5px grey;
+box-shadow:0 0 5px grey;}
+.roomPaper .list .ON .arrowL{
+display:none;}
+
+
+.Foot{
+padding:10px 0;}
+.Foot .left, .Foot .right{
+padding:0;
+text-align:center;}
+.Foot i{
+padding:0 10px;}
+
+.Foot .links {
+    padding: 15px 0;
+    font-size: 24px;
+}
+.Foot .copyright {
+    padding: 15px 0;
+    font-size: 20px;
+}
+
+@media screen and (max-width:960px ){
+	.Foot .forpc {
+		display: none;
+	}
+
+	.Foot .formb {
+		display: block;
+	}
+
+    .Foot .links {
+        padding: 0.31vw 0;
+        font-size: 2.5vw;
+    }
+    .Foot .copyright {
+        padding: 0.31vw 0;
+        font-size: 2.083vw;
+    }
+}
+
+.social {
+	padding: 2vw 0;
+	text-align: center;
+}
+
+.social-facebook, .social-instagram, .social-youtube {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	margin: 0 1.2vw;
+	width: 80px
+}
+
+@media screen and (max-width:1500px ){
+	.social-facebook, .social-instagram, .social-youtube {
+		width: 5.33vw;
+		margin: 0 1.2vw;
+	}
+}
+
+@media screen and (max-width:960px ){
+	.social-facebook, .social-instagram, .social-youtube {
+		width: 10.666vw;
+		margin: 0 1.2vw;
+	}
+}
+
+.social-facebook::before, .social-instagram::before, .social-youtube::before {
+	content: '';
+	display: block;
+	padding-top: 100%;
+}
+
+.social-facebook {
+	background-image: url('../images/index-facebook.png');
+}
+
+.social-instagram {
+	background-image: url('../images/index-instagram.png');
+}
+
+.social-youtube {
+	background-image: url('../images/index-youtube.png');
+}
+
+
+
+.roomColor .right img{
+width:100%;}
+.roomColor .left{
+background:none;
+height:auto;}
+.roomColorMenu{
+width:100%;
+overflow:hidden;
+padding:0;}
+.roomColorMenu .aBody, .roomColorMenu .aItem{
+position:static;}
+.roomColorMenu .aLeft, .roomColorMenu .aRight{
+width:10%;
+padding:0;}
+.roomColorMenu .aBtn, .roomColorMenu .aBox{
+display:inline-block;
+vertical-align:middle;}
+.roomColorMenu .aBtn img{
+width:100%;}
+.roomColorMenu .aLeft{}
+.roomColorMenu .aRight{}
+.roomColorMenu .aBox{
+width:80%;}
+.roomColorMenu .aBody, .roomColorMenu .aItem, .roomColorMenu .eachPage{
+position:relative;
+width:100%;}
+.roomColorMenu .eachPage{
+height:auto;
+overflow:hidden;}
+.roomColorMenu .each{
+float:left;
+width:33.33%;}
+.roomColorMenu .each a:hover, .roomColorMenu .each a.ON{
+text-decoration:center;
+background:none;}
+.roomColorMenu .each a:hover .txt, .roomColorMenu .each a.ON .txt{
+display:none;}
+.roomColorMenu .aBox, .roomColorMenu .aBody, .roomColorMenu .aBody{
+height:auto;}
+.roomColor .right{
+float:none;
+clear:both;
+width:100%;
+margin:0 auto;}
+.roomColorMenu .each a{
+margin:5px;
+padding:6px;
+height:auto;
+text-align:center;
+/*border:1px solid #edeef0;*/}
+.roomColorMenu .each a.ON{
+background-color:white;
+-webbkit-box-shadow:0 0 5px #c2c3c5;
+-moz-box-shadow:0 0 5px #c2c3c5;
+-ms-box-shadow:0 0 5px #c2c3c5;
+box-shadow:0 0 5px #c2c3c5;
+/*border:1px solid black;*/}
+.roomColorMenu .each .color{
+border:1px solid #c2c3c5;
+width:auto;}
+.roomColor .aName{
+display:block;}
+.roomColorMenu .arrow1{
+display:none;}
+.roomColorMenu .arrow2{
+display:inline-block;}
+.roomColorMenu .aBtn img{
+width:auto;}
+.roomColorCont, .roomColorCont .colorArray, .roomColorCont .each{
+height:auto;}
+.roomColorCont{
+padding-bottom:20px;}
+.roomColor{
+height:auto;
+background:#edeef0 url(../images/mobile-re-roomcolor-1.gif) left top repeat-x;}
+.roomColorMenu .each a img{
+width:100%;}
+.roomColor .warn{
+text-align:left;
+padding:3px 20px;
+/* line-height:20px; */
+background:white;}
+.roomColor .tab a{
+padding:0;
+width:30%;
+text-align:center;}
+
+.roomSpec .list .t1, .roomSpec .list .t2{
+width:50%;}
+.roomSpecSelect .select .mOff{
+display:none;}
+.roomSpec .select span{
+width:50%;}
+
+.whiteBG{
+/*background-color:transparent;*/}
+.roomPrice .txt, .roomPrice .title{
+padding-left:0;}
+.roomPrice .wc1, .roomSpec{
+padding:0;}
+.roomPrice{
+background:none transparent;}
+.roomPrice .title i{
+padding-left:10px;}
+
+div.roomExpandTab{
+position:relative;
+padding-top:20px;
+border-bottom:1px solid #c2c3c4;}
+.roomExpandTab .btn{
+position:absolute;
+bottom:15px;
+right:10px;
+width:19px;
+height:19px;
+background:url(../images/btn-expand-1.gif) left top no-repeat;}
+.roomExpandTab div.ON{
+background-position:left bottom;}
+.roomExpandCont{
+display:none;}
+.roomPaper{
+padding:0;}
+
+.roomPrice{
+padding:0;}
+
+.newsDetailArticle, .newsDetailLeft .share, .newsDetailTitle, .newsDetailStart{
+padding:15px;}
+
+
+.locationTable .br{
+display:block;}
+.locationTable .each{
+line-height:22px;
+text-align:left;}
+.locationTable .th{
+display:none;}
+.locationTable .td{
+width:100%;
+overflow:hidden;}
+.locationTable .head{
+display: flex;
+justify-content: flex-start;
+float:none;
+width:100%;
+color:white;
+line-height:40px;
+background:url(../images/re-location-title-1.gif) right top repeat-y black;}
+.locationTable .head, .locationTable .info, .locationTable .tr{
+float:none;}
+.locationTable .head span{
+float:none;
+width:auto;
+padding-left:10px;
+background:none;}
+.locationTable .head .title3 {
+	margin-left: auto;
+	padding-right: 12px;
+}
+.locationTable .td .each{
+float:left;
+position:relative;
+width:48%;
+padding:0 2% 20px 0;
+overflow:visible;
+background-color:transparent;}
+.locationTable .info{
+float:none;
+width:100%;
+color:#838383;
+padding:5px 0 35px;
+background-color:#eeeeee;}
+.locationTable .label{
+display:inline-block;
+position:absolute;
+left:10px;
+top:3px;
+width:70px;
+background:url(../images/dot-4.gif) right center no-repeat;}
+.locationTable .tr{
+position:relative;
+width:auto;
+padding:3px 0 3px 100px;}
+.locationTable .btn{
+position:absolute;
+right:10px;
+bottom:25px;
+width:auto;}
+.locationTable .btn a{
+display:inline-block;
+text-align:center;
+width:112px;
+height:28px;
+padding:4px 3px 0 0;
+background:url(../images/btn-bg-1.png) left top no-repeat;}
+
+.kvBanner .txt{
+padding-left:20px;}
+
+.conceptCarBlock .aTxt{
+bottom:57px;}
+.conceptCarBlock .txt .wc1{
+padding:20px;}
+.conceptCarBlock .title1, .conceptCarBlock .title2{
+padding-left:10px;}
+
+.roomColorMenu .aBtn {
+height:auto;}
+.roomColorMenu .aBtn a{
+padding:20px 0;
+text-align:center;}
+
+.roomMenu2{
+display:block;}
+
+.oeDetailBoxT1 .form .input1 {
+display:block;}
+.oeDetailBoxT1 .form .input1 input,
+.oeDetailBoxT1 .form .input3 input {
+width:100%;}
+.oeDetailBoxT1 .form .input3 {
+width:calc(50% - 1.2em);}
+
+.brandBannerIndex .txt{
+padding:65px 30px 0;}
+
+.brandList2 b{
+font-size:16px;
+line-height:24px;
+padding:5px 0 0;
+background:none;
+/*background-position:left 6px;*/}
+.brandList2 em{
+padding-left:0;}
+
+.brandParaT2{
+padding:15px 15px 0;}
+
+.kvBrand .des{
+position:static;
+padding-top:150px;}
+.kvBrand9 .txt{
+overflow:hidden;}
+.kvBrand9 .txt .p{
+float:left;
+width:45%;
+padding-left:5%;}
+.kvBrand9 .txt img{
+position:static;
+width:50%;
+float:right;}
+
+/*div.kvBrand5{
+background-size:100% auto;}*/
+
+.testdriveBox{
+background:none;}
+
+.contactService img{
+width:100%;}
+.collectList .indexNewsTop{
+padding-left:15px;
+padding-right:15px;}
+.collectStateUp{
+padding:15px 10px;}
+.collectList .indexNewsTop a{
+/*width:25%;*/
+width:33%;
+float: none;
+}
+
+.epaperBox{
+padding:20px 30px;}
+
+.collectBanner{
+height:auto;}
+
+.collectList .indexNewsTop .btn{
+text-align:left;}
+
+div.showroomWhiteBG{
+background-color:transparent;}
+
+.cmsBrandT2 .aBtn{
+top:150px;}
+
+.indexBanner .overLayer div.eachTxt.mcolor2 {
+	color:black;
+}
+.indexBanner .overLayer div.eachTxt {
+	color:white;
+}
+.indexBanner div.color2 .btn a{
+background:url(../images/btn-more-1.gif) left top no-repeat;}
+
+.indexBanner div.mcolor2 .btn a{
+background:url(../images/btn-more-1x.gif) left top no-repeat;}
+
+.collectionStepTitle {
+padding:0 20px 15px;}
+.collectionStepTitle .inBox{
+font-size:16px;}
+
+.collectBoughtList .btn1{
+padding:0 5px;}
+
+.collectionW{
+padding:15px;}
+
+.collectForm1 .td2{
+width:auto;}
+.collectForm1 .itext1{
+width:100%;}
+
+.collectFilterDesc span {
+	font-size: 14px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.brandEight1 .img{
+left:-255px;}
+.brandEight1 .txt{
+padding:37px 15px 50px 420px;}
+
+.brandEight3 .title2, .brandEight3 .des1, .brandBox8 .title1, .brandBox8 .title2, .brandBox8 .title3{
+padding-left:15px;
+padding-right:15px;}
+
+.brandEight2 .txt{
+padding:30px 15px 30px;}
+.brandEight2 .img{
+top:0;
+right:0;
+bottom:auto;
+width:100%;
+text-align:right;}
+.brandEight2 .img img{
+width:70%;}
+
+.brandEight3 .img{
+width:100%;}
+.brandEight3 .img img{
+left:-90%;
+width:180%;}
+.brandEight3 .txt{
+top:70px;}
+.brandEight3 .txt .wc1{
+padding:0 20px;}
+
+
+.brandEight4 .txt{
+padding:50px 20px;}
+.brandEight4 .img{
+bottom:100px;
+width:100%;
+right:5px;
+text-align:right;}
+.brandEight4 .img img{
+width:70%;}
+
+.brandEight5 .img{
+bottom:200px;
+right:0;}
+
+.brandBox8 .des1{
+padding-right:15px;}
+
+.brandHistoryBox{
+padding-top:0;}
+
+}
+
+/*******************************************
+****************************************
+****************************************
+ phone
+****************************************
+****************************************
+********************************************/
+
+@media screen and (max-width: 767px){
+.Menu .tweenMenu a.ON{
+width:44px;
+background:url(../images/close-sub-1.png) left top repeat black;
+background-size:100% 100%;}
+.menuCenter,.Menu .logo, .Menu .btn{
+height:44px;}
+.Menu .logo{
+width:116px;
+margin-left: 0;
+background:url(../images/2019_logo.png) 10px center no-repeat;
+background-size:auto 20px;}
+.Menu .btn{
+width:94px;
+background-size:auto 50px;}
+.mobileIndexSubmenu{
+display:block;}
+.menuPadding{
+padding:0;}
+.subMenuControl, .indexBanner .aPage, .indexBanner .aBody{
+padding:0 10px;}
+
+.subMenuModel .list .cPrice{
+text-align:center;
+padding:0;
+font-size:12px;}
+.subMenuModel .list .cName{
+font-size:18px;
+line-height:30px;
+height:30px;}
+
+.subMenuIcon .each{
+width:33.333%;}
+
+.indexBanner .eachTxt{
+top:0;
+left:20px;
+width:80%;
+height:100%;}
+.indexBanner .aBtn{
+width:10px;}
+.indexBanner .eachTxt .title{
+padding:65px 0 0;
+font-size:26px;
+line-height:30px;}
+.indexBanner .eachTxt .des{
+font-size:18px;
+line-height:24px;
+padding-right:0;}
+.indexBanner .eachTxt .btn{
+padding:0;}
+.indexBanner .eachTxt .txt{
+display:none;}
+.indexBanner .aLeft a{
+left:10px;}
+.indexBanner .aRight a{
+right:10px;}
+.indexBanner .eachTxt .tvc{
+position:absolute;
+left:0;
+bottom:40px;
+padding:0;}
+.indexBanner .eachTxt .tvcT1{
+width:133px;
+height:41px;}
+
+.indexNewsBottom .img a, .indexNewsBottom .img img{
+position:static;
+height:auto;}
+.indexNewsBottom .img img{
+width:100%;
+display:block;
+/*-webkit-transition:none;
+-moz-transition:none;
+-ms-transition:none;
+transition:none;*/}
+.indexNewsBottom .img a:hover img{
+width:100%;}
+
+.roomBanner {
+padding:44px 0 0 ;}
+.roomCMST2 .each, .roomCMST3 .each, .roomCMST4 .img, .roomCMST4 .txt{
+float:none;
+width:100%;}
+.roomCMST2 .right .txt1, .roomCMST2 .right .arrowU, .roomCMST4 .arrowR{
+display:none;}
+.roomCMST2 .right .txt2, .roomCMST2 .right .arrowD, .roomCMST4 .arrowD{
+display:block;}
+.roomCMST3 .left{
+padding-right:0;}
+.roomCMST4 .txt{
+padding-bottom:10px;}
+
+.roomPrice .img, .roomPrice .txt{
+display:block;}
+.roomPrice .img{
+padding:10px;
+width:auto;}
+.roomPrice .txt{
+width:auto;
+padding:10px 20px;}
+
+.roomPaper .res, .roomPaper .img{
+float:none;
+width:100%;}
+.roomPaper .res .eachBox{
+padding:0;}
+.roomPaper .res .btn{
+width:100%;
+margin:0 auto;
+padding:0 0 10px;}
+.roomPaper .res .btn a{
+padding:0;
+display:inline-block;
+width:30%;
+line-height:44px;
+margin:3px 10px;}
+.roomPaper .res .eachBox .title, .roomPaper a.ON .arrowL{
+display:none;}
+.roomPaper .list .eachBox{
+padding:10px 0;
+width:100%;
+overflow:hidden;}
+.roomPaper .list .eachList{
+padding:0 1%;
+width:23%;}
+.roomPaper .list a{
+padding:0;}
+.roomPaper a.ON .arrowU{
+display:inline-block;
+top:-10px;
+left:0;}
+
+.roomTitle .title .f1, .roomPrice .title i{
+font-size:26px;}
+.roomTitle .title .f2, .roomPrice .title b{
+font-size:22px;}
+
+.roomBanner .dot{
+top:65px;}
+
+.roomColorCont .each, .roomColorCont .each .info{
+position:static;}
+.roomColorCont .each .info{}
+.roomColorCont .fake{
+display:none;}
+
+.newsDetailLeft, .newsDetailRight{
+float:none;
+width:100%;}
+.newsDetailLeft{
+display:none;}
+.newsDetail{
+width: 100%;
+padding-top:45px;}
+.newsDetailTitle .title{
+font-size:26px;
+line-height:32px;}
+
+.newsDetailStart{
+padding:30px 0 20px;
+width:100%;
+overflow:hidden;}
+.newsDetailStart .nobelBox{
+float:left;
+padding-left:10px;
+line-height:32px;}
+.newsDetailStart .return{
+float:right;
+padding:0 10px 0 0;}
+.newsDetailStart .return a{
+width:100px;}
+.newsDetailTitle .date a{
+display:inline-block;}
+
+.contactBox, .contactBody{
+padding:0;}
+.contactService a{
+display:inline-block;
+width:20%;
+  max-width: 120px;
+margin:0 5px;}
+.contactService, .contactForm{
+float:none;
+padding:10px;
+width:auto;}
+.contactService{
+text-align:center;
+padding:10px 0;}
+.contactForm{
+background-color:white;}
+.contactForm .iput1, .contactForm .iput2, .contactForm .iput3, .contactForm .select{
+width:100%;
+box-sizing:border-box;}
+.contactForm .select{
+margin-bottom:5px;
+padding:0;}
+.contactForm .tr-location .select:nth-of-type(2) {
+	width: 100%;
+}
+.contactForm .tr-carno {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.contactForm .tr-carno .note {
+	flex-basis: 100%;
+}
+.contactForm .tr-carno .iput2:nth-of-type(1) {
+	width: 37%;
+}
+.contactForm .tr-carno .iput2:nth-of-type(2) {
+	width: 49%;
+	margin-right: 0;
+}
+.contactBody .wc1{
+background-color:transparent;}
+.kvBanner, .kvBanner .txt{
+position:static;}
+.kvBanner{
+padding:0 10px;
+font-size:20px;
+color:#222222;
+height:auto;
+background-color:transparent;
+/*background-position:center 500px; cw20150312修改*/
+}
+.kvBanner .txt{
+width:100%;
+overflow:hidden;
+padding:16vmin 0 0;}
+.contactForm .btn{
+padding:20px 0;}
+
+.locationTable .td .each{
+width:100%;
+padding:0 0 20px;}
+.locationTable .td{
+overflow:visible;}
+.locationMap{
+display:none;}
+.locationTable .info{
+background-color:white;}
+.locationFilter, .locationSelect, .locationTable{
+background-color:transparent;}
+.locationSelect, .locationTable, .locationFilter{
+padding:10px;}
+.pageReturn{
+padding:0 0 10px;}
+.locationTable .btn {
+bottom:20px;}
+.locationTable .btn a{
+padding-top:7px;}
+.conceptAddBG{
+background-size:auto 100%;}
+
+.conceptTitle{
+left:10px;
+top:50px;}
+.conceptTitle .title{
+font-size:30px;
+line-height:38px;}
+.conceptTitle .title2{
+font-size:18px;
+line-height:24px;}
+
+.conceptList .aBody{
+top:-80px;}
+.conceptList .each a{
+padding:10px 0;}
+.conceptList .each{
+width:200px;}
+.conceptListBar{
+bottom:150px;}
+
+.conceptCarBlock .btn{
+display:none;}
+
+
+.conceptCarBlock .title1, .conceptCarBlock .title2{
+padding-left:10px;}
+.conceptCarBlock .title1{
+font-size:50px;
+line-height:60px;}
+.conceptCarBlock .title2{
+font-size:20px;
+line-height:30px;
+padding-bottom:30px;}
+.conceptCarBlock .close{
+right:0;}
+.conceptCarBlock .aPage{
+right:9px;}
+.conceptCarBlock .each{
+background-position:center top;}
+.BG{
+opacity:1;
+filter:alpha(opacity=100);
+background-color:black;}
+.subMenuIcon .mobile{
+display:none;}
+.subMenuIcon .pc{
+display:block;}
+
+.oeLogBar1{
+display:block;}
+
+.roomMenu2{
+top:45px;}
+.roomMenu2 .roomTitle{
+margin:0;}
+
+.brandBannerIndex .title1{
+font-size:30px;
+line-height:40px;}
+.brandBannerIndex .title2{
+font-size:18px;
+line-height:30px;
+padding-bottom:20px;}
+
+.brandReturn, .brandImgT1, .brandParaT1{
+padding-left:10px;
+padding-right:10px;}
+.brandImgT1{
+padding-top:0;}
+.brandReturn{
+padding:10px;}
+
+.brandImgT1 .ofh div{
+width:100%;}
+
+.brandParaT2{
+padding:10px 10px 0;}
+
+
+.kvBrand9 .txt{}
+.kvBrand9 .txt .p{
+float:none;
+width:auto;
+text-align:center;
+padding-left:0;}
+.kvBrand9 .txt img{
+position:static;
+width:90%;
+float:none;}
+
+.testDriveStep .arrow .r{
+display:none;}
+.testDriveStep .arrow .d{
+display:inline-block;}
+
+.newsDetailLeft .fakeImg{
+display:none;}
+
+.oeEventTitle1{
+padding:10px 0;}
+.oeEventTitle1 .left, .oeEventTitle1 .right{
+float:none;
+padding:10px;}
+.oeEventTitle1 .right{
+text-align:center;}
+.oeEventTitle1 .right select{
+width:40%;
+margin:0 5px;}
+
+.oeFilterCont{
+width:auto;
+padding:0 10px 10px;}
+.oeEventList{
+width:auto;
+padding:0 10px;}
+.oeEventList .each{
+position:static;
+width:100%;
+margin-bottom:15px;}
+
+.oeDetailPageLeft, .oeDetailPageRight{
+float:none;
+width:auto;
+padding:10px;}
+
+.oeLogBar{
+padding:50px 10px 10px;}
+
+.oeLogBar .input, .oeLogBar .iBtnT1, .oeLogBar .txt2, .oeLogBar .iBtnT1 span{
+display:block;}
+.oeLogBar .input, .oeLogBar .iBtnT1, .oeLogBar .txt2{
+text-align:center;}
+.oeLogBar .input{
+padding:5px 0 0;
+width:100%;}
+.oeLogBar .input input{
+width:90%;
+margin-bottom:5px;}
+.oeLogBar .txt2{
+padding:0 10px;}
+.oeLogBar .iBtnT1 {
+width:100%;}
+.oeLogBar .iBtnT1 a{
+width:90%;}
+
+.oeBanner .close{
+top:0;
+right:0;}
+
+.oeDetailBoxT1 .btn a, .eventSearchEachBox .btn a, .oeDetailBoxT1 .btn span{
+right:auto;}
+.eventReturn1, .eventSearchTitle, .eventSearchEach{
+padding-left:10px;
+padding-right:10px;}
+.eventSearchEach .left, .eventSearchEach .right{
+float:none;
+width:auto;}
+.eventSearchEach .right{
+padding-top:10px;}
+.oeDetailBoxT1 .btn, .eventSearchEachBox .btn{
+padding:10px 0 0;}
+.oeDetailPageLeft .oeDetailBoxT1{
+top:auto;}
+.oeDetailPageRight .oeLogBar{
+display:none;}
+
+.brandList .cont2{
+display:block;}
+
+.collectList .indexNewsTop{
+padding-left:10px;
+padding-right:10px;}
+.collectStateUp .left,.collectStateUp .right{
+float:none;
+text-align:center;}
+.collectListGrid{
+width:auto;
+padding:0 10px 20px;}
+.collectListGrid .each{
+position:static;
+width:100%;
+padding:0 0 10px;}
+.collectListGrid .each .img img{
+width:100%;}
+
+.collectFav .just a .opntag {
+    left: 5px;
+    top: 6px;
+}
+
+.collectDetail{
+padding:0 10px 20px;}
+.collectProductImg ,.collectProductInfo{
+float:none;
+width:100%;}
+
+.collectProductInfo .title span[data-type="amazing"] {
+    display: inline-block;
+    width: 100%;
+}
+
+.collectAmazingTag {
+	width: calc(100% - 20px);
+	text-align: center;
+	padding: 9px 10px;
+	margin-bottom: 11px;
+	margin-top: 11px;
+}
+.collectAmazingTag img {
+	width: 147px;
+}
+
+.brandList2 .title{
+font-size:20px;
+line-height:30px;}
+.brandList2{
+display: block;
+text-align:center;}
+.brandList2 .des{
+display:block;
+width:100%;
+padding-bottom:10px;}
+.brandList2 .each{
+width:90%;
+padding-bottom:10px;
+text-align:left;}
+
+.kvBrand, .kvBrand .video, .kvBrand .video video{
+height:600px;}
+.kvBrand{
+background-size:auto 100%;}
+.brandImgT1 .ofh div{
+width:100%;
+float:none;}
+.brandTabT1 .tabAdjust{
+position:static;}
+.brandTabT1 .each span.txt{
+display:none;}
+.brandTabT1 .tab3 .each{
+width:33%;}
+.brandTabT1 .img {
+height:50px;}
+.brandTabT1 .ON .img{
+height:50px;
+border-bottom:0;
+border-top:3px solid #017eff;}
+.brandTabT1 .each{
+vertical-align:top;}
+.brandList .cont, .brandList .back, .brandBannerIndex .des{
+display:none;}
+
+/*.brandBannerIndex .cont{
+background-position:center 0%;
+background-size:160% auto;}*/
+.brandBannerIndex .cont{
+background-position:center center;
+background-size:100% auto;}
+.brandFixBG{
+border-top:2px solid white;}
+.brandFixBG2{
+border-top:0;}
+.brandTabT1 .tab{
+height:auto;}
+.brandTabT1.type2 .tab{
+ margin-top: -8%;
+}
+.brandParaT2 .head .title1{
+font-size:20px;
+line-height:40px;}
+.brandParaT2 .head .title2{
+font-size:18px;
+margin-left:30px;
+padding-left:10px;}
+
+.brandParaT2 .head .title1 img{
+    margin-top: 58px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.siteMap .each{
+float:none;
+width:100%;}
+.siteMap .each a{
+display:inline-block;
+margin-right:10px;}
+.siteMap .each a:hover{
+padding-right:10px;}
+
+.epaperBox{
+padding:10px;}
+
+.brandSlide .aTxt{
+position:static;}
+
+.brandSlide .aBtn{
+display:none;}
+.brandSlide .aTxt{
+background:none black;}
+
+.kvBrand .return{
+left:10px;
+top: 10px;
+/* top:70px; */
+}
+
+.testdriveBody .whiteBG, .testDriveStep{
+padding:10px;}
+.testdriveBox{
+padding:0;}
+.testDriveStep .steps, .testDriveStep .arrow, .testDriveLocate .img, .testDriveLocate .des{
+float:none;
+width:100%;}
+.testDriveStep .ofh{
+padding:10px 0;}
+.testDriveLocate .des .btn, .testDriveStep .arrow{
+text-align:center;}
+
+.brandList .cont2 .en{
+height:40px;}
+
+.subMenuModel{
+padding-bottom:0;}
+.subMenuOption{
+padding:20px 0;}
+
+.Foot .right{
+/*padding:0 10px;*/
+}
+
+.Foot a.mob{
+display:none;}
+
+.oeDetailBoxT1 .stage{
+background:none;}
+.oeDetailBoxT1 .stage .head{
+float:none;
+width:100%;
+line-height:22px;
+padding:5px 0;}
+.oeDetailBoxT1 .btn2 span{
+padding:0 15px;}
+
+.collectState2{}
+
+
+
+.collectStateDownPC .f1, .collectStateDownPC .f2 {
+display:block;
+padding:5px 10px 0;}
+.collectStateDownPC .f1 select{
+width:100%;
+padding:10px 0;}
+.collectStateDownPC .f2 span.search{
+position:relative;
+display:block;
+margin:0;
+border:1px solid #d9d9d9;}
+.collectStateDownPC .f3{
+display:block;
+padding-right:44px;}
+.collectStateDownPC .f2 .itext{
+padding:0;
+height:44px;
+line-height:44px;
+width:90%;
+padding:0 5%}
+.collectStateDown .scope{
+position:absolute;
+right:0;
+top:0;}
+
+.collectionReturnTop{
+padding:20px 10px 0;}
+
+.brandBannerIndex .hr{
+display:none;}
+
+.ownerSignupPage{
+padding:0 10px 30px;}
+
+.newsDetailPage a{
+padding:0 5px;}
+
+.roomColorCont .each .txt2{
+height:20px;
+padding-bottom:5px;
+position:static;}
+
+.epaperForm .td1{
+width:54%;}
+.epaperForm .td2{
+width:40%;}
+
+.brandSlide .aPage{
+position:static;
+background-color:black;}
+
+.kvBanner .title2{
+padding-left:8px;}
+
+.locationBody .pageReturn{
+padding:0 10px 20px;}
+
+.brandBannerIndex .txt{
+text-align:center;}
+
+.siteMap .mob{
+display:none;}
+
+.oeLogBar .pc{
+display:none;}
+.oeLogBar .mob{
+display:inline;}
+
+.oeBanner{
+height:auto;}
+.oeBanner img{
+display:block;}
+
+.oeLoginPage2 .btn a.pc{
+display:none;}
+.oeLoginPage2 .btn a.mob{
+display:inline-block;}
+
+.oeLogBar{
+display:none;}
+.oeBanner{
+padding-top:40px;}
+/* .oeBanner .close{
+top:40px;} */
+.oeBanner .img{
+display:block;}
+
+.brandParaT2 .head .title3{
+position:static;
+margin-top:10px;}
+
+.cmsBrandT2 .aBtn{
+top:65px;}
+
+.cmsBrandT1 .arrow{
+display:none;}
+.cmsBrandT1 .inBoxLeft .img, .cmsBrandT1 .inBoxLeft .des, .cmsBrandT1 .inBoxRight .img, .cmsBrandT1 .inBoxRight .des{
+float:none;
+width:auto;
+padding:0;}
+.cmsBrandT1 .img img{
+width:100%;}
+.cmsBrandT1{
+padding:0 0 10px;}
+.cmsBrandT1 .inBox{
+width:100%;
+background-color:white;}
+.cmsBrandT1 .img, .cmsBrandT1 .img img{
+position:static;}
+.cmsBrandT1 .inBoxLeft .des, .cmsBrandT1 .inBoxRight .des{
+padding:0 10px;}
+.cmsBrandT1 .des .info2 {
+	line-height: 24px;
+}
+.cmsBrandT1 .img {
+	display: block;
+	position: relative;
+	overflow: hidden;
+}
+.cmsBrandT1 .img .imgW,
+.cmsBrandT1 .img .play {
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+
+.cmsBrandT2 .des{
+padding:10px;}
+.cmsBrandT2{
+padding:0 0 10px;}
+.cmsBrandT3{
+padding:0;}
+
+.cmsBrandT3 .eachInBox{
+float:none;
+width:100%;
+padding-bottom:10px;}
+.cmsBrandT3 .hr{
+display:none;}
+.cmsBrandT3 .des{
+padding:0 0 10px;
+background-color:white;}
+.cmsBrandT3 .info1, .cmsBrandT3 .info2{
+padding-left:10px;
+padding-right:10px;}
+.cmsBrandT3 .info2 {
+	padding: 10px 10px 20px 10px;
+}
+
+.cmsBrandT4 .eachInBox {
+	float: none;
+	width: 100%;
+}
+.cmsBrandT4 .eachInBox.desc-adv .title {
+	font-size: 15px;
+	text-align: center;
+}
+.cmsBrandT4 .eachInBox.desc-adv .note {
+	font-size: 13px;
+	line-height: 19px;
+}
+.cmsBrandT4 .info1 {
+    margin: 0 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.cmsBrandT4 .info2 {
+    font-size: 14px;
+    line-height: 25px;
+    margin: 12px 10px;
+}
+.cmsBrandT4 .hr {
+	display: none;
+}
+.cmsBrandT4 .arrow {
+	display: none;
+}
+
+.cmsBrandT5 .col2 .eachInBox,
+.cmsBrandT5 .col3 .eachInBox {
+	width: 100%;
+}
+.cmsBrandT5 .col3 .eachInBox {
+	margin-bottom: 30px;
+}
+.cmsBrandT5 .note {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 85px;
+}
+.cmsBrandT5 .note li {
+    margin-bottom: 5px;
+}
+.cmsBrandT5 .note2 {
+    margin: 26px 0;
+    font-size: 13px;
+    line-height: 19px;
+}
+.cmsBrandT5 .note2 li {
+    margin-bottom: 2px;
+}
+.cmsBrandT5 .title {
+	text-align: center;
+	font-size: 15px;
+}
+.cmsBrandT5 .col3 .eachInBox .head,
+.cmsBrandT5 .col3 .eachInBox .desc {
+	font-size: 15px;
+    width: 72%;
+    margin-left: 14%;
+    padding: 5% 0;
+}
+.cmsBrandT5 .col3 .eachInBox .desc {
+	font-size: 13px;
+}
+.cmsBrandT5 .eachInBox .title4 {
+    font-size: 13px;
+    padding-bottom: 9px;
+}
+.cmsBrandT5 .eachInBox .title5 {
+    font-size: 13px;
+    line-height: 19px;
+    margin-top: 13px;
+}
+.cmsBrandT5 .eachInBox .title6 {
+    font-size: 15px;
+}
+
+
+/*brand-safety*/
+.kvBrand7 {
+	background-image: url("../images/kv-brand-7-2-m.jpg");
+	background-size: cover;
+}
+.brandSafetySecHead {
+    padding-bottom: 24px;
+    margin-top: 50px;
+}
+.brandSafetySecHead img {
+	width: 92%;
+	margin-left: 10%;
+}
+.brandSafetySecDesc {
+    text-align: left;
+    margin-top: 14px;
+    margin-bottom: 27px;
+}
+.brandSafetySecDesc.type2 {
+	font-size: 13px;
+	line-height: 21px;
+}
+.brandSafetySecHead.type2 .title1 {
+    font-size: 16px;
+}
+.brandSafetySecHead .title2 {
+    /*font-size: 16px;*/
+}
+/*brand-safety-end*/
+
+.kvBrand .video{
+display:none;}
+
+.collectStateDown .f4{
+display:block;
+padding:5px 10px;}
+.collectStateDown .fx4{
+display:block;
+width:100%;
+overflow:hidden;}
+.collectStateDown .f4 .f2{
+float:left;
+width:85%;
+padding:0;}
+.collectStateDown .f4 .cart{
+float:right;
+width:13%;
+margin:0;}
+.collectStateUp .demo{
+display:none;}
+
+.collectStateUp .btn{
+display:block;
+padding:5px 0 0;
+text-align:center;}
+.collectStateUp .inBtn{
+display:block;
+width:100%;
+overflow:hidden;}
+.collectStateUp .inBtn a{
+width:49%;
+margin:0;
+padding:0;}
+.collectStateUp .inBtn .bl{
+float:left;}
+.collectStateUp .inBtn .br{
+float:right;}
+.collectState{
+padding-bottom:0px;}
+.collectStateUp{
+padding:5px 10px;}
+
+.collectionStepTitle {
+padding:0 0 10px;}
+.collectionStepTitle .inBox{
+font-size:16px;
+padding-bottom:5px;}
+.collectionStepTitle .inBox .txt{
+display:none;}
+.collectionStepTitle .inBox .each{
+width:auto;}
+.collectionStepTitle .inBox .hr{
+width:15px;
+margin:0 3px;}
+.collectionStepTitle .inBox span.ON{}
+
+.collectionW{
+padding:10px 5px;}
+.collectBoughtList .th{
+display:none;}
+
+.collectBoughtList .td{
+float:left;}
+.collectBoughtList .td1{
+width:30%;}
+.collectBoughtList .td2, .collectBoughtList .td3, .collectBoughtList .td4, .collectBoughtList .td5, .collectBoughtList .td6{
+float:right;
+width:50%;
+padding-right:20%;
+text-align:left;}
+.collectBoughtList .td7{
+position:absolute;
+width:auto;
+right:0;
+top:10px;}
+.collectBoughtList .tr2{
+position:relative;
+line-height:22px;}
+.collectBoughtList .td7 .btn1{
+padding:0;
+border:1px solid #c8ccd1;
+width:36px;
+height:32px;
+text-indent:-9999px;
+background:url(../images/btn-close-1.png) center center no-repeat;
+overflow:hidden;}
+.collectBoughtList .itext1{
+line-height:20px;
+height:20px;}
+.collectBoughtList .title2{
+font-size:16px;}
+.collectBoughtList .mob{
+display:inline;}
+
+.collectForm1 .td1{
+position:static;}
+.collectForm1 .td2{
+padding:5px 0;}
+.collectForm1 .cap{
+padding-bottom:5px}
+.collectForm1 .cap .td1{
+font-weight:700;}
+.collectForm1 .label2{
+width:50%;}
+.collectForm1 .itext4{
+width:100%;}
+.collectForm1 .itext input{}
+.collectForm1 .pt{
+margin-top:10px;}
+
+.collectReceipt3 .btn{
+text-align:center;}
+.collectReceipt3 .btn .br{
+display:block;
+padding:5px 0 10px;}
+.collectReceipt3 .btn .br a{
+margin:0 5px;}
+
+.collectBoughtList .table3 .tr3{
+position:relative;
+width:auto;
+border-bottom:1px dotted #b1b1b1;}
+.collectBoughtList .table3 .td{
+float:none;
+width:auto;
+display:block;}
+.collectBoughtList .table3 .mob{
+display:inline-block;
+padding-right:5px;
+width:75px;
+text-align:right;}
+.collectBoughtList .table3 .td12{
+position:absolute;
+right:0;
+top:10px;
+width:105px;}
+.collectBoughtList .table3{
+border:0;}
+.collectBoughtList .table3 .td12 a{
+margin:0 0 5px;
+border:1px solid #c8ccd1;
+color:#333333;
+background:url(../images/btn-re-2.gif) center left repeat-x;}
+.collectTtitleT1{
+padding:0 10px 10px;}
+
+.collectHDt1 .inBox{
+padding:10px 5px;
+line-height:24px;}
+.collectHDt1 .inBox span{}
+.collectHDt1 .label{
+font-size:14px;
+padding-left:10px;}
+.collectHDt1 .num{
+text-align:center;
+font-size:18px;}
+.collectHDt1 .left, .collectHDt1 .right{
+float:none;
+width:100%;}
+.collectHDt1 .left{
+padding-bottom:10px;}
+.collectHDt1 .left .inBox{
+margin-right:0;}
+.collectHDt1 .right .inBox{
+margin-left:0;}
+
+.collectP1{
+padding:10px 0;}
+
+.collectReceipt2 .selection{
+position:static;}
+.collectReceipt2 .detail{
+padding:10px 0 0;}
+
+.collectReceipt2 .btn a, .collectReceipt2 .btn span{
+display:block;}
+.collectReceipt2 .btn span{
+width:auto;}
+
+.collectQA .q .num{
+left:10px;}
+.collectQA .q .expand{
+right:10px;}
+.collectQA .q .ask{
+padding:0 30px 0 40px;}
+
+.brandHistoryBox{
+
+padding-top:0;}
+
+.brandBox8 .img{
+position:static;
+width:100%;}
+.brandBox8 .img img{
+position:static;
+width:100%;}
+.brandBox8 .txt{
+position:static;
+padding:15px 10px 20px;}
+
+.brandEight6{
+padding:30px 10px;}
+.brandEight6 .img, .brandEight6 .txt{
+display:block;}
+.brandEight6 .img{
+margin:0 auto;
+width:60%;}
+.brandEight6 .txt{
+width:auto;
+padding:20px 10px 0;}
+.brandEight6 .title{
+font-size:22px;
+line-height:30px;}
+.brandEight3 .title2, .brandEight3 .des1, .brandEight4 .txt li{
+width:auto;}
+
+.brandHistory{
+display:none;}
+.brandHistory2{
+display:block;}
+.kvBrand4{
+background-position:center top;
+background-size:240% auto;}
+
+.techEachSlide .eachSlide{
+padding-top:30px;}
+
+.collectNewFoot{
+display:block;}
+
+.collectStateUp .right{
+display:none;}
+
+input, select{
+font-size:16px;}
+
+.newsDetailPage{
+text-align:center;}
+
+#contentsarea div.techFixBox1{
+padding:0 0 10% 8%;
+background:url(../images/power-of-h/bg03.gif) no-repeat;
+background-size:90% auto;}
+#contentsarea div.techFixBox2{
+padding:8% 0 10% 20%;
+background:url(../images/power-of-h/bg02.gif) no-repeat;
+background-size:90% auto;}
+#contentsarea div.techFixBox3{}
+.techFixBox3 div{
+display:none;}
+.techFixBox3 img{
+display:block;
+width:100%;}
+
+}
+
+
+@media screen and (min-width: 1280px){
+
+div.wcShowRoom{
+width:1280px;}
+
+}
+
+
+
+@media screen and (orientation:portrait) {
+
+div.rotatePlz{
+display:block;
+position:fixed;
+left:0;
+top:0;
+z-index:9999;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);}
+
+}

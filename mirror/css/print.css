@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+@media (orientation : landscape) {
+
+}
+
+
+@media (orientation : portrait) {
+
+}
+@media screen and (max-width: 1110px){
+.indexBanner .eachTxt .title{
+font-size:40px;
+line-height:50px;}
+.indexBanner .eachTxt .des{
+font-size:30px;
+line-height:38px;}
+.indexBanner .eachTxt .txt{}
+.indexBanner .eachTxt .btn{
+padding:50px 0 0;}
+
+.indexGarageBoxR .each{
+position:absolute;
+width:280px;
+overflow:hidden;}
+.indexGarageBoxR .label{
+padding:0;}
+.indexGarageBoxR .label img, .indexGarageBoxR .img img{
+width:100%;}
+.indexGarageBoxR .label, .indexGarageBoxR .img{
+width:140px;
+overflow:hidden;}
+
+
+}
+
+
+@media screen and (min-width: 1110px){
+.indexNewsTop .btn{
+text-align:center;}
+}

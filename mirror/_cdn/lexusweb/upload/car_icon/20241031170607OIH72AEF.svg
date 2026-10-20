@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x="15.9" y="32" width="68.1" height="36"/>
+    </clipPath>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.2, SVG Export Plug-In . SVG Version: 1.2.0 Build 154)  -->
+  <g>
+    <g id="_圖層_1">
+      <g class="cls-3">
+        <path class="cls-2" d="M36.2,50c0-5.7.8-6.8,5.2-6.8,0,0,.7.2.7,6.8"/>
+        <path class="cls-2" d="M36.2,50c0,5.7.8,6.8,5.2,6.8,0,0,.7-.2.7-6.8"/>
+        <path class="cls-2" d="M72.5,50c0-7.1-3.2-8.6-3.2-8.6,0,0-3.9.5-6.7.8v7.8"/>
+        <path class="cls-2" d="M35.4,41.3l-.7,2.1c-.3.8-1.1,1.1-1.8.9"/>
+        <path class="cls-2" d="M79.5,44.9c-.2-.8-.7-3-2.9-3.5"/>
+        <path class="cls-2" d="M30.4,50c0,4.9,1.1,7.7,2.3,9.2,1.4,1.7,2.3,2,5.7,2h4.8c1.9,0,7.7-.2,11.1-.2s6.3,0,12,0,3,0,5.7.1c1.5,0,2.9,0,3.8,0,1.7,0,3.3-.7,4.5-1.9.8-.8,1.5-1.8,2.1-2.9.9-1.5,1-3.8,1-6.4"/>
+        <path class="cls-2" d="M30.4,50c0-4.9,1.1-7.7,2.3-9.2,1.4-1.7,2.3-2,5.7-2h4.8c1.9,0,7.7.2,11.1.2s6.3,0,12,0,3,0,5.7-.1c1.5,0,2.9,0,3.8,0,1.7,0,3.3.7,4.5,1.9.8.8,1.5,1.8,2.1,2.9.9,1.5,1,3.8,1,6.4"/>
+        <path class="cls-2" d="M36.2,50c0,5.7.8,6.8,5.2,6.8,0,0,.7-.2.7-6.8"/>
+        <path class="cls-2" d="M72.5,50c0,7.1-3.2,8.6-3.2,8.6,0,0-3.9-.5-6.7-.8v-7.8"/>
+        <path class="cls-2" d="M35.4,58.7l-.7-2.1c-.3-.8-1.1-1.1-1.8-.9"/>
+        <path class="cls-2" d="M79.5,55.1c-.2.8-.7,3-2.9,3.5"/>
+        <path class="cls-2" d="M59.4,42.4s-7.2,1.3-15,.9v13.3c7.8-.4,15,.9,15,.9v-15.1Z"/>
+        <line class="cls-2" x1="67.2" y1="39" x2="65.2" y2="37"/>
+        <line class="cls-2" x1="67.2" y1="61" x2="65.2" y2="63"/>
+        <rect class="cls-2" x="16.6" y="32.7" width="5.1" height="34.6"/>
+        <line class="cls-2" x1="28.3" y1="67.3" x2="31.9" y2="67.3"/>
+        <line class="cls-2" x1="35.6" y1="67.3" x2="39.2" y2="67.3"/>
+        <line class="cls-2" x1="42.9" y1="67.3" x2="46.5" y2="67.3"/>
+        <line class="cls-2" x1="50.1" y1="67.3" x2="53.7" y2="67.3"/>
+        <line class="cls-2" x1="57.4" y1="67.3" x2="61" y2="67.3"/>
+        <line class="cls-2" x1="64.7" y1="67.3" x2="68.3" y2="67.3"/>
+        <line class="cls-2" x1="71.8" y1="67.3" x2="75.5" y2="67.3"/>
+        <line class="cls-2" x1="79.1" y1="67.3" x2="82.7" y2="67.3"/>
+        <line class="cls-2" x1="28.3" y1="32.7" x2="31.9" y2="32.7"/>
+        <line class="cls-2" x1="35.6" y1="32.7" x2="39.2" y2="32.7"/>
+        <line class="cls-2" x1="42.9" y1="32.7" x2="46.5" y2="32.7"/>
+        <line class="cls-2" x1="50.1" y1="32.7" x2="53.7" y2="32.7"/>
+        <line class="cls-2" x1="57.4" y1="32.7" x2="61" y2="32.7"/>
+        <line class="cls-2" x1="64.7" y1="32.7" x2="68.3" y2="32.7"/>
+        <line class="cls-2" x1="71.8" y1="32.7" x2="75.5" y2="32.7"/>
+        <line class="cls-2" x1="79.1" y1="32.7" x2="82.7" y2="32.7"/>
+      </g>
+    </g>
+  </g>
+</svg>
