@@ -2,6 +2,6 @@
   "name": "lexus-mirror-tools",
   "private": true,
   "type": "module",
-  "scripts": { "capture": "node capture.mjs ../../mirror" },
+  "scripts": { "capture": "node capture.mjs ../../mirror && node fixcase.mjs ../../mirror" },
   "dependencies": { "puppeteer-core": "23.11.1" }
 }
