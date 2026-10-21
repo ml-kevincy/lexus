@@ -85,13 +85,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .note[hidden] { display: none; }
 .note { background: #fff5e6; color: #7a4a00; border-radius: 8px; padding: 9px 11px; font-size: 13px; }
 @media (prefers-color-scheme: dark) { .note { background: #3a2c14; color: #f0cf9b; } }
-table.params { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.params { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: fixed; }
+.params th:first-child, .params td:first-child { width: 28%; }
+.params td { overflow-wrap: anywhere; }
 .params th, .params td { text-align: left; padding: 6px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .params th { color: var(--muted); font-weight: 500; }
 .params code { font: 12.5px ui-monospace, Menlo, monospace; }
 .dyn { color: var(--warn); }
 .hintline { color: var(--muted); font-size: 11.5px; margin-top: 3px; }
-pre.code { margin: 0; padding: 12px; border-radius: 8px; background: var(--code); color: var(--code-ink); font: 12.5px/1.6 ui-monospace, Menlo, monospace; overflow: auto; white-space: pre; }
+pre.code { margin: 0; padding: 12px; border-radius: 8px; background: var(--code); color: var(--code-ink); font: 12.5px/1.6 ui-monospace, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
 .copy { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 .copy button { border: 1px solid var(--line); background: var(--card); border-radius: 8px; padding: 6px 12px; }
 .copy .solid { border: 0; background: var(--ink); color: var(--card); }
@@ -102,6 +104,9 @@ pre.code { margin: 0; padding: 12px; border-radius: 8px; background: var(--code)
 .modal__box h2 { margin: 0 0 10px; font-size: 16px; }
 .modal__box--wide { max-width: 640px; }
 .modal__box .d { display: grid; gap: 14px; }
+.modal__box .d > *, .d__body > * { min-width: 0; }
+.modal__box { overflow-x: hidden; }
+.d dd { overflow-wrap: anywhere; }
 .modal__box ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
 .modal__x { position: absolute; top: 10px; right: 12px; border: 0; background: transparent; font-size: 22px; }
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 16px); background: var(--ink); color: var(--card); padding: 9px 18px; border-radius: 8px; opacity: 0; pointer-events: none; transition: .25s; z-index: 20; }
