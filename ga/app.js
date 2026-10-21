@@ -160,10 +160,48 @@
       var e = D.evt[k];
       return '<li class="card"><div class="card__h"><code>' + k + '</code><span class="no p' + e.pri + '" style="width:auto;padding:0 8px;border-radius:999px;height:20px">' + ['', '第一優先', '第二優先', '第三優先'][e.pri] + '</span>' +
         (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div><p>' + esc(e.purpose) + '</p><p class="meta">觸發：' + esc(e.trigger) + '</p><p class="meta">參數：' + e.params.join('、') + '</p>' +
-        '<button data-arm="' + k + '"' + (st.edit ? '' : ' disabled title="請先開啟上方的「編輯模式」"') + '>' + (st.edit ? '放置標記' : '開啟編輯模式後可放置') + '</button></li>';
+        '<div class="acts"><button class="alt" data-view="' + k + '">檢視內容</button>' +
+        '<button data-arm="' + k + '"' + (st.edit ? '' : ' disabled title="請先開啟上方的「編輯模式」"') + '>' + (st.edit ? '放置標記' : '開啟編輯模式後可放置') + '</button></div></li>';
     }).join('');
   }
-  $('#lib').addEventListener('click', function (e) { var b = e.target.closest('[data-arm]'); if (b && !b.disabled) arm(b.dataset.arm); });
+  $('#lib').addEventListener('click', function (e) {
+    var v = e.target.closest('[data-view]'); if (v) { showEvent(v.dataset.view); return; }
+    var b = e.target.closest('[data-arm]'); if (b && !b.disabled) arm(b.dataset.arm);
+  });
+
+  /* 事件庫：檢視事件內容的視窗（不用開啟編輯模式） */
+  function templateCode(k) {
+    var e = D.evt[k], rows = [['send_to', "'" + mid() + "'", '研究用 GA4 資源的評估 ID']];
+    e.params.forEach(function (n) {
+      var h = D.help[n] || {};
+      rows.push([n, "'{{" + n + "}}'", (h.any ? '可用值：' + h.any.join(' / ') : '') + (h.any && h.dyn ? '；或' : '') + (h.dyn ? h.dyn + (h.num ? '（數字）' : '') : '')]);
+    });
+    var out = ["gtag('event', '" + k + "', {"];
+    rows.forEach(function (r, i) { out.push('  ' + r[0] + ': ' + r[1] + (i < rows.length - 1 ? ',' : '') + (r[2] ? '  // ' + r[2] : '')); });
+    out.push('});');
+    return out.join('\n');
+  }
+  function showEvent(k) {
+    var e = D.evt[k]; if (!e) return;
+    var rows = e.params.map(function (n) {
+      var h = D.help[n] || {}, parts = [];
+      if (h.any) parts.push('固定值：' + h.any.join('、'));
+      if (h.dyn) parts.push('可由程式動態帶入：' + esc(h.dyn));
+      if (h.opt) parts.push('可以不帶此參數');
+      if (!parts.length) parts.push('—');
+      return '<tr><td><code>' + n + '</code></td><td>' + parts.map(function (t) { return '<div>' + t + '</div>'; }).join('') + '</td></tr>';
+    }).join('');
+    $('#evBody').innerHTML =
+      '<div class="d__h"><code style="font:700 17px ui-monospace,Menlo,monospace">' + k + '</code><span class="tag">' + ['', '第一優先', '第二優先', '第三優先'][e.pri] + '</span>' + (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div>' +
+      '<dl><dt>目的</dt><dd>' + esc(e.purpose) + '</dd><dt>觸發</dt><dd>' + esc(e.trigger) + '</dd></dl>' +
+      '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>內容</th></tr><tr><td><code>send_to</code></td><td>所有事件必填：研究用 GA4 資源的評估 ID（頂端「評估 ID」可修改）</td></tr>' + rows + '</table></div>' +
+      '<div><h3>程式碼範本</h3><pre class="code" id="evCode">' + esc(templateCode(k)) + '</pre><div class="copy"><button class="solid" id="evCopy">複製範本</button></div>' +
+      '<div class="hintline">標記到頁面後，程式碼會依你選的參數值產生；{{ }} 表示由程式動態帶入。</div></div>';
+    $('#evCopy').onclick = function () { copy($('#evCode').textContent, '已複製範本'); };
+    $('#evModal').hidden = false;
+  }
+  $('#evClose').addEventListener('click', function () { $('#evModal').hidden = true; });
+  $('#evModal').addEventListener('click', function (e) { if (e.target.id === 'evModal') this.hidden = true; });
 
   function ctl(m, k, ed) {
     var h = D.help[k] || {}, v = val(m, k), any = h.any ? '<div class="hintline">可用值：' + h.any.join('、') + '</div>' : '';
@@ -296,6 +334,7 @@
   }
   function onKey(e) {
     var tag = (e.target.tagName || '').toLowerCase();
+    if (e.key === 'Escape') { $('#evModal').hidden = true; $('#rulesModal').hidden = true; }
     if (e.key === 'Escape') { if (st.armed) { disarm(); renderPanel(); } else if (st.sel) { st.sel = null; draw(); renderPanel(); } }
     if (e.key === 'Delete' && st.edit && st.sel && tag !== 'input' && tag !== 'select' && tag !== 'textarea') {
       if (confirm('刪除這個標記？')) { st.markers = st.markers.filter(function (x) { return x.id !== st.sel; }); st.sel = null; save(); draw(); renderPanel(); }
