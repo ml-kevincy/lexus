@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>GA 事件標示</title>
+<link rel="stylesheet" href="ga.css">
+</head>
+<body>
+<header class="bar">
+  <strong class="bar__title">GA 事件標示</strong>
+  <div class="seg" data-g="v" role="group" aria-label="版本">
+    <button data-v="mirror">舊版（現行官網）</button>
+    <button data-v="redesign">新版（設計稿）</button>
+  </div>
+  <div class="seg" data-g="p" role="group" aria-label="頁面"></div>
+  <div class="seg" data-g="d" role="group" aria-label="裝置">
+    <button data-v="desktop">桌機</button>
+    <button data-v="mobile">手機</button>
+  </div>
+  <label class="chk"><input type="checkbox" id="marks" checked autocomplete="off"> 顯示標記</label>
+  <label class="chk chk--edit"><input type="checkbox" id="edit" autocomplete="off"> 編輯模式</label>
+  <label class="mid">評估 ID <input id="mid" spellcheck="false" autocomplete="off"></label>
+  <span class="draft" id="draft" hidden>草稿未匯出 <button id="discard">放棄草稿</button></span>
+  <span class="bar__end">
+    <button class="ghost" id="exportBtn">匯出標示</button>
+    <button class="ghost" id="importBtn">匯入</button>
+    <button class="ghost" id="rulesBtn">共通規則</button>
+  </span>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</header>
+
+<main class="main">
+  <section class="stage" id="stage">
+    <div class="hint" id="hint" hidden>
+      <span id="hintText"></span>
+      <label class="chk"><input type="checkbox" id="fixedChk" autocomplete="off"> 固定在畫面上（固定選單、側邊快捷用）</label>
+      <button class="ghost" id="cancelArm">取消</button>
+    </div>
+    <div class="frame-wrap" id="wrap">
+      <iframe id="frame" title="網頁預覽"></iframe>
+      <div class="ext" id="ext" hidden>
+        <p>已離開鏡像網站，外部頁面無法標示。</p>
+        <button class="solid" id="back">回到目前頁面</button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel" id="panel" aria-label="事件資訊">
+    <div class="tabs" id="tabs" role="tablist">
+      <button role="tab" data-t="marks">本頁標記</button>
+      <button role="tab" data-t="lib">事件庫</button>
+    </div>
+    <div class="view" id="marksView">
+      <ul class="list" id="list"></ul>
+      <div class="panel__foot"><button class="solid" id="copyAll">複製本頁全部程式碼</button></div>
+    </div>
+    <div class="view" id="libView" hidden><ul class="list" id="lib"></ul></div>
+    <div class="view" id="detailView" hidden></div>
+  </aside>
+</main>
+
+<div class="modal" id="rulesModal" hidden>
+  <div class="modal__box">
+    <button class="modal__x" id="rulesClose" aria-label="關閉">×</button>
+    <h2>共通規則</h2>
+    <ol id="rulesList"></ol>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="events.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
