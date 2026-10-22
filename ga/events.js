@@ -29,7 +29,6 @@ window.GA_DATA = {
     banner_index:     { dyn: 'Banner 在輪播中的順序，從 1 起算', num: true },
     change_by:        { any: ['auto', 'manual', 'initial'], opt: true, note: 'initial＝載入時第一張；auto＝自動輪播；manual＝使用者手動切換。內頁各特色輪播只能手動，可不帶。' },
     slide_index:      { dyn: '從輪播點擊時，被點擊的是第幾張，從 1 起算；不是從輪播點擊則不帶', num: true, opt: true },
-    spec_type:        { any: ['spec', 'equipment', 'safety'] },
     state:            { any: ['on', 'off'] },
     step:             { any: ['form_start', 'submit_success'] }
   },
@@ -40,7 +39,6 @@ window.GA_DATA = {
     banner_view:      { pri: 1, brief: '輪播中每張 Banner 被看到的次數與順序', params: ['carousel_id', 'banner_title', 'banner_index', 'change_by', 'model'], trigger: '曝光：每張 Banner 進入畫面可視範圍時各送一次（停留秒數門檻待定）', purpose: '了解輪播中每張 Banner 實際被看到的次數與順序。' },
     cta_click:        { pri: 1, brief: '預約試乘、優惠、型錄等按鈕的點擊位置', params: ['cta_type', 'cta_location', 'model'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。在沒有指定車款的頁面（如首頁）點 FAB 時，model 可留空。' },
     section_view:     { pri: 1, brief: '各內容段落是否被看到', params: ['section', 'model'], trigger: '曝光：段落至少一半在畫面內並停留 1 秒以上；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
-    view_spec:        { pri: 2, brief: '規格、配備、安全配備的查看比例', params: ['spec_type', 'model'], trigger: '互動', purpose: '了解規格表、配備表、安全配備的查看比例。' },
     open_compare:     { pri: 1, brief: '比較功能是否被找到、從哪裡進入', params: ['entry_point', 'model'], trigger: '點擊', purpose: '了解比較功能是否被找到、從哪裡進入。對應前測「比較要滑到最底部才找得到」。' },
     test_drive_step:  { pri: 1, brief: '預約試乘表單的開始與完成比例', params: ['step', 'model'], trigger: '表單：form_start＝第一次輸入任一欄位；submit_success＝送出成功後', purpose: '了解已進入表單的人有多少比例完成預約。不得記錄填寫內容。' }
   }
