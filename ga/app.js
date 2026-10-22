@@ -199,7 +199,7 @@
     $('#evBody').innerHTML =
       '<div class="d__h"><span style="color:var(--muted)">事件名稱</span><code style="font:700 17px ui-monospace,Menlo,monospace">' + k + '</code>' + (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div>' +
       '<dl><dt>目的</dt><dd>' + esc(e.purpose) + '</dd><dt>觸發</dt><dd>' + esc(e.trigger) + '</dd></dl>' +
-      '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>內容</th></tr><tr><td><code>send_to</code></td><td>所有事件必填：研究用 GA4 資源的評估 ID（可在「共通規則」視窗修改）</td></tr>' + rows + '</table></div>' +
+      '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>內容</th></tr><tr><td><code>send_to</code></td><td>所有事件必填：研究用 GA4 資源的評估 ID</td></tr>' + rows + '</table></div>' +
       '<div><h3>程式碼範本</h3><pre class="code" id="evCode">' + esc(templateCode(k)) + '</pre><div class="copy"><button class="solid" id="evCopy">複製範本</button></div>' +
       '<div class="hintline">標記到頁面後，程式碼會依你選的參數值產生；{{ }} 表示由程式動態帶入。</div></div>';
     $('#evCopy').onclick = function () { copy($('#evCode').textContent, '已複製範本'); };
