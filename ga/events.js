@@ -21,7 +21,7 @@ window.GA_DATA = {
 
   help: {
     model:            { any: ['ES', 'IS', 'LS', 'RX', 'NX', 'UX', 'LBX', 'LM', 'RZ'], dyn: '依實際車款帶入代號（完整清單待補）', opt: true },
-    entry_point:      { any: ['home_hero', 'home_model_block', 'home_other', 'menu', 'footer', 'model_page_bottom'] },
+    entry_point:      { any: ['menu', 'home_hero', 'home_model_list', 'model_page_recommend', 'model_page_list'], note: '對應入口：\nmenu＝主選單：車款介紹中的所有車款\nhome_hero＝首頁：封面輪播\nhome_model_list＝首頁：底部車款列表\nmodel_page_recommend＝車款介紹頁：底部為您推薦\nmodel_page_list＝車款介紹頁：底部車款列表' },
     cta_type:         { any: ['offer', 'test_drive', 'find_dealer', 'tech_showcase', 'recommend', 'catalog_download', 'compare', 'call_test_drive', 'test_drive_select'], note: '對應按鈕：\noffer＝購車優惠（FAB）\ntest_drive＝試乘諮詢（FAB、車款介紹頁）\nfind_dealer＝據點查詢（FAB）\ntech_showcase＝科技展演（FAB）\nrecommend＝為您推薦（車款介紹頁）\ncatalog_download＝下載型錄（車款介紹頁）\ncompare＝前往全車系比較（車款介紹頁底部）\ncall_test_drive＝電話預約試乘/諮詢（預約試乘頁）\ntest_drive_select＝選車步驟的「試乘/諮詢」（預約試乘頁 01）' },
     cta_location:     { any: ['fab', 'page'], note: 'fab＝左方 FAB 的按鈕\npage＝頁面內容裡的按鈕' },
     section:          { any: ['hero', 'highlight', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging', 'link_plus', 'faq', 'spec_equipment', 'recommend', 'model_list'], note: '對應段落（車款介紹頁由上到下）：\nhero＝封面\nhighlight＝重點特色\nfeature_exterior＝外觀\nfeature_color＝車色\nfeature_interior＝內裝\nfeature_performance＝性能\nfeature_safety＝安全\nfeature_charging＝充電\nlink_plus＝LINK+\nfaq＝FAQ\nspec_equipment＝規格配備\nrecommend＝為您推薦\nmodel_list＝車款列表\n該車款沒有的段落不會送出。' },
@@ -29,7 +29,7 @@ window.GA_DATA = {
     banner_title:     { dyn: 'Banner 上的標題文字（不超過 100 字元）' },
     banner_index:     { dyn: 'Banner 在輪播中的順序，從 1 起算', num: true },
     change_by:        { any: ['auto', 'manual', 'initial'], opt: true, note: 'initial＝載入時第一張；auto＝自動輪播；manual＝使用者手動切換。內頁各特色輪播只能手動，可不帶。' },
-    slide_index:      { dyn: '從輪播點擊時，被點擊的是第幾張，從 1 起算；不是從輪播點擊則不帶', num: true, opt: true },
+    slide_index:      { dyn: '只有 entry_point 為 home_hero（首頁封面輪播）時帶，被點擊的是第幾張，從 1 起算', num: true, opt: true },
     state:            { any: ['on', 'off'] },
   },
 
