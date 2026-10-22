@@ -109,6 +109,9 @@ pre.code { margin: 0; padding: 12px; border-radius: 8px; background: var(--code)
 .modal__box .d > *, .d__body > * { min-width: 0; }
 .modal__box { overflow-x: hidden; }
 .d dd { overflow-wrap: anywhere; }
+.modal__box h3 { margin: 16px 0 6px; font-size: 13px; letter-spacing: .04em; }
+.field label { display: block; margin-bottom: 4px; color: var(--muted); }
+.field input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); font: 13px ui-monospace, Menlo, monospace; }
 .modal__box ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
 .modal__x { position: absolute; top: 10px; right: 12px; border: 0; background: transparent; font-size: 22px; }
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 16px); background: var(--ink); color: var(--card); padding: 9px 18px; border-radius: 8px; opacity: 0; pointer-events: none; transition: .25s; z-index: 20; }

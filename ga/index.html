@@ -21,7 +21,6 @@
   </div>
   <label class="chk"><input type="checkbox" id="marks" checked autocomplete="off"> 顯示標記</label>
   <label class="chk chk--edit"><input type="checkbox" id="edit" autocomplete="off"> 編輯模式</label>
-  <label class="mid">評估 ID <input id="mid" spellcheck="false" autocomplete="off"></label>
   <span class="draft" id="draft" hidden>草稿未匯出 <button id="discard">放棄草稿</button></span>
   <span class="bar__end">
     <button class="ghost" id="exportBtn">匯出標示</button>
@@ -59,9 +58,19 @@
 </main>
 
 <div class="modal" id="rulesModal" hidden>
-  <div class="modal__box">
+  <div class="modal__box modal__box--wide">
     <button class="modal__x" id="rulesClose" aria-label="關閉">×</button>
     <h2>共通規則</h2>
+    <div class="field">
+      <label for="mid">研究用 GA4 資源的評估 ID</label>
+      <input id="mid" spellcheck="false" autocomplete="off">
+      <div class="hintline">填入後，所有事件程式碼與下方基礎追蹤碼的 ID 會一起更新（記在這個瀏覽器）。</div>
+    </div>
+    <h3>GA 基礎追蹤碼（gtag.js）</h3>
+    <pre class="code" id="baseCode"></pre>
+    <div class="copy"><button class="solid" id="baseCopy">複製基礎追蹤碼</button></div>
+    <div class="hintline">每個頁面的 &lt;head&gt; 內放一次，事件程式碼要在它之後執行。正式站已透過 GTM 載入 Google 標記，實際要直接放這段，或改由 GTM 設定，請與前端和媒體代理商確認。</div>
+    <h3>規則</h3>
     <ol id="rulesList"></ol>
   </div>
 </div>
