@@ -120,8 +120,9 @@
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' })); a.download = 'annotations.json'; a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   });
   $('#discard').addEventListener('click', function () {
-    if (!confirm('放棄瀏覽器裡的草稿，改用已發佈的標示嗎？')) return;
-    store(KEY, null); st.markers = st.published.slice(); st.sel = null; $('#draft').hidden = true; draw(); renderPanel();
+    ask('放棄瀏覽器裡的草稿，改用已發佈的標示嗎？', function () {
+      store(KEY, null); st.markers = st.published.slice(); st.sel = null; $('#draft').hidden = true; draw(); renderPanel();
+    });
   });
 
   /* ---------- 側欄 ---------- */
@@ -141,10 +142,27 @@
   var TRASH = '<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h14M8 5V3h4v2M5 5l1 12h8l1-12M8.5 9v5M11.5 9v5"/></svg>';
   function removeMarker(id) {
     var m = byId(id); if (!m) return;
-    if (!confirm('刪除標記 ' + (m.no || '') + '：' + m.ev + (m.label ? '（' + m.label + '）' : '') + '？')) return;
-    st.markers = st.markers.filter(function (x) { return x.id !== id; });
-    if (st.sel === id) st.sel = null;
-    save(); draw(); renderPanel();
+    ask('刪除標記 ' + (m.no || '') + '：' + m.ev + (m.label ? '（' + m.label + '）' : '') + '？', function () {
+      st.markers = st.markers.filter(function (x) { return x.id !== id; });
+      if (st.sel === id) st.sel = null;
+      save(); draw(); renderPanel();
+    });
+  }
+  // 頁面內的確認視窗（內建 confirm 在部分預覽視窗會被擋掉）
+  function ask(msg, yes) {
+    var box = document.createElement('div');
+    box.className = 'modal';
+    box.innerHTML = '<div class="modal__box" style="max-width:380px"><p style="margin:0 0 16px"></p><div class="copy" style="justify-content:flex-end"><button data-k="no">取消</button><button class="solid" data-k="yes">確定</button></div></div>';
+    box.querySelector('p').textContent = msg;
+    function close() { document.removeEventListener('keydown', onKey, true); box.remove(); }
+    function onKey(e) { if (e.key === 'Escape') { e.stopPropagation(); close(); } else if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); close(); yes(); } }
+    box.addEventListener('click', function (e) {
+      var k = e.target.dataset && e.target.dataset.k;
+      if (k === 'yes') { close(); yes(); } else if (k === 'no' || e.target === box) close();
+    });
+    document.addEventListener('keydown', onKey, true);
+    document.body.appendChild(box);
+    box.querySelector('[data-k="yes"]').focus();
   }
   function renderMarks() {
     var l = st.other ? [] : cur();
@@ -374,7 +392,10 @@
   function arm(ev) {
     if (!live || st.other) { toast('請先停在首頁、ES 車款頁或預約試乘頁'); return; }
     var e = D.evt[ev];
-    if (e.only && e.only !== st.v && !confirm('這個事件規格只用在舊版（診斷用，不做前後對照），確定要放在新版嗎？')) return;
+    if (e.only && e.only !== st.v) { ask('這個事件規格只用在舊版（診斷用，不做前後對照），確定要放在新版嗎？', function () { startArm(ev); }); return; }
+    startArm(ev);
+  }
+  function startArm(ev) {
     st.armed = ev; st.sel = null;
     $('#hintText').textContent = '在頁面上拖曳畫出「' + ev + '」要標示的範圍（Esc 取消）';
     hint.hidden = false; buildCapture(); draw(); renderPanel();
