@@ -48,11 +48,7 @@
 
   /* ---------- 參數與程式碼 ---------- */
   function paramList(m) {
-    var a = m.par && m.par.action;
-    return evOf(m).params.filter(function (k) {
-      if (m.ev === 'menu_interaction') { if (k === 'filter_type') return a === 'filter'; if (k === 'model') return a === 'select_model' || a === 'open_compare'; }
-      return true;
-    });
+    return evOf(m).params;
   }
   function val(m, k) { return (m.par && m.par[k]) || ''; }
   function incomplete(m) { return paramList(m).some(function (k) { var h = D.help[k] || {}; return h.any && !h.dyn && val(m, k) === ''; }); }
@@ -256,7 +252,7 @@
     if (t.hasAttribute('data-label')) { m.label = t.value; save(); return; }
     if (t.dataset.k) {
       (m.par = m.par || {})[t.dataset.k] = t.value; save();
-      if (m.ev === 'menu_interaction' && t.dataset.k === 'action') renderDetail(); else refreshCode(m);
+      refreshCode(m);
     }
   });
   function select(id, doLocate) { st.sel = id; draw(); renderPanel(); if (doLocate) locate(byId(id)); }

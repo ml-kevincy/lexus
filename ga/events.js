@@ -30,15 +30,14 @@ window.GA_DATA = {
     total_slides:     { dyn: '輪播總張數', num: true },
     spec_type:        { any: ['spec', 'equipment', 'safety'] },
     switch_type:      { any: ['feature_tab', 'trim_tab'] },
-    action:           { any: ['open', 'filter', 'select_model', 'open_compare'] },
-    filter_type:      { any: ['price', 'model_type', 'charging'] },
+    state:            { any: ['on', 'off'] },
     step:             { any: ['form_start', 'submit_success'] },
     seconds:          { dyn: '段落停留秒數', num: true }
   },
 
   evt: {
     select_model:     { pri: 1, params: ['entry_point', 'model'], trigger: '點擊', purpose: '了解各入口導流到車款頁的比例。首頁、選單、頁尾共用同一事件，以 entry_point 區分。' },
-    menu_interaction: { pri: 1, params: ['action', 'filter_type', 'model'], trigger: '互動（開啟、篩選、選車款、進入比較）', purpose: '了解開啟選單後有多少人順利選到車款、篩選是否被使用。對應前測「選單看得到但看不懂」。filter_type 只在 action＝filter 時填；model 只在 select_model、open_compare 時填。' },
+    spec_switch:      { pri: 1, only: 'mirror', params: ['state'], trigger: '點擊', purpose: '了解舊版車款選單上「售價&規格」切換開關的使用情況；state 記錄點擊後的狀態（on＝顯示售價與規格、off＝隱藏）。' },
     carousel_depth:   { pri: 1, params: ['carousel_id', 'max_index_viewed', 'max_index_manual', 'total_slides', 'model'], trigger: '曝光：離開輪播或離開頁面時送出一次', purpose: '驗證輪播實際被看到第幾張，區分自動與手動。舊版僅能自動輪播，max_index_manual 預期接近 0。首頁輪播不需要 model。' },
     cta_click:        { pri: 1, params: ['cta_type', 'cta_location', 'model'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。首頁、頁尾沒有指定車款時 model 可留空。' },
     section_view:     { pri: 1, params: ['section', 'section_index', 'model'], trigger: '曝光：段落至少一半在畫面內並停留 1 秒以上；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
