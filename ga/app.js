@@ -53,7 +53,7 @@
   function val(m, k) { return (m.par && m.par[k]) || ''; }
   function incomplete(m) { return paramList(m).some(function (k) { var h = D.help[k] || {}; return h.any && !h.dyn && val(m, k) === ''; }); }
   function codeRows(m) {
-    var rows = [['send_to', "'" + mid() + "'", '研究用 GA4 資源的評估 ID'], ['page_url', 'window.location.href', '事件發生的頁面網址']];
+    var rows = [['send_to', "'" + mid() + "'", '研究用 GA4 資源的評估 ID']];
     paramList(m).forEach(function (k) {
       var h = D.help[k] || {}, v = val(m, k), lit, c = '';
       if (v === '@skip') return;
@@ -175,7 +175,7 @@
 
   /* 事件庫：檢視事件內容的視窗（不用開啟編輯模式） */
   function templateCode(k) {
-    var e = D.evt[k], rows = [['send_to', "'" + mid() + "'"], ['page_url', 'window.location.href']];
+    var e = D.evt[k], rows = [['send_to', "'" + mid() + "'"]];
     e.params.forEach(function (n) { rows.push([n, "'{{" + n + "}}'"]); });
     var out = ["gtag('event', '" + k + "', {"];
     rows.forEach(function (r, i) { out.push('  ' + r[0] + ': ' + r[1] + (i < rows.length - 1 ? ',' : '')); });
@@ -195,7 +195,7 @@
     $('#evBody').innerHTML =
       '<div class="d__h"><span style="color:var(--muted)">事件名稱</span><code style="font:700 17px ui-monospace,Menlo,monospace">' + k + '</code>' + (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div>' +
       '<dl><dt>目的</dt><dd>' + esc(e.purpose) + '</dd><dt>觸發</dt><dd>' + esc(e.trigger) + '</dd></dl>' +
-      '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>內容</th></tr><tr><td><code>send_to</code></td><td>所有事件必填：研究用 GA4 資源的評估 ID</td></tr><tr><td><code>page_url</code></td><td>所有事件必填：事件發生的頁面網址（window.location.href）</td></tr>' + rows + '</table></div>' +
+      '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>內容</th></tr><tr><td><code>send_to</code></td><td>所有事件必填：研究用 GA4 資源的評估 ID</td></tr>' + rows + '</table></div>' +
       '<div><h3>程式碼範本</h3><pre class="code" id="evCode">' + esc(templateCode(k)) + '</pre><div class="copy"><button class="solid" id="evCopy">複製範本</button></div>' +
       '<div class="hintline">標記到頁面後，程式碼會依你選的參數值產生；{{ }} 表示由程式動態帶入。</div></div>';
     $('#evCopy').onclick = function () { copy($('#evCode').textContent, '已複製範本'); };
@@ -234,7 +234,6 @@
       '<div class="note" id="incNote"' + (incomplete(m) ? '' : ' hidden') + '>還有參數沒選，程式碼裡會留下「請選擇」的提示。</div>' +
       '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>值</th></tr>' +
       '<tr><td><code>send_to</code></td><td><code>' + esc(mid()) + '</code><div class="hintline">所有事件必填，指定研究用 GA4 資源的評估 ID</div></td></tr>' +
-      '<tr><td><code>page_url</code></td><td><code>window.location.href</code><div class="hintline">所有事件必填，事件發生的頁面網址</div></td></tr>' +
       paramList(m).map(function (k) { return '<tr><td><code>' + k + '</code></td><td>' + ctl(m, k, ed) + '</td></tr>'; }).join('') +
       '</table></div>' +
       '<div><h3>① 元件加上標記屬性</h3><pre class="code">' + esc(attrFor(m)) + '</pre><div class="copy"><button id="cAttr">複製屬性</button></div></div>' +
