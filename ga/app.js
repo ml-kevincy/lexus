@@ -297,7 +297,7 @@
     // 在 iframe 內點連結換頁時，跟著更新版本與頁面
     var path = win.location.pathname.toLowerCase();
     var v = path.indexOf('/redesign/') > -1 ? 'redesign' : path.indexOf('/mirror/') > -1 ? 'mirror' : null;
-    var p = /[?&]ga=menu\b/.test(win.location.search) ? 'menu' : /testdrive/.test(path) ? 'testdrive' : /showroom\/es\.html$/.test(path) ? 'es' : /\/(redesign|mirror)\/(index\.html)?$/.test(path) ? 'home' : 'other';
+    var p = /[?&]ga=menu\b/.test(win.location.search) ? 'menu' : /testdrive/.test(path) ? (/[?&]id=/.test(win.location.search) ? 'testdrive' : 'testdrive_select') : /showroom\/es\.html$/.test(path) ? 'es' : /\/(redesign|mirror)\/(index\.html)?$/.test(path) ? 'home' : 'other';
     st.other = p === 'other';
     if (v && (v !== st.v || (p !== 'other' && p !== st.p))) { st.v = v; if (p !== 'other') st.p = p; st.sel = null; renderBar(); writeHash(); }
     var s = doc.createElement('style'); s.textContent = CSS; doc.head.appendChild(s);

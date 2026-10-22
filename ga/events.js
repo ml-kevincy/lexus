@@ -15,13 +15,14 @@ window.GA_DATA = {
     home:      { label: '首頁',     url: { mirror: '../mirror/',                     redesign: '../redesign/' } },
     menu:      { label: '選單（舊版）', url: { mirror: '../mirror/?ga=menu' } },
     es:        { label: 'ES 車款頁', url: { mirror: '../mirror/showroom/ES.html',     redesign: '../redesign/showroom/ES.html' } },
-    testdrive: { label: '預約試乘',   url: { mirror: '../mirror/testdrive.html?id=36', redesign: '../redesign/testdrive.html?id=36' } }
+    testdrive_select: { label: '預約試乘（01 選車）', url: { mirror: '../mirror/testdrive.html', redesign: '../redesign/testdrive.html' } },
+    testdrive: { label: '預約試乘（02 填表）', url: { mirror: '../mirror/testdrive.html?id=36', redesign: '../redesign/testdrive.html?id=36' } }
   },
 
   help: {
     model:            { any: ['ES', 'IS', 'LS', 'RX', 'NX', 'UX', 'LBX', 'LM', 'RZ'], dyn: '依實際車款帶入代號（完整清單待補）', opt: true },
     entry_point:      { any: ['home_hero', 'home_model_block', 'home_other', 'menu', 'footer', 'model_page_bottom'] },
-    cta_type:         { any: ['offer', 'test_drive', 'find_dealer', 'tech_showcase', 'recommend', 'catalog_download', 'compare', 'call_test_drive'], note: '對應按鈕：\noffer＝購車優惠（FAB）\ntest_drive＝試乘諮詢（FAB、車款介紹頁）\nfind_dealer＝據點查詢（FAB）\ntech_showcase＝科技展演（FAB）\nrecommend＝為您推薦（車款介紹頁）\ncatalog_download＝下載型錄（車款介紹頁）\ncompare＝前往全車系比較（車款介紹頁底部）\ncall_test_drive＝電話預約試乘/諮詢（預約試乘頁）' },
+    cta_type:         { any: ['offer', 'test_drive', 'find_dealer', 'tech_showcase', 'recommend', 'catalog_download', 'compare', 'call_test_drive', 'test_drive_select'], note: '對應按鈕：\noffer＝購車優惠（FAB）\ntest_drive＝試乘諮詢（FAB、車款介紹頁）\nfind_dealer＝據點查詢（FAB）\ntech_showcase＝科技展演（FAB）\nrecommend＝為您推薦（車款介紹頁）\ncatalog_download＝下載型錄（車款介紹頁）\ncompare＝前往全車系比較（車款介紹頁底部）\ncall_test_drive＝電話預約試乘/諮詢（預約試乘頁）\ntest_drive_select＝選車步驟的「試乘/諮詢」（預約試乘頁 01）' },
     cta_location:     { any: ['fab', 'page'], note: 'fab＝左方 FAB 的按鈕\npage＝頁面內容裡的按鈕' },
     section:          { any: ['hero', 'highlight', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging', 'link_plus', 'faq', 'spec_equipment', 'recommend', 'model_list'], note: '對應段落（車款介紹頁由上到下）：\nhero＝封面\nhighlight＝重點特色\nfeature_exterior＝外觀\nfeature_color＝車色\nfeature_interior＝內裝\nfeature_performance＝性能\nfeature_safety＝安全\nfeature_charging＝充電\nlink_plus＝LINK+\nfaq＝FAQ\nspec_equipment＝規格配備\nrecommend＝為您推薦\nmodel_list＝車款列表\n該車款沒有的段落不會送出。' },
     carousel_id:      { any: ['home_hero', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging'], note: '對應位置：\nhome_hero＝首頁_封面輪播\nfeature_exterior＝車款內頁_外觀特色\nfeature_color＝車款內頁_車色特色\nfeature_interior＝車款內頁_內裝特色\nfeature_performance＝車款內頁_性能特色\nfeature_safety＝車款內頁_安全特色\nfeature_charging＝車款內頁_充電特色' },
