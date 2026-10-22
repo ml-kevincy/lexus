@@ -142,16 +142,28 @@
   }
   $('#tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { st.tab = b.dataset.t; st.sel = null; renderPanel(); draw(); } });
 
+  var TRASH = '<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h14M8 5V3h4v2M5 5l1 12h8l1-12M8.5 9v5M11.5 9v5"/></svg>';
+  function removeMarker(id) {
+    var m = byId(id); if (!m) return;
+    if (!confirm('刪除標記 ' + (m.no || '') + '：' + m.ev + (m.label ? '（' + m.label + '）' : '') + '？')) return;
+    st.markers = st.markers.filter(function (x) { return x.id !== id; });
+    if (st.sel === id) st.sel = null;
+    save(); draw(); renderPanel();
+  }
   function renderMarks() {
     var l = st.other ? [] : cur();
     $('#list').innerHTML = l.length ? l.map(function (m) {
       var e = evOf(m);
       return '<li class="row" tabindex="0" data-id="' + m.id + '"><span class="no p' + e.pri + '">' + m.no + '</span><div><div class="row__ev">' + esc(m.ev) + '</div>' +
-        '<div class="row__name">' + esc(m.label || '（未填元件說明）') + '</div></div>' + (incomplete(m) ? '<span class="st warn">參數未完成</span>' : '<span></span>') + '</li>';
+        '<div class="row__name">' + esc(m.label || '（未填元件說明）') + '</div></div>' + (incomplete(m) ? '<span class="st warn">參數未完成</span>' : '<span></span>') +
+        (st.edit ? '<button class="del" data-del="' + m.id + '" title="刪除這個標記" aria-label="刪除標記 ' + m.no + '">' + TRASH + '</button>' : '') + '</li>';
     }).join('') : '<li class="empty">' + (st.other ? '這一頁不在標註範圍內。' : st.edit ? '這一頁還沒有標記。<br>切到「事件庫」，挑一個事件按「放置標記」，再到頁面上拖曳畫出範圍。' : '這一頁還沒有標記。<br>要新增標記，請先開啟上方的「編輯模式」。') + '</li>';
     $('#copyAll').disabled = !l.length;
   }
-  $('#list').addEventListener('click', function (e) { var r = e.target.closest('.row'); if (r) select(r.dataset.id, true); });
+  $('#list').addEventListener('click', function (e) {
+    var d = e.target.closest('[data-del]'); if (d) { e.stopPropagation(); removeMarker(d.dataset.del); return; }
+    var r = e.target.closest('.row'); if (r) select(r.dataset.id, true);
+  });
   $('#list').addEventListener('keydown', function (e) { if (e.key === 'Enter') { var r = e.target.closest('.row'); if (r) select(r.dataset.id, true); } });
   $('#copyAll').addEventListener('click', function () { var l = cur(); copy(l.map(fullCode).join('\n\n'), '已複製本頁 ' + l.length + ' 個事件的程式碼'); });
 
@@ -243,7 +255,7 @@
     $('#cAttr').onclick = function () { copy(attrFor(m), '已複製屬性'); };
     $('#cCode').onclick = function () { copy(codeFor(m), '已複製程式碼'); };
     $('#cBoth').onclick = function () { copy('<!-- ' + (m.label || m.ev) + ' -->\n' + attrFor(m) + '\n\n' + codeFor(m), '已複製'); };
-    if (ed) $('#dDel').onclick = function () { if (!confirm('刪除這個標記？')) return; st.markers = st.markers.filter(function (x) { return x.id !== m.id; }); st.sel = null; save(); draw(); renderPanel(); };
+    if (ed) $('#dDel').onclick = function () { removeMarker(m.id); };
   }
   function refreshCode(m) { var c = $('#codeBox'); if (c) c.textContent = codeFor(m); var n = $('#incNote'); if (n) n.hidden = !incomplete(m); }
   $('#detailView').addEventListener('input', function (e) {
@@ -337,7 +349,7 @@
     if (e.key === 'Escape') { $('#evModal').hidden = true; $('#rulesModal').hidden = true; }
     if (e.key === 'Escape') { if (st.armed) { disarm(); renderPanel(); } else if (st.sel) { st.sel = null; draw(); renderPanel(); } }
     if (e.key === 'Delete' && st.edit && st.sel && tag !== 'input' && tag !== 'select' && tag !== 'textarea') {
-      if (confirm('刪除這個標記？')) { st.markers = st.markers.filter(function (x) { return x.id !== st.sel; }); st.sel = null; save(); draw(); renderPanel(); }
+      removeMarker(st.sel);
     }
   }
   document.addEventListener('keydown', onKey);
