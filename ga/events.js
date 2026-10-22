@@ -2,7 +2,7 @@
    標記放在頁面的哪裡，由人在標示頁上直接畫出來（存在 annotations.json）；這個檔案只放事件本身的內容。
    evt.params：事件帶的參數，順序即程式碼順序。help：參數的可用值（any）與動態值說明（dyn）。 */
 window.GA_DATA = {
-  measurementId: 'G-XXXXXXXXXX',
+  measurementId: 'G-4DVH5EF2RM',
 
   rules: [
     '所有自訂事件都要加 send_to，指定研究用 GA4 資源的評估 ID，避免誤送到媒體代理商的資源。',
