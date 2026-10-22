@@ -166,6 +166,7 @@ for (const pg of PAGES) {
   // root-relative and absolute urls in attributes
   html = html.replace(/(\s(?:src|href|data-[\w-]+|poster|srcset|content|action)\s*=\s*)(["'])([^"']*)\2/gi, (m, a, q, v) => {
     if (/^(#|javascript:|mailto:|tel:|data:)/i.test(v) || !v) return m;
+    if (/data-target\s*=/i.test(a)) return m; // 選單用的是 id 名稱（如 models），不是網址
     if (/srcset/i.test(a)) return a + q + v.split(',').map(s => s.trim().replace(/^\S+/, x => rewriteUrl(x, pg.url, pg.file, { html: true }))).join(', ') + q;
     return a + q + rewriteUrl(v, pg.url, pg.file, { html: true }) + q;
   });

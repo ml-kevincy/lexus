@@ -1,6 +1,6 @@
 # GA 事件標示頁
 
-把舊版（`mirror/`）與新版（`redesign/`）的首頁、ES 車款頁、預約試乘頁放在同一個畫面，
+把舊版（`mirror/`）與新版（`redesign/`）的首頁、ES 車款頁、預約試乘頁（舊版另有展開的「選單」頁）放在同一個畫面，
 在頁面上直接標出要埋 GA4 自訂事件的位置，並提供事件內容與可複製的程式碼給前端。
 
 網址：`/ga/`（可用 `#v=mirror|redesign&p=home|es|testdrive&d=mobile` 直接指定畫面）

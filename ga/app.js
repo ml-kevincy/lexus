@@ -76,6 +76,7 @@
   function renderBar() {
     var pb = $('[data-g="p"]');
     if (!pb.children.length) Object.keys(D.pages).forEach(function (k) { var b = document.createElement('button'); b.dataset.v = k; b.textContent = D.pages[k].label; pb.appendChild(b); });
+    document.querySelectorAll('[data-g="p"] button').forEach(function (b) { b.hidden = !D.pages[b.dataset.v].url[st.v]; });
     [['v', st.v], ['p', st.p], ['d', st.d]].forEach(function (x) {
       document.querySelectorAll('[data-g="' + x[0] + '"] button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === x[1]); });
     });
@@ -89,6 +90,7 @@
     frame.style.width = fw + 'px'; frame.style.height = Math.round(h0 / k) + 'px'; frame.style.transform = 'scale(' + k + ')';
   }
   function go() {
+    if (!D.pages[st.p].url[st.v]) st.p = 'home';
     st.sel = null; disarm(); renderBar(); writeHash(); layout();
     ext.hidden = true; st.other = false;
     frame.src = D.pages[st.p].url[st.v];
@@ -97,7 +99,7 @@
   document.addEventListener('click', function (e) {
     var b = e.target.closest('.seg button'); if (!b) return;
     var g = b.parentNode.dataset.g;
-    if (g === 'd') { st.d = b.dataset.v; st.sel = null; disarm(); renderBar(); writeHash(); layout(); setTimeout(function () { draw(); renderPanel(); }, 300); return; }
+    if (g === 'd') { st.d = b.dataset.v; if (st.p === 'menu') { go(); return; } st.sel = null; disarm(); renderBar(); writeHash(); layout(); setTimeout(function () { draw(); renderPanel(); }, 300); return; }
     st[g] = b.dataset.v; go();
   });
   $('#marks').addEventListener('change', function () { st.marks = this.checked; draw(); });
@@ -277,7 +279,7 @@
     // 在 iframe 內點連結換頁時，跟著更新版本與頁面
     var path = win.location.pathname.toLowerCase();
     var v = path.indexOf('/redesign/') > -1 ? 'redesign' : path.indexOf('/mirror/') > -1 ? 'mirror' : null;
-    var p = /testdrive/.test(path) ? 'testdrive' : /showroom\/es\.html$/.test(path) ? 'es' : /\/(redesign|mirror)\/(index\.html)?$/.test(path) ? 'home' : 'other';
+    var p = /[?&]ga=menu\b/.test(win.location.search) ? 'menu' : /testdrive/.test(path) ? 'testdrive' : /showroom\/es\.html$/.test(path) ? 'es' : /\/(redesign|mirror)\/(index\.html)?$/.test(path) ? 'home' : 'other';
     st.other = p === 'other';
     if (v && (v !== st.v || (p !== 'other' && p !== st.p))) { st.v = v; if (p !== 'other') st.p = p; st.sel = null; renderBar(); writeHash(); }
     var s = doc.createElement('style'); s.textContent = CSS; doc.head.appendChild(s);
@@ -290,7 +292,15 @@
       L.addEventListener('mousedown', onBoxDown, true);
     });
     doc.addEventListener('keydown', onKey, true);
+    if (p === 'menu') openMenu(win);
     draw(); renderPanel();
+  }
+  // 舊版選單靠滑鼠移入開啟、移到別處就收起；在標示頁裡固定展開，方便標記
+  function openMenu(win) {
+    var $j = win.jQuery; if (!$j) return;
+    $j('html').off('mouseover');
+    if (st.d === 'mobile') { if (!$j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click'); return; }
+    $j('#menu__main a[data-target="models"]').trigger('mouseover');
   }
   function teardown() { live = null; }
   frame.addEventListener('load', setup);

@@ -13,6 +13,7 @@ window.GA_DATA = {
 
   pages: {
     home:      { label: '首頁',     url: { mirror: '../mirror/',                     redesign: '../redesign/' } },
+    menu:      { label: '選單（舊版）', url: { mirror: '../mirror/?ga=menu' } },
     es:        { label: 'ES 車款頁', url: { mirror: '../mirror/showroom/ES.html',     redesign: '../redesign/showroom/ES.html' } },
     testdrive: { label: '預約試乘',   url: { mirror: '../mirror/testdrive.html?id=36', redesign: '../redesign/testdrive.html?id=36' } }
   },
