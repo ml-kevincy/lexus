@@ -292,13 +292,31 @@
       L.addEventListener('mousedown', onBoxDown, true);
     });
     doc.addEventListener('keydown', onKey, true);
+    // 只做了首頁、ES 車款頁、預約試乘頁：其他連結一律不跳轉，避免出現錯誤頁
+    var okPaths = Object.keys(D.pages).map(function (k) { return D.pages[k].url[st.v]; }).filter(Boolean)
+      .map(function (u) { return normPath(new URL(u, location.href).pathname); });
+    doc.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+      var h = a.getAttribute('href');
+      if (!h || h.charAt(0) === '#' || /^javascript:/i.test(h)) return;
+      var u; try { u = new URL(a.href); } catch (x) { u = null; }
+      if (u && u.origin === location.origin && okPaths.indexOf(normPath(u.pathname)) > -1) return;
+      e.preventDefault(); e.stopPropagation();
+    }, true);
     if (p === 'menu') openMenu(win);
     draw(); renderPanel();
   }
   // 舊版選單靠滑鼠移入開啟、移到別處就收起；在標示頁裡固定展開，方便標記
+  function normPath(p) { return p.toLowerCase().replace(/index\.html$/, '').replace(/\/$/, ''); }
   function openMenu(win) {
     var $j = win.jQuery; if (!$j) return;
     $j('html').off('mouseover');
+    // 點選單以外的地方就收起選單（編輯、放置標記時不收）
+    win.document.addEventListener('click', function (e) {
+      if (st.edit || st.armed || e.target.closest('#Menu, #ga-abs, #ga-fix')) return;
+      if ($j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click');
+      $j('.submenu').removeClass('on show'); $j('.submenu .submenu__group').hide(); $j('.menu__navigation li').removeClass('current');
+    }, true);
     if (st.d === 'mobile') { if (!$j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click'); return; }
     $j('#menu__main a[data-target="models"]').trigger('mouseover');
   }
