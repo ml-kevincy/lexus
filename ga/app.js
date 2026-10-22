@@ -180,13 +180,10 @@
 
   /* 事件庫：檢視事件內容的視窗（不用開啟編輯模式） */
   function templateCode(k) {
-    var e = D.evt[k], rows = [['send_to', "'" + mid() + "'", '研究用 GA4 資源的評估 ID']];
-    e.params.forEach(function (n) {
-      var h = D.help[n] || {};
-      rows.push([n, "'{{" + n + "}}'", (h.any ? '可用值：' + h.any.join(' / ') : '') + (h.any && h.dyn ? '；或' : '') + (h.dyn ? h.dyn + (h.num ? '（數字）' : '') : '')]);
-    });
+    var e = D.evt[k], rows = [['send_to', "'" + mid() + "'"]];
+    e.params.forEach(function (n) { rows.push([n, "'{{" + n + "}}'"]); });
     var out = ["gtag('event', '" + k + "', {"];
-    rows.forEach(function (r, i) { out.push('  ' + r[0] + ': ' + r[1] + (i < rows.length - 1 ? ',' : '') + (r[2] ? '  // ' + r[2] : '')); });
+    rows.forEach(function (r, i) { out.push('  ' + r[0] + ': ' + r[1] + (i < rows.length - 1 ? ',' : '')); });
     out.push('});');
     return out.join('\n');
   }
