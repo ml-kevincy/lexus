@@ -20,7 +20,7 @@ window.GA_DATA = {
   },
 
   help: {
-    model:            { any: ['ES', 'IS', 'LS', 'LBX', 'UX', 'NX', 'RX', 'LM', 'RZ', 'LESC'], dyn: '依頁面或按鈕所屬的車款帶入代號', opt: true, note: '車款代號：\nES、IS、LS（SEDAN）\nLBX、UX、NX、RX、LM（SUV/MPV）\nRZ（BEV）\nLESC＝Lexus Electrified Sport Concept（CONCEPT）' },
+    model:            { any: ['ES', 'IS', 'LS', 'LBX', 'UX', 'NX', 'RX', 'LM', 'RZ', 'LESC', 'LF-ZC'], dyn: '依頁面或按鈕所屬的車款帶入代號', opt: true, note: '車款代號：\nES、IS、LS（SEDAN）\nLBX、UX、NX、RX、LM（SUV/MPV）\nRZ（BEV）\nLESC＝Lexus Electrified Sport Concept（CONCEPT）\nLF-ZC（CONCEPT）' },
     entry_point:      { any: ['menu', 'home_hero', 'home_model_list', 'model_page_recommend', 'model_page_list'], note: '對應入口：\nmenu＝主選單：車款介紹中的所有車款\nhome_hero＝首頁：封面輪播\nhome_model_list＝首頁：底部車款列表\nmodel_page_recommend＝車款介紹頁：底部為您推薦\nmodel_page_list＝車款介紹頁：底部車款列表' },
     cta_type:         { any: ['offer', 'test_drive', 'find_dealer', 'tech_showcase', 'recommend', 'catalog_download', 'compare', 'call_test_drive', 'test_drive_select'], note: '對應按鈕：\noffer＝購車優惠（FAB）\ntest_drive＝試乘諮詢（FAB、車款介紹頁）\nfind_dealer＝據點查詢（FAB）\ntech_showcase＝科技展演（FAB）\nrecommend＝為您推薦（車款介紹頁）\ncatalog_download＝下載型錄（車款介紹頁）\ncompare＝前往全車系比較（車款介紹頁底部）\ncall_test_drive＝電話預約試乘/諮詢（預約試乘頁）\ntest_drive_select＝選車步驟的「試乘/諮詢」（預約試乘頁 01）' },
     cta_location:     { any: ['fab', 'page'], note: 'fab＝左方 FAB 的按鈕\npage＝頁面內容裡的按鈕' },
