@@ -167,7 +167,7 @@
   function renderLib() {
     $('#lib').innerHTML = Object.keys(D.evt).map(function (k) {
       var e = D.evt[k];
-      return '<li class="card"><div class="card__h"><code>' + k + '</code><span class="no p' + e.pri + '" style="width:auto;padding:0 8px;border-radius:999px;height:20px">' + ['', '第一優先', '第二優先', '第三優先'][e.pri] + '</span>' +
+      return '<li class="card"><div class="card__h"><code>' + k + '</code>' +
         (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div><p>' + esc(e.purpose) + '</p><p class="meta">觸發：' + esc(e.trigger) + '</p><p class="meta">參數：' + e.params.join('、') + '</p>' +
         '<div class="acts"><button class="alt" data-view="' + k + '">檢視內容</button>' +
         '<button data-arm="' + k + '"' + (st.edit ? '' : ' disabled title="請先開啟上方的「編輯模式」"') + '>' + (st.edit ? '放置標記' : '開啟編輯模式後可放置') + '</button></div></li>';
@@ -201,7 +201,7 @@
       return '<tr><td><code>' + n + '</code></td><td>' + parts.map(function (t) { return '<div>' + t + '</div>'; }).join('') + '</td></tr>';
     }).join('');
     $('#evBody').innerHTML =
-      '<div class="d__h"><span style="color:var(--muted)">事件名稱</span><code style="font:700 17px ui-monospace,Menlo,monospace">' + k + '</code><span class="tag">' + ['', '第一優先', '第二優先', '第三優先'][e.pri] + '</span>' + (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div>' +
+      '<div class="d__h"><span style="color:var(--muted)">事件名稱</span><code style="font:700 17px ui-monospace,Menlo,monospace">' + k + '</code>' + (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div>' +
       '<dl><dt>目的</dt><dd>' + esc(e.purpose) + '</dd><dt>觸發</dt><dd>' + esc(e.trigger) + '</dd></dl>' +
       '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>內容</th></tr><tr><td><code>send_to</code></td><td>所有事件必填：研究用 GA4 資源的評估 ID（可在「共通規則」視窗修改）</td></tr>' + rows + '</table></div>' +
       '<div><h3>程式碼範本</h3><pre class="code" id="evCode">' + esc(templateCode(k)) + '</pre><div class="copy"><button class="solid" id="evCopy">複製範本</button></div>' +
@@ -236,7 +236,7 @@
       '<div class="d__bar"><button id="dBack">← 回清單</button><span class="sp"></span><button id="dLocate">在畫面上找到</button>' + (ed ? '<button class="danger" id="dDel">刪除標記</button>' : '') + '</div>' +
       '<div class="d__body">' +
       '<div class="d__h"><span class="no p' + e.pri + '">' + m.no + '</span><code>' + esc(m.ev) + '</code></div>' +
-      '<div><span class="tag">' + ['', '第一優先', '第二優先', '第三優先（僅舊版）'][e.pri] + '</span> <span class="tag">' + VL[m.v] + '・' + D.pages[m.p].label + '・' + (m.d === 'mobile' ? '手機' : '桌機') + (m.fixed ? '・固定在畫面' : '') + '</span></div>' +
+      '<div><span class="tag">' + VL[m.v] + '・' + D.pages[m.p].label + '・' + (m.d === 'mobile' ? '手機' : '桌機') + (m.fixed ? '・固定在畫面' : '') + '</span></div>' +
       '<dl><dt>元件</dt><dd>' + (ed ? '<input type="text" data-label value="' + esc(m.label || '') + '" placeholder="例如：KV 主視覺的「深入探索」按鈕">' : esc(m.label || '（未填）')) + '</dd>' +
       '<dt>觸發</dt><dd>' + esc(e.trigger) + '</dd><dt>目的</dt><dd>' + esc(e.purpose) + '</dd></dl>' +
       '<div class="note" id="incNote"' + (incomplete(m) ? '' : ' hidden') + '>還有參數沒選，程式碼裡會留下「請選擇」的提示。</div>' +
