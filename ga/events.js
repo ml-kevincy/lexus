@@ -21,8 +21,8 @@ window.GA_DATA = {
   help: {
     model:            { any: ['ES', 'IS', 'LS', 'RX', 'NX', 'UX', 'LBX', 'LM', 'RZ'], dyn: '依實際車款帶入代號（完整清單待補）', opt: true },
     entry_point:      { any: ['home_hero', 'home_model_block', 'home_other', 'menu', 'footer', 'model_page_bottom'] },
-    cta_type:         { any: ['test_drive', 'offer', 'catalog_download', 'smart_plan'], dyn: '依按鈕類型帶入' },
-    cta_location:     { any: ['home_hero', 'home_body', 'model_top', 'model_body', 'model_bottom', 'footer'] },
+    cta_type:         { any: ['offer', 'test_drive', 'find_dealer', 'tech_showcase', 'recommend', 'catalog_download'], note: '對應按鈕：\noffer＝購車優惠（FAB）\ntest_drive＝試乘諮詢（FAB、車款介紹頁）\nfind_dealer＝據點查詢（FAB）\ntech_showcase＝科技展演（FAB）\nrecommend＝為您推薦（車款介紹頁）\ncatalog_download＝下載型錄（車款介紹頁）' },
+    cta_location:     { any: ['fab', 'home_hero', 'home_body', 'model_top', 'model_body', 'model_bottom', 'footer'] },
     section:          { any: ['hero', 'highlight', 'feature', 'customize', 'spec', 'equipment', 'compare', 'faq'] },
     carousel_id:      { any: ['home_hero', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging'], note: '對應位置：\nhome_hero＝首頁_封面輪播\nfeature_exterior＝車款內頁_外觀特色\nfeature_color＝車款內頁_車色特色\nfeature_interior＝車款內頁_內裝特色\nfeature_performance＝車款內頁_性能特色\nfeature_safety＝車款內頁_安全特色\nfeature_charging＝車款內頁_充電特色' },
     banner_title:     { dyn: 'Banner 上的標題文字（不超過 100 字元）' },
