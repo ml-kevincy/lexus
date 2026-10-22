@@ -24,7 +24,7 @@
   }
   function strip(m) { var c = {}; Object.keys(m).forEach(function (k) { if (k !== 'no') c[k] = m[k]; }); return c; }
   function save() { store(KEY, JSON.stringify(st.markers.map(strip))); $('#draft').hidden = false; }
-  function mid() { return ($('#mid').value || D.measurementId).trim(); }
+  function mid() { return D.measurementId; }
   function baseCode() {
     var id = mid();
     return '<!-- Google tag (gtag.js)：研究用 GA4 資源 -->\n' +
@@ -106,8 +106,7 @@
   });
   $('#marks').addEventListener('change', function () { st.marks = this.checked; draw(); });
   $('#edit').addEventListener('change', function () { st.edit = this.checked; if (!st.edit) disarm(); draw(); renderPanel(); });
-  $('#mid').value = store('ga-mid') || D.measurementId;
-  $('#mid').addEventListener('input', function () { store('ga-mid', this.value); renderBase(); var m = byId(st.sel); if (m) refreshCode(m); });
+  $('#mid').value = D.measurementId; $('#mid').readOnly = true;
   $('#baseCopy').addEventListener('click', function () { copy(baseCode(), '已複製基礎追蹤碼'); });
   renderBase();
   $('#rulesList').innerHTML = D.rules.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('');
@@ -238,7 +237,7 @@
       '<dt>觸發</dt><dd>' + esc(e.trigger) + '</dd><dt>目的</dt><dd>' + esc(e.purpose) + '</dd></dl>' +
       '<div class="note" id="incNote"' + (incomplete(m) ? '' : ' hidden') + '>還有參數沒選，程式碼裡會留下「請選擇」的提示。</div>' +
       '<div><h3>參數</h3><table class="params"><tr><th>名稱</th><th>值</th></tr>' +
-      '<tr><td><code>send_to</code></td><td><code>' + esc(mid()) + '</code><div class="hintline">所有事件必填；可在「共通規則」視窗修改</div></td></tr>' +
+      '<tr><td><code>send_to</code></td><td><code>' + esc(mid()) + '</code><div class="hintline">所有事件必填，指定研究用 GA4 資源的評估 ID</div></td></tr>' +
       paramList(m).map(function (k) { return '<tr><td><code>' + k + '</code></td><td>' + ctl(m, k, ed) + '</td></tr>'; }).join('') +
       '</table></div>' +
       '<div><h3>① 元件加上標記屬性</h3><pre class="code">' + esc(attrFor(m)) + '</pre><div class="copy"><button id="cAttr">複製屬性</button></div></div>' +
