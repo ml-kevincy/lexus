@@ -120,3 +120,15 @@
     attributeFilter: ['src', 'href', 'srcset', 'style', 'poster', 'data-src'],
   });
 })();
+
+/* load 事件在鏡像站太早結束（API 讀的是本機快照），頁面程式晚綁定 load 就永遠等不到，
+   首圖等進場動畫會一直停在透明狀態。晚綁的 load 監聽補觸發一次。 */
+(function () {
+  var add = window.addEventListener;
+  window.addEventListener = function (type, fn) {
+    if (type === 'load' && typeof fn === 'function' && document.readyState === 'complete') {
+      setTimeout(function () { fn.call(window, new Event('load')); }, 0);
+    }
+    return add.apply(this, arguments);
+  };
+})();

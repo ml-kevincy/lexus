@@ -10,7 +10,7 @@
   var COLOR = { 1: '#d6001c', 2: '#e07b00', 3: '#3f6fb5' };
   var KEY = 'ga-markers-draft';
 
-  var st = { v: 'redesign', p: 'home', d: 'desktop', edit: false, marks: true, tab: 'marks', sel: null, armed: null, markers: [], published: [], other: false };
+  var st = { v: 'mirror', p: 'home', d: 'desktop', edit: false, marks: true, tab: 'marks', sel: null, armed: null, markers: [], published: [], other: false };
   var frame = $('#frame'), wrap = $('#wrap'), stage = $('#stage'), ext = $('#ext'), hint = $('#hint');
   var live = null;
 
