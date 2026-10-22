@@ -7,7 +7,7 @@
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var VL = { mirror: '舊版', redesign: '新版' };
   var FW = { desktop: 1440, mobile: 390 };        // 固定的版面寬度，讓標記位置在不同螢幕上一致
-  var COLOR = { 1: '#d6001c', 2: '#e07b00', 3: '#3f6fb5' };
+  var COLOR = { 1: '#d6001c' };
   var KEY = 'ga-markers-draft';
 
   var st = { v: 'mirror', p: 'home', d: 'desktop', edit: false, marks: true, tab: 'marks', sel: null, armed: null, markers: [], published: [], other: false };
@@ -37,7 +37,7 @@
       '<\/script>';
   }
   function renderBase() { $('#baseCode').textContent = baseCode(); }
-  function evOf(m) { return D.evt[m.ev] || { pri: 1, params: [], trigger: '', purpose: '（事件庫中找不到這個事件）' }; }
+  function evOf(m) { return D.evt[m.ev] || { params: [], trigger: '', purpose: '（事件庫中找不到這個事件）' }; }
   function byId(id) { return st.markers.filter(function (m) { return m.id === id; })[0]; }
   function cur() {
     var l = st.markers.filter(function (m) { return m.v === st.v && m.p === st.p && m.d === st.d; });
@@ -168,7 +168,7 @@
     var l = st.other ? [] : cur();
     $('#list').innerHTML = l.length ? l.map(function (m) {
       var e = evOf(m);
-      return '<li class="row" tabindex="0" data-id="' + m.id + '"><span class="no p' + e.pri + '">' + m.no + '</span><div><div class="row__ev">' + esc(m.ev) + '</div>' +
+      return '<li class="row" tabindex="0" data-id="' + m.id + '"><span class="no p1">' + m.no + '</span><div><div class="row__ev">' + esc(m.ev) + '</div>' +
         '<div class="row__name">' + esc(m.label || '（未填元件說明）') + '</div></div>' + (incomplete(m) ? '<span class="st warn">參數未完成</span>' : '<span></span>') +
         (st.edit ? '<button class="del" data-del="' + m.id + '" title="刪除這個標記" aria-label="刪除標記 ' + m.no + '">' + TRASH + '</button>' : '') + '</li>';
     }).join('') : '<li class="empty">' + (st.other ? '這一頁不在標註範圍內。' : st.edit ? '這一頁還沒有標記。<br>切到「事件庫」，挑一個事件按「放置標記」，再到頁面上拖曳畫出範圍。' : '這一頁還沒有標記。<br>要新增標記，請先開啟上方的「編輯模式」。') + '</li>';
@@ -248,7 +248,7 @@
     dv.innerHTML =
       '<div class="d__bar"><button id="dBack">← 回清單</button><span class="sp"></span><button id="dLocate">在畫面上找到</button>' + (ed ? '<button class="danger" id="dDel">刪除標記</button>' : '') + '</div>' +
       '<div class="d__body">' +
-      '<div class="d__h"><span class="no p' + e.pri + '">' + m.no + '</span><code>' + esc(m.ev) + '</code></div>' +
+      '<div class="d__h"><span class="no p1">' + m.no + '</span><code>' + esc(m.ev) + '</code></div>' +
       '<div><span class="tag">' + VL[m.v] + '・' + D.pages[m.p].label + '・' + (m.d === 'mobile' ? '手機' : '桌機') + (m.fixed ? '・固定在畫面' : '') + '</span></div>' +
       '<dl><dt>元件</dt><dd>' + (ed ? '<input type="text" data-label value="' + esc(m.label || '') + '" placeholder="例如：KV 主視覺的「深入探索」按鈕">' : esc(m.label || '（未填）')) + '</dd>' +
       '<dt>觸發</dt><dd>' + esc(e.trigger) + '</dd><dt>目的</dt><dd>' + esc(e.purpose) + '</dd></dl>' +
@@ -343,7 +343,7 @@
     if (!live) return;
     var l = st.other ? [] : cur(), A = '', F = '';
     l.forEach(function (m) {
-      var c = COLOR[evOf(m).pri || 1], sel = m.id === st.sel ? ' is-sel' : '';
+      var c = COLOR[1], sel = m.id === st.sel ? ' is-sel' : '';
       var h = '<div class="ga-box' + sel + '" data-id="' + m.id + '" style="--c:' + c + ';left:' + m.x + 'px;top:' + m.y + 'px;width:' + m.w + 'px;height:' + m.h + 'px"><i class="ga-handle"></i></div>' +
         '<div class="ga-badge' + sel + '" data-id="' + m.id + '" title="' + esc(m.ev) + '" style="--c:' + c + ';left:' + (m.x - 8) + 'px;top:' + (m.y - 8) + 'px">' + m.no + '</div>';
       if (m.fixed) F += h; else A += h;

@@ -52,7 +52,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .row__ev { font: 600 13px ui-monospace, Menlo, monospace; word-break: break-all; }
 .row__name { color: var(--muted); font-size: 12.5px; }
 .no { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font-size: 12px; font-weight: 700; flex: none; }
-.no.p1 { background: var(--p1); } .no.p2 { background: var(--p2); } .no.p3 { background: var(--p3); }
+.no.p1 { background: var(--p1); }
 .st { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--line); color: var(--muted); }
 .st.warn { color: var(--warn); border-color: currentColor; }
 .row .del { align-self: center; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 8px; width: 30px; height: 30px; display: grid; place-items: center; padding: 0; }
