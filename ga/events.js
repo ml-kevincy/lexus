@@ -25,7 +25,7 @@ window.GA_DATA = {
     cta_location:     { any: ['home_hero', 'home_body', 'model_top', 'model_body', 'model_bottom', 'footer'] },
     section:          { any: ['hero', 'highlight', 'feature', 'customize', 'spec', 'equipment', 'compare', 'faq'] },
     section_index:    { dyn: '段落順序，從 1 起算', num: true },
-    carousel_id:      { any: ['home_hero', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging'], note: '對應位置：home_hero＝首頁_封面輪播；feature_exterior＝車款內頁_外觀特色；feature_color＝車款內頁_車色特色；feature_interior＝車款內頁_內裝特色；feature_performance＝車款內頁_性能特色；feature_safety＝車款內頁_安全特色；feature_charging＝車款內頁_充電特色' },
+    carousel_id:      { any: ['home_hero', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging'], note: '對應位置：\nhome_hero＝首頁_封面輪播\nfeature_exterior＝車款內頁_外觀特色\nfeature_color＝車款內頁_車色特色\nfeature_interior＝車款內頁_內裝特色\nfeature_performance＝車款內頁_性能特色\nfeature_safety＝車款內頁_安全特色\nfeature_charging＝車款內頁_充電特色' },
     banner_id:        { dyn: '前端為每張 Banner 設定的固定英文代碼，例如 hero_es_launch' },
     banner_title:     { dyn: 'Banner 上的標題文字（不超過 100 字元）' },
     banner_index:     { dyn: 'Banner 在輪播中的順序，從 1 起算', num: true },
