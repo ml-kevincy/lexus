@@ -24,7 +24,7 @@ window.GA_DATA = {
     cta_location:     { any: ['home_hero', 'home_body', 'model_top', 'model_body', 'model_bottom', 'footer'] },
     section:          { any: ['hero', 'highlight', 'feature', 'customize', 'spec', 'equipment', 'compare', 'faq'] },
     section_index:    { dyn: '段落順序，從 1 起算', num: true },
-    carousel_id:      { any: ['home_hero', 'highlight', 'feature_exterior', 'feature_interior'] },
+    carousel_id:      { any: ['home_hero', 'feature_exterior', 'feature_color', 'feature_interior', 'feature_performance', 'feature_safety', 'feature_charging'], note: '對應位置：home_hero＝首頁_封面輪播；feature_exterior＝車款內頁_外觀特色；feature_color＝車款內頁_車色特色；feature_interior＝車款內頁_內裝特色；feature_performance＝車款內頁_性能特色；feature_safety＝車款內頁_安全特色；feature_charging＝車款內頁_充電特色' },
     banner_id:        { dyn: '前端為每張 Banner 設定的固定英文代碼，例如 hero_es_launch' },
     banner_title:     { dyn: 'Banner 上的標題文字（不超過 100 字元）' },
     banner_index:     { dyn: 'Banner 在輪播中的順序，從 1 起算', num: true },
@@ -41,7 +41,7 @@ window.GA_DATA = {
   evt: {
     select_model:     { pri: 1, params: ['entry_point', 'model', 'slide_index'], trigger: '點擊', purpose: '了解各入口導流到車款頁的比例。首頁、選單、頁尾共用同一事件，以 entry_point 區分。' },
     spec_switch:      { pri: 1, only: 'mirror', params: ['state'], trigger: '點擊', purpose: '了解舊版車款選單上「售價&規格」切換開關的使用情況；state 記錄點擊後的狀態（on＝顯示售價與規格、off＝隱藏）。' },
-    banner_view:      { pri: 1, params: ['carousel_id', 'banner_id', 'banner_title', 'banner_index', 'total_slides', 'change_by', 'model'], trigger: '曝光：每張 Banner 進入畫面可視範圍時各送一次（停留秒數門檻待定）', purpose: '了解輪播中每一張 Banner 實際被看到的次數與順序。banner_id 用固定代碼統計，banner_title 收畫面上的標題文字，兩者分開，改文案時仍可用代碼串接。change_by 記錄這張是怎麼出現的：initial＝載入時第一張、auto＝自動輪播、manual＝使用者手動切換；車款內頁輪播只能手動，change_by 不需要帶。model 帶這張 Banner 對應的車款代號（首頁輪播也帶）；Banner 沒有對應特定車款時可不帶。從 Banner 點擊連結由 select_model、cta_click 記錄。' },
+    banner_view:      { pri: 1, params: ['carousel_id', 'banner_id', 'banner_title', 'banner_index', 'total_slides', 'change_by', 'model'], trigger: '曝光：每張 Banner 進入畫面可視範圍時各送一次（停留秒數門檻待定）', purpose: '了解輪播中每一張 Banner 實際被看到的次數與順序。banner_id 用固定代碼統計，banner_title 收畫面上的標題文字，兩者分開，改文案時仍可用代碼串接。change_by 記錄這張是怎麼出現的：initial＝載入時第一張、auto＝自動輪播、manual＝使用者手動切換；內頁各特色輪播只能手動，change_by 不需要帶。model 帶這張 Banner 對應的車款代號（首頁輪播也帶）；Banner 沒有對應特定車款時可不帶。從 Banner 點擊連結由 select_model、cta_click 記錄。' },
     cta_click:        { pri: 1, params: ['cta_type', 'cta_location', 'model', 'slide_index'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。首頁、頁尾沒有指定車款時 model 可留空。' },
     section_view:     { pri: 1, params: ['section', 'section_index', 'model'], trigger: '曝光：段落至少一半在畫面內並停留 1 秒以上；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
     section_time:     { pri: 2, params: ['section', 'seconds', 'model'], trigger: '曝光：段落離開畫面時送出', purpose: '了解各段落的停留時間（視前端人力決定是否納入）。段落順序與回看行為改由 Hotjar 觀察。' },

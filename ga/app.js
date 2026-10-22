@@ -188,6 +188,7 @@
       var h = D.help[n] || {}, parts = [];
       if (h.any) parts.push('固定值：' + h.any.join('、'));
       if (h.dyn) parts.push('可由程式動態帶入：' + esc(h.dyn));
+      if (h.note) parts.push(esc(h.note));
       if (h.opt) parts.push('可以不帶此參數');
       if (!parts.length) parts.push('—');
       return '<tr><td><code>' + n + '</code></td><td>' + parts.map(function (t) { return '<div>' + t + '</div>'; }).join('') + '</td></tr>';
