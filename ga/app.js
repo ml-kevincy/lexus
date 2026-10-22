@@ -306,7 +306,7 @@
     if (p === 'menu') openMenu(win);
     draw(); renderPanel();
   }
-  // 舊版選單靠滑鼠移入開啟、移到別處就收起；在標示頁裡固定展開，方便標記
+  // 舊版選單靠滑鼠移入開啟、移到別處就收起；在標示頁裡開啟後維持展開，點選單以外才收起（載入時不預設展開）
   function normPath(p) { return p.toLowerCase().replace(/index\.html$/, '').replace(/\/$/, ''); }
   function openMenu(win) {
     var $j = win.jQuery; if (!$j) return;
@@ -317,8 +317,6 @@
       if ($j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click');
       $j('.submenu').removeClass('on show'); $j('.submenu .submenu__group').hide(); $j('.menu__navigation li').removeClass('current');
     }, true);
-    if (st.d === 'mobile') { if (!$j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click'); return; }
-    $j('#menu__main a[data-target="models"]').trigger('mouseover');
   }
   function teardown() { live = null; }
   frame.addEventListener('load', setup);
