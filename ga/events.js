@@ -39,16 +39,16 @@ window.GA_DATA = {
   },
 
   evt: {
-    select_model:     { pri: 1, params: ['entry_point', 'model', 'slide_index'], trigger: '點擊', purpose: '了解各入口導流到車款頁的比例。首頁、選單、頁尾共用同一事件，以 entry_point 區分。' },
-    spec_switch:      { pri: 1, only: 'mirror', params: ['state'], trigger: '點擊', purpose: '了解舊版車款選單上「售價&規格」切換開關的使用情況；state 記錄點擊後的狀態（on＝顯示售價與規格、off＝隱藏）。' },
-    banner_view:      { pri: 1, params: ['carousel_id', 'banner_id', 'banner_title', 'banner_index', 'total_slides', 'change_by', 'model'], trigger: '曝光：每張 Banner 進入畫面可視範圍時各送一次（停留秒數門檻待定）', purpose: '了解輪播中每一張 Banner 實際被看到的次數與順序。banner_id 用固定代碼統計，banner_title 收畫面上的標題文字，兩者分開，改文案時仍可用代碼串接。change_by 記錄這張是怎麼出現的：initial＝載入時第一張、auto＝自動輪播、manual＝使用者手動切換；內頁各特色輪播只能手動，change_by 不需要帶。model 帶這張 Banner 對應的車款代號（首頁輪播也帶）；Banner 沒有對應特定車款時可不帶。從 Banner 點擊連結由 select_model、cta_click 記錄。' },
-    cta_click:        { pri: 1, params: ['cta_type', 'cta_location', 'model', 'slide_index'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。首頁、頁尾沒有指定車款時 model 可留空。' },
-    section_view:     { pri: 1, params: ['section', 'section_index', 'model'], trigger: '曝光：段落至少一半在畫面內並停留 1 秒以上；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
-    section_time:     { pri: 2, params: ['section', 'seconds', 'model'], trigger: '曝光：段落離開畫面時送出', purpose: '了解各段落的停留時間（視前端人力決定是否納入）。段落順序與回看行為改由 Hotjar 觀察。' },
-    view_spec:        { pri: 2, params: ['spec_type', 'model'], trigger: '互動', purpose: '了解規格表、配備表、安全配備的查看比例。' },
-    open_compare:     { pri: 1, params: ['entry_point', 'model'], trigger: '點擊', purpose: '了解比較功能是否被找到、從哪裡進入。對應前測「比較要滑到最底部才找得到」。' },
-    feature_switch:   { pri: 3, only: 'mirror', params: ['switch_type', 'section', 'model'], trigger: '互動', purpose: '觀察特色區切換列與車型切換列的使用情況。僅舊版、診斷用，不做前後對照。' },
-    safety_jump:      { pri: 3, only: 'mirror', params: ['model'], trigger: '點擊', purpose: '觀察從車款頁跳轉安全配備頁的情況。僅舊版、診斷用；是否返回車款頁以頁面瀏覽的來源頁判斷。' },
-    test_drive_step:  { pri: 1, params: ['step', 'model', 'entry_point'], trigger: '表單：form_start＝第一次輸入任一欄位；submit_success＝送出成功後', purpose: '了解已進入表單的人有多少比例完成預約。不得記錄填寫內容。entry_point 由進入預約頁的 CTA 連結帶入，或依來源頁判斷。' }
+    select_model:     { pri: 1, brief: '各入口導流到車款頁的比例', params: ['entry_point', 'model', 'slide_index'], trigger: '點擊', purpose: '了解各入口導流到車款頁的比例。首頁、選單、頁尾共用同一事件，以 entry_point 區分。' },
+    spec_switch:      { pri: 1, brief: '舊版選單「售價&規格」開關的使用情況', only: 'mirror', params: ['state'], trigger: '點擊', purpose: '了解舊版車款選單上「售價&規格」切換開關的使用情況；state 記錄點擊後的狀態（on＝顯示售價與規格、off＝隱藏）。' },
+    banner_view:      { pri: 1, brief: '輪播中每張 Banner 被看到的次數與順序', params: ['carousel_id', 'banner_id', 'banner_title', 'banner_index', 'total_slides', 'change_by', 'model'], trigger: '曝光：每張 Banner 進入畫面可視範圍時各送一次（停留秒數門檻待定）', purpose: '了解輪播中每一張 Banner 實際被看到的次數與順序。banner_id 用固定代碼統計，banner_title 收畫面上的標題文字，兩者分開，改文案時仍可用代碼串接。change_by 記錄這張是怎麼出現的：initial＝載入時第一張、auto＝自動輪播、manual＝使用者手動切換；內頁各特色輪播只能手動，change_by 不需要帶。model 帶這張 Banner 對應的車款代號（首頁輪播也帶）；Banner 沒有對應特定車款時可不帶。從 Banner 點擊連結由 select_model、cta_click 記錄。' },
+    cta_click:        { pri: 1, brief: '預約試乘、優惠、型錄等按鈕的點擊位置', params: ['cta_type', 'cta_location', 'model', 'slide_index'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。首頁、頁尾沒有指定車款時 model 可留空。' },
+    section_view:     { pri: 1, brief: '各內容段落是否被看到', params: ['section', 'section_index', 'model'], trigger: '曝光：段落至少一半在畫面內並停留 1 秒以上；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
+    section_time:     { pri: 2, brief: '各內容段落的停留秒數', params: ['section', 'seconds', 'model'], trigger: '曝光：段落離開畫面時送出', purpose: '了解各段落的停留時間（視前端人力決定是否納入）。段落順序與回看行為改由 Hotjar 觀察。' },
+    view_spec:        { pri: 2, brief: '規格、配備、安全配備的查看比例', params: ['spec_type', 'model'], trigger: '互動', purpose: '了解規格表、配備表、安全配備的查看比例。' },
+    open_compare:     { pri: 1, brief: '比較功能是否被找到、從哪裡進入', params: ['entry_point', 'model'], trigger: '點擊', purpose: '了解比較功能是否被找到、從哪裡進入。對應前測「比較要滑到最底部才找得到」。' },
+    feature_switch:   { pri: 3, brief: '舊版特色區與車型切換列的使用情況', only: 'mirror', params: ['switch_type', 'section', 'model'], trigger: '互動', purpose: '觀察特色區切換列與車型切換列的使用情況。僅舊版、診斷用，不做前後對照。' },
+    safety_jump:      { pri: 3, brief: '舊版從車款頁跳轉安全配備頁的情況', only: 'mirror', params: ['model'], trigger: '點擊', purpose: '觀察從車款頁跳轉安全配備頁的情況。僅舊版、診斷用；是否返回車款頁以頁面瀏覽的來源頁判斷。' },
+    test_drive_step:  { pri: 1, brief: '預約試乘表單的開始與完成比例', params: ['step', 'model', 'entry_point'], trigger: '表單：form_start＝第一次輸入任一欄位；submit_success＝送出成功後', purpose: '了解已進入表單的人有多少比例完成預約。不得記錄填寫內容。entry_point 由進入預約頁的 CTA 連結帶入，或依來源頁判斷。' }
   }
 };

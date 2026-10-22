@@ -163,7 +163,7 @@
     $('#lib').innerHTML = Object.keys(D.evt).map(function (k) {
       var e = D.evt[k];
       return '<li class="card"><div class="card__h"><code>' + k + '</code>' +
-        (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div><p>' + esc(e.purpose) + '</p><p class="meta">觸發：' + esc(e.trigger) + '</p><p class="meta">參數：' + e.params.join('、') + '</p>' +
+        (e.only ? '<span class="tag">僅舊版</span>' : '') + '</div><p>' + esc(e.brief || e.purpose) + '</p><p class="meta">觸發：' + esc(e.trigger) + '</p><p class="meta">參數：' + e.params.join('、') + '</p>' +
         '<div class="acts"><button class="alt" data-view="' + k + '">檢視內容</button>' +
         '<button data-arm="' + k + '"' + (st.edit ? '' : ' disabled title="請先開啟上方的「編輯模式」"') + '>' + (st.edit ? '放置標記' : '開啟編輯模式後可放置') + '</button></div></li>';
     }).join('');
