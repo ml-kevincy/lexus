@@ -62,7 +62,6 @@
     out.push('});');
     return out.join('\n');
   }
-  function fullCode(m) { return '// ' + (m.label || m.ev) + '（' + VL[m.v] + '・' + D.pages[m.p].label + '）\n' + codeFor(m); }
   function attrFor(m) { return 'data-track="' + m.ev + '"'; }
 
   /* ---------- 頂端列 ---------- */
@@ -158,14 +157,12 @@
         '<div class="row__name">' + esc(m.label || '（未填元件說明）') + '</div></div>' + (incomplete(m) ? '<span class="st warn">參數未完成</span>' : '<span></span>') +
         (st.edit ? '<button class="del" data-del="' + m.id + '" title="刪除這個標記" aria-label="刪除標記 ' + m.no + '">' + TRASH + '</button>' : '') + '</li>';
     }).join('') : '<li class="empty">' + (st.other ? '這一頁不在標註範圍內。' : st.edit ? '這一頁還沒有標記。<br>切到「事件庫」，挑一個事件按「放置標記」，再到頁面上拖曳畫出範圍。' : '這一頁還沒有標記。<br>要新增標記，請先開啟上方的「編輯模式」。') + '</li>';
-    $('#copyAll').disabled = !l.length;
   }
   $('#list').addEventListener('click', function (e) {
     var d = e.target.closest('[data-del]'); if (d) { e.stopPropagation(); removeMarker(d.dataset.del); return; }
     var r = e.target.closest('.row'); if (r) select(r.dataset.id, true);
   });
   $('#list').addEventListener('keydown', function (e) { if (e.key === 'Enter') { var r = e.target.closest('.row'); if (r) select(r.dataset.id, true); } });
-  $('#copyAll').addEventListener('click', function () { var l = cur(); copy(l.map(fullCode).join('\n\n'), '已複製本頁 ' + l.length + ' 個事件的程式碼'); });
 
   function renderLib() {
     $('#lib').innerHTML = Object.keys(D.evt).map(function (k) {
