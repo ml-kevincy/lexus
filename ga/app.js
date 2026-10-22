@@ -108,20 +108,6 @@
     copy(json, '已複製標示資料（' + st.markers.length + ' 個標記），同時下載 annotations.json');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' })); a.download = 'annotations.json'; a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   });
-  $('#importBtn').addEventListener('click', function () { $('#importFile').click(); });
-  $('#importFile').addEventListener('change', function () {
-    var f = this.files[0]; this.value = ''; if (!f) return;
-    var r = new FileReader();
-    r.onload = function () {
-      try {
-        var arr = JSON.parse(r.result);
-        if (!Array.isArray(arr) || arr.some(function (m) { return !m || !m.id || !m.ev || typeof m.x !== 'number'; })) throw 0;
-        if (!confirm('匯入 ' + arr.length + ' 個標記，會取代目前的草稿。確定嗎？')) return;
-        st.markers = arr; st.sel = null; save(); draw(); renderPanel(); toast('已匯入 ' + arr.length + ' 個標記');
-      } catch (e) { toast('檔案格式不對，無法匯入'); }
-    };
-    r.readAsText(f);
-  });
   $('#discard').addEventListener('click', function () {
     if (!confirm('放棄瀏覽器裡的草稿，改用已發佈的標示嗎？')) return;
     store(KEY, null); st.markers = st.published.slice(); st.sel = null; $('#draft').hidden = true; draw(); renderPanel();
