@@ -39,8 +39,14 @@
   function renderBase() { $('#baseCode').textContent = baseCode(); }
   function evOf(m) { return D.evt[m.ev] || { params: [], trigger: '', purpose: '（事件庫中找不到這個事件）' }; }
   function byId(id) { return st.markers.filter(function (m) { return m.id === id; })[0]; }
+  // 舊版選單開著時，只看得到「選單層」的標記；關上後只看得到頁面的標記
+  function menuOpen() {
+    var $j = live && live.win.jQuery; if (!$j) return false;
+    return $j('.submenu').hasClass('show') || $j('body').hasClass('menu-opened-general') || $j('body').hasClass('menu-opened-member');
+  }
   function cur() {
-    var l = st.markers.filter(function (m) { return m.v === st.v && m.p === st.p && m.d === st.d; });
+    var mo = menuOpen();
+    var l = st.markers.filter(function (m) { return m.v === st.v && m.p === st.p && m.d === st.d && !!m.menu === mo; });
     l.sort(function (a, b) { return a.y - b.y || a.x - b.x; });
     l.forEach(function (m, i) { m.no = i + 1; });
     return l;
@@ -131,7 +137,7 @@
     var n = st.other ? 0 : cur().length;
     document.querySelectorAll('#tabs button').forEach(function (b) {
       b.setAttribute('aria-selected', b.dataset.t === st.tab && !st.sel);
-      if (b.dataset.t === 'marks') b.textContent = '本頁標記（' + n + '）';
+      if (b.dataset.t === 'marks') b.textContent = (menuOpen() ? '選單標記（' : '本頁標記（') + n + '）';
     });
     if (st.sel && byId(st.sel)) { setView('detail'); renderDetail(); return; }
     st.sel = null; setView(st.tab);
@@ -249,7 +255,8 @@
       '<div class="d__bar"><button id="dBack">← 回清單</button><span class="sp"></span><button id="dLocate">在畫面上找到</button>' + (ed ? '<button class="danger" id="dDel">刪除標記</button>' : '') + '</div>' +
       '<div class="d__body">' +
       '<div class="d__h"><span class="no p1">' + m.no + '</span><code>' + esc(m.ev) + '</code></div>' +
-      '<div><span class="tag">' + VL[m.v] + '・' + D.pages[m.p].label + '・' + (m.d === 'mobile' ? '手機' : '桌機') + (m.fixed ? '・固定在畫面' : '') + '</span></div>' +
+      '<div><span class="tag">' + VL[m.v] + '・' + D.pages[m.p].label + '・' + (m.d === 'mobile' ? '手機' : '桌機') + (m.fixed ? '・固定在畫面' : '') + (m.menu ? '・選單內' : '') + '</span></div>' +
+      (ed ? '<label class="hintline"><input type="checkbox" data-menu' + (m.menu ? ' checked' : '') + '> 這個標記屬於選單（選單開啟時才顯示）</label>' : '') +
       '<dl><dt>元件</dt><dd>' + (ed ? '<input type="text" data-label value="' + esc(m.label || '') + '" placeholder="例如：KV 主視覺的「深入探索」按鈕">' : esc(m.label || '（未填）')) + '</dd>' +
       '<dt>觸發</dt><dd>' + esc(e.trigger) + '</dd><dt>目的</dt><dd>' + esc(e.purpose) + '</dd></dl>' +
       '<div class="note" id="incNote"' + (incomplete(m) ? '' : ' hidden') + '>還有參數沒選，程式碼裡會留下「請選擇」的提示。</div>' +
@@ -271,6 +278,7 @@
   $('#detailView').addEventListener('input', function (e) {
     var t = e.target, m = byId(st.sel); if (!m) return;
     if (t.hasAttribute('data-label')) { m.label = t.value; save(); return; }
+    if (t.hasAttribute('data-menu')) { if (t.checked) m.menu = true; else delete m.menu; save(); st.sel = null; draw(); renderPanel(); return; }
     if (t.dataset.k) {
       (m.par = m.par || {})[t.dataset.k] = t.value; save();
       refreshCode(m);
@@ -329,6 +337,13 @@
   function openMenu(win) {
     var $j = win.jQuery; if (!$j || !$j.fn.mouseover) return;
     $j('html').off('mouseover');
+    // 選單開／關時切換顯示的標記層
+    var was = menuOpen(), obs = new win.MutationObserver(function () {
+      var now = menuOpen(); if (now === was) return; was = now;
+      st.sel = null; draw(); renderPanel();
+    });
+    obs.observe(win.document.body, { attributes: true, attributeFilter: ['class'] });
+    var sm = win.document.querySelector('.submenu'); if (sm) obs.observe(sm, { attributes: true, attributeFilter: ['class'] });
     // 展開後不能用漢堡鈕（X）收起，只能點選單以外的範圍
     win.document.addEventListener('click', function (e) {
       if (e.target.closest('.menu__toggler') && $j('body').hasClass('menu-opened-general')) { e.preventDefault(); e.stopPropagation(); }
@@ -434,6 +449,7 @@
         id: 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), v: st.v, p: st.p, d: st.d, ev: st.armed, label: '', par: {},
         x: Math.max(0, Math.round(x)), y: Math.max(0, Math.round(y)), w: Math.round(w), h: Math.round(h), fixed: fixed
       };
+      if (menuOpen()) m.menu = true;
       st.markers.push(m); save(); st.sel = m.id; disarm(); draw(); renderPanel();
     }, true);
   }
