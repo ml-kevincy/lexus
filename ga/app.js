@@ -333,9 +333,9 @@
     win.document.addEventListener('click', function (e) {
       if (e.target.closest('.menu__toggler') && $j('body').hasClass('menu-opened-general')) { e.preventDefault(); e.stopPropagation(); }
     }, true);
-    // 只有點選單以外的地方才收起選單（編輯、放置標記時不收）
+    // 只有點選單以外的地方才收起選單（放置標記時不收；編輯模式也一樣會收）
     win.document.addEventListener('click', function (e) {
-      if (st.edit || st.armed || e.target.closest('#Menu, #ga-abs, #ga-fix')) return;
+      if (st.armed || e.target.closest('.submenu, .menu__navigation, .menu__shortcut, #ga-abs, #ga-fix')) return;
       if ($j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click');
       $j('.submenu').removeClass('on show'); $j('.submenu .submenu__group').hide(); $j('.menu__navigation li').removeClass('current');
     }, true);
