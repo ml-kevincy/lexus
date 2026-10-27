@@ -1,1 +1,684 @@
-[]
+[
+ {
+  "id": "mmvq3c9upumx",
+  "v": "mirror",
+  "p": "home",
+  "d": "desktop",
+  "ev": "select_model",
+  "label": "首頁主視覺封面輪播車款入口",
+  "par": {
+   "entry_point": "home_hero"
+  },
+  "x": 83,
+  "y": 163,
+  "w": 1256,
+  "h": 194,
+  "fixed": false
+ },
+ {
+  "id": "mmvq7kgcklfb",
+  "v": "mirror",
+  "p": "home",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "首頁封面輪播",
+  "par": {
+   "carousel_id": "home_hero",
+   "change_by": "auto"
+  },
+  "x": 84,
+  "y": 367,
+  "w": 1255,
+  "h": 284,
+  "fixed": false
+ },
+ {
+  "id": "mmvq7p0831wx",
+  "v": "mirror",
+  "p": "home",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "FAB_購車優惠",
+  "par": {
+   "cta_type": "offer",
+   "cta_location": "fab",
+   "model": "@skip"
+  },
+  "x": 37,
+  "y": 362,
+  "w": 38,
+  "h": 117,
+  "fixed": false
+ },
+ {
+  "id": "mmvq7pro21bb",
+  "v": "mirror",
+  "p": "home",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "FAB_試乘",
+  "par": {
+   "cta_type": "test_drive",
+   "cta_location": "fab",
+   "model": "@skip"
+  },
+  "x": 39,
+  "y": 515,
+  "w": 37,
+  "h": 144,
+  "fixed": false
+ },
+ {
+  "id": "mmvq7qd1nfk5",
+  "v": "mirror",
+  "p": "home",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "FAB_據點查詢",
+  "par": {
+   "cta_type": "find_dealer",
+   "cta_location": "fab",
+   "model": "@skip"
+  },
+  "x": 37,
+  "y": 695,
+  "w": 39,
+  "h": 105,
+  "fixed": false
+ },
+ {
+  "id": "mmvq7r2k0ftm",
+  "v": "mirror",
+  "p": "home",
+  "d": "desktop",
+  "ev": "select_model",
+  "label": "底部車款入口",
+  "par": {
+   "entry_point": "home_model_list"
+  },
+  "x": 223,
+  "y": 2984,
+  "w": 1037,
+  "h": 455,
+  "fixed": false
+ },
+ {
+  "id": "mmvq7suf3ene",
+  "v": "mirror",
+  "p": "menu",
+  "d": "desktop",
+  "ev": "spec_switch",
+  "label": "售價規格開關",
+  "par": {
+   "state": "on"
+  },
+  "x": 264,
+  "y": 108,
+  "w": 129,
+  "h": 50,
+  "fixed": false,
+  "menu": true
+ },
+ {
+  "id": "mmvq7tarzmfd",
+  "v": "mirror",
+  "p": "menu",
+  "d": "desktop",
+  "ev": "spec_switch",
+  "label": "售價規格開關",
+  "par": {
+   "state": "off"
+  },
+  "x": 403,
+  "y": 111,
+  "w": 104,
+  "h": 41,
+  "fixed": false,
+  "menu": true
+ },
+ {
+  "id": "mmvq7tl8t13l",
+  "v": "mirror",
+  "p": "menu",
+  "d": "desktop",
+  "ev": "select_model",
+  "label": "選單_車款介紹入口",
+  "par": {
+   "entry_point": "menu"
+  },
+  "x": 263,
+  "y": 183,
+  "w": 900,
+  "h": 409,
+  "fixed": false,
+  "menu": true
+ },
+ {
+  "id": "mmvq7u8hfzs7",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "FAB_科技展演",
+  "par": {
+   "cta_type": "tech_showcase",
+   "cta_location": "fab"
+  },
+  "x": 41,
+  "y": 762,
+  "w": 39,
+  "h": 117,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjgkpz7c3",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "下載車款型錄",
+  "par": {
+   "cta_type": "catalog_download",
+   "cta_location": "page"
+  },
+  "x": 128,
+  "y": 384,
+  "w": 167,
+  "h": 75,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjkz12pcw",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "",
+  "par": {
+   "cta_type": "test_drive",
+   "cta_location": "page"
+  },
+  "x": 191,
+  "y": 1512,
+  "w": 190,
+  "h": 69,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjlr0vdh2",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "select_model",
+  "label": "底部車款列",
+  "par": {
+   "entry_point": "model_page_list"
+  },
+  "x": 142,
+  "y": 8166,
+  "w": 1145,
+  "h": 612,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjmrwnwio",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "select_model",
+  "label": "車款介紹頁_為您推薦車款",
+  "par": {
+   "entry_point": "model_page_recommend"
+  },
+  "x": 162,
+  "y": 7835,
+  "w": 1115,
+  "h": 250,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjo0h9q9o",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "cta_click",
+  "label": "車款介紹頁_前往全車系比較",
+  "par": {
+   "cta_type": "compare",
+   "cta_location": "page"
+  },
+  "x": 1097,
+  "y": 6674,
+  "w": 185,
+  "h": 72,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjsdypkjh",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "variant_select",
+  "label": "外觀_車型選擇",
+  "par": {
+   "section": "feature_exterior"
+  },
+  "x": 84,
+  "y": 2251,
+  "w": 357,
+  "h": 77,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjt60ejm2",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "variant_select",
+  "label": "車色_車型選擇",
+  "par": {
+   "section": "feature_color"
+  },
+  "x": 83,
+  "y": 2843,
+  "w": 349,
+  "h": 73,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjttncqaz",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "variant_select",
+  "label": "內裝_車型選擇",
+  "par": {
+   "section": "feature_interior"
+  },
+  "x": 82,
+  "y": 3422,
+  "w": 349,
+  "h": 70,
+  "fixed": false
+ },
+ {
+  "id": "mmvqju8sqqgo",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "variant_select",
+  "label": "性能_車型選擇",
+  "par": {
+   "section": "feature_performance"
+  },
+  "x": 80,
+  "y": 4004,
+  "w": 343,
+  "h": 61,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjun0amcx",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "variant_select",
+  "label": "安全_車型選擇",
+  "par": {
+   "section": "feature_safety"
+  },
+  "x": 79,
+  "y": 4580,
+  "w": 350,
+  "h": 64,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjv2npa7f",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "variant_select",
+  "label": "充電體驗_車型選擇",
+  "par": {
+   "section": "feature_charging"
+  },
+  "x": 83,
+  "y": 5158,
+  "w": 348,
+  "h": 66,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjw2o0yb1",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_重點特色",
+  "par": {
+   "section": "highlight"
+  },
+  "x": 149,
+  "y": 816,
+  "w": 1126,
+  "h": 49,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjx0wvk6q",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_外觀",
+  "par": {
+   "section": "feature_exterior"
+  },
+  "x": 92,
+  "y": 1792,
+  "w": 1306,
+  "h": 90,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjxgdu66c",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_車色",
+  "par": {
+   "section": "feature_color"
+  },
+  "x": 100,
+  "y": 2343,
+  "w": 1279,
+  "h": 105,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjxs7rmwf",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_內裝",
+  "par": {
+   "section": "feature_interior"
+  },
+  "x": 89,
+  "y": 2941,
+  "w": 1316,
+  "h": 126,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjy6fseva",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_性能",
+  "par": {
+   "section": "feature_performance"
+  },
+  "x": 92,
+  "y": 3522,
+  "w": 1292,
+  "h": 79,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjyi37q8t",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_安全",
+  "par": {
+   "section": "feature_safety"
+  },
+  "x": 90,
+  "y": 4106,
+  "w": 1305,
+  "h": 63,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjytf36jv",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_充電體驗",
+  "par": {
+   "section": "feature_charging"
+  },
+  "x": 87,
+  "y": 4681,
+  "w": 1296,
+  "h": 52,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjzc7yebh",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_LINK+",
+  "par": {
+   "section": "link_plus"
+  },
+  "x": 96,
+  "y": 5265,
+  "w": 1303,
+  "h": 130,
+  "fixed": false
+ },
+ {
+  "id": "mmvqjzp9miji",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_FAQ",
+  "par": {
+   "section": "faq"
+  },
+  "x": 185,
+  "y": 5778,
+  "w": 1124,
+  "h": 142,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk0340z67",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_規配表",
+  "par": {
+   "section": "spec_equipment"
+  },
+  "x": 142,
+  "y": 6685,
+  "w": 922,
+  "h": 66,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk0r9xaqw",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_為您推薦",
+  "par": {
+   "section": "recommend"
+  },
+  "x": 126,
+  "y": 7801,
+  "w": 1231,
+  "h": 40,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk1380n85",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_底部車款列",
+  "par": {
+   "section": "model_list"
+  },
+  "x": 130,
+  "y": 8189,
+  "w": 1226,
+  "h": 67,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk22ko9fo",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "section_view",
+  "label": "段落瀏覽_封面",
+  "par": {
+   "section": "hero"
+  },
+  "x": 102,
+  "y": 168,
+  "w": 1221,
+  "h": 193,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk3kberpv",
+  "v": "mirror",
+  "p": "testdrive",
+  "d": "desktop",
+  "ev": "test_drive_start",
+  "label": "開始輸入預約表單",
+  "par": {},
+  "x": 287,
+  "y": 567,
+  "w": 448,
+  "h": 75,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk4m3ltl8",
+  "v": "mirror",
+  "p": "testdrive",
+  "d": "desktop",
+  "ev": "test_drive_submit",
+  "label": "預約試乘送出",
+  "par": {},
+  "x": 547,
+  "y": 1801,
+  "w": 346,
+  "h": 58,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk5o5zain",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "外觀輪播",
+  "par": {
+   "carousel_id": "feature_exterior"
+  },
+  "x": 98,
+  "y": 1892,
+  "w": 1317,
+  "h": 330,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk7a5xlrz",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "車色輪播",
+  "par": {
+   "carousel_id": "feature_color"
+  },
+  "x": 97,
+  "y": 2460,
+  "w": 1283,
+  "h": 359,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk86usuof",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "內裝輪播",
+  "par": {
+   "carousel_id": "feature_interior"
+  },
+  "x": 91,
+  "y": 3075,
+  "w": 1314,
+  "h": 299,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk8qk0dw1",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "",
+  "par": {
+   "carousel_id": "feature_performance"
+  },
+  "x": 94,
+  "y": 3612,
+  "w": 1314,
+  "h": 348,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk93d5usm",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "安全輪播",
+  "par": {
+   "carousel_id": "feature_safety"
+  },
+  "x": 87,
+  "y": 4178,
+  "w": 1317,
+  "h": 374,
+  "fixed": false
+ },
+ {
+  "id": "mmvqk9gnegfm",
+  "v": "mirror",
+  "p": "es",
+  "d": "desktop",
+  "ev": "banner_view",
+  "label": "",
+  "par": {
+   "carousel_id": "feature_charging"
+  },
+  "x": 84,
+  "y": 4743,
+  "w": 1326,
+  "h": 379,
+  "fixed": false
+ }
+]
