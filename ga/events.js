@@ -39,6 +39,7 @@ window.GA_DATA = {
     banner_view:      { brief: '輪播中每張 Banner 被看到的次數與順序', params: ['carousel_id', 'banner_title', 'banner_index', 'change_by', 'model'], trigger: '曝光：每張 Banner 出現 0.5 秒就送出；每次頁面瀏覽同一張只送一次', purpose: '了解輪播中每張 Banner 實際被看到的次數與順序。' },
     cta_click:        { brief: '預約試乘、優惠、型錄等按鈕的點擊位置', params: ['cta_type', 'cta_location', 'model'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。在沒有指定車款的頁面（如首頁）點 FAB 時，model 可留空。' },
     section_view:     { brief: '各內容段落是否被看到', params: ['section', 'model'], trigger: '曝光：以段落標題為準，畫面由下到上為 0–100，標題往上滑動到 30 的位置時送出；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
+    variant_select:   { brief: '特色段落左方「車型」下拉選單的使用情況', params: ['section', 'model'], trigger: '點擊：在下拉選單中選了一個車型後送出（只打開選單不選不算）', purpose: '了解車款介紹頁各特色段落左方的車型下拉選單有沒有人使用、在哪個段落使用。section 帶該下拉選單所在的段落，model 帶目前的車款。' },
     test_drive_start:  { brief: '開始填寫預約試乘表單', params: ['model'], trigger: '表單：第一次輸入任一欄位時送出，每次頁面瀏覽只送一次', purpose: '了解有多少人開始填寫預約試乘表單，搭配 test_drive_submit 計算表單完成率。model 由前端依網址的車款 id 對應成車款代號帶入。不得記錄填寫內容。' },
     test_drive_submit: { brief: '預約試乘表單送出成功（轉換）', params: ['model'], trigger: '表單：按下「我要預約試乘/諮詢」且送出成功後', purpose: '預約試乘的轉換事件，建議在 GA4 設為關鍵事件。送出失敗或欄位驗證未通過不算。model 由前端依網址的車款 id 對應成車款代號帶入。不得記錄填寫內容。' }
   }
