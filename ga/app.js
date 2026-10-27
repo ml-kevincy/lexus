@@ -321,13 +321,13 @@
       if (u && u.origin === location.origin && okPaths.indexOf(normPath(u.pathname)) > -1) return;
       e.preventDefault(); e.stopPropagation();
     }, true);
-    if (p === 'menu') openMenu(win);
+    if (doc.querySelector('#Menu')) openMenu(win);
     draw(); renderPanel();
   }
   // 舊版選單靠滑鼠移入開啟、移到別處就收起；在標示頁裡開啟後維持展開，點選單以外才收起（載入時不預設展開）
   function normPath(p) { return p.toLowerCase().replace(/index\.html$/, '').replace(/\/$/, ''); }
   function openMenu(win) {
-    var $j = win.jQuery; if (!$j) return;
+    var $j = win.jQuery; if (!$j || !$j.fn.mouseover) return;
     $j('html').off('mouseover');
     // 展開後不能用漢堡鈕（X）收起，只能點選單以外的範圍
     win.document.addEventListener('click', function (e) {
