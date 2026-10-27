@@ -329,7 +329,11 @@
   function openMenu(win) {
     var $j = win.jQuery; if (!$j) return;
     $j('html').off('mouseover');
-    // 點選單以外的地方就收起選單（編輯、放置標記時不收）
+    // 展開後不能用漢堡鈕（X）收起，只能點選單以外的範圍
+    win.document.addEventListener('click', function (e) {
+      if (e.target.closest('.menu__toggler') && $j('body').hasClass('menu-opened-general')) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+    // 只有點選單以外的地方才收起選單（編輯、放置標記時不收）
     win.document.addEventListener('click', function (e) {
       if (st.edit || st.armed || e.target.closest('#Menu, #ga-abs, #ga-fix')) return;
       if ($j('body').hasClass('menu-opened-general')) $j('.menu__toggler button').trigger('click');
