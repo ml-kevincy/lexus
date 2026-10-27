@@ -421,10 +421,12 @@
   }
   function disarm() {
     st.armed = null; hint.hidden = true;
-    if (live) { var c = live.doc.getElementById('ga-cap'); if (c) c.remove(); draw(); }
+    if (live) { live.doc.querySelectorAll('#ga-cap').forEach(function (c) { c.remove(); }); draw(); }
   }
   function buildCapture() {
-    var doc = live.doc, root = doc.documentElement, cap = doc.createElement('div');
+    var doc = live.doc, root = doc.documentElement, cap;
+    doc.querySelectorAll('#ga-cap').forEach(function (c) { c.remove(); });  // 重複按「放置標記」時不要疊多層
+    cap = doc.createElement('div');
     cap.id = 'ga-cap';
     cap.style.cssText = 'position:absolute;left:0;top:0;width:' + Math.max(root.scrollWidth, root.clientWidth) + 'px;height:' + Math.max(root.scrollHeight, root.clientHeight) + 'px;cursor:crosshair;z-index:2147482999;background:rgba(214,0,28,.04)';
     root.appendChild(cap);
