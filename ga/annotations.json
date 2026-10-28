@@ -23,8 +23,7 @@
   "ev": "banner_view",
   "label": "首頁封面輪播",
   "par": {
-   "carousel_id": "home_hero",
-   "change_by": "auto"
+   "carousel_id": "home_hero"
   },
   "x": 84,
   "y": 367,
@@ -555,34 +554,6 @@
   "y": 168,
   "w": 1221,
   "h": 193,
-  "fixed": false
- },
- {
-  "id": "mmvqk3kberpv",
-  "v": "mirror",
-  "p": "testdrive",
-  "d": "desktop",
-  "ev": "test_drive_start",
-  "label": "開始輸入預約表單",
-  "par": {},
-  "x": 287,
-  "y": 567,
-  "w": 448,
-  "h": 75,
-  "fixed": false
- },
- {
-  "id": "mmvqk4m3ltl8",
-  "v": "mirror",
-  "p": "testdrive",
-  "d": "desktop",
-  "ev": "test_drive_submit",
-  "label": "預約試乘送出",
-  "par": {},
-  "x": 547,
-  "y": 1801,
-  "w": 346,
-  "h": 58,
   "fixed": false
  },
  {

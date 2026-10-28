@@ -305,7 +305,7 @@
     // 在 iframe 內點連結換頁時，跟著更新版本與頁面
     var path = win.location.pathname.toLowerCase();
     var v = path.indexOf('/redesign/') > -1 ? 'redesign' : path.indexOf('/mirror/') > -1 ? 'mirror' : null;
-    var p = /[?&]ga=menu\b/.test(win.location.search) ? 'menu' : /testdrive/.test(path) ? (/[?&]id=/.test(win.location.search) ? 'testdrive' : 'testdrive_select') : /showroom\/es\.html$/.test(path) ? 'es' : /\/(redesign|mirror)\/(index\.html)?$/.test(path) ? 'home' : 'other';
+    var p = /[?&]ga=menu\b/.test(win.location.search) ? 'menu' : /showroom\/es\.html$/.test(path) ? 'es' : /\/(redesign|mirror)\/(index\.html)?$/.test(path) ? 'home' : 'other';
     st.other = p === 'other';
     if (v && (v !== st.v || (p !== 'other' && p !== st.p))) { st.v = v; if (p !== 'other') st.p = p; st.sel = null; renderBar(); writeHash(); }
     var s = doc.createElement('style'); s.textContent = CSS; doc.head.appendChild(s);
@@ -318,7 +318,7 @@
       L.addEventListener('mousedown', onBoxDown, true);
     });
     doc.addEventListener('keydown', onKey, true);
-    // 只做了首頁、ES 車款頁、預約試乘頁：其他連結一律不跳轉，避免出現錯誤頁
+    // 只做了首頁、ES 車款頁（與舊版選單）：其他連結一律不跳轉，避免出現錯誤頁
     var okPaths = Object.keys(D.pages).map(function (k) { return D.pages[k].url[st.v]; }).filter(Boolean)
       .map(function (u) { return normPath(new URL(u, location.href).pathname); });
     doc.addEventListener('click', function (e) {
@@ -409,7 +409,7 @@
 
   /* ---------- 放置新標記 ---------- */
   function arm(ev) {
-    if (!live || st.other) { toast('請先停在首頁、ES 車款頁或預約試乘頁'); return; }
+    if (!live || st.other) { toast('請先停在首頁或 ES 車款頁'); return; }
     var e = D.evt[ev];
     if (e.only && e.only !== st.v) { ask('這個事件規格只用在舊版（診斷用，不做前後對照），確定要放在新版嗎？', function () { startArm(ev); }); return; }
     startArm(ev);
