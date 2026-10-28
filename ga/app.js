@@ -10,7 +10,7 @@
   var COLOR = { 1: '#d6001c' };
   var KEY = 'ga-markers-draft';
 
-  var st = { v: 'mirror', p: 'home', d: 'desktop', edit: false, marks: true, tab: 'marks', sel: null, armed: null, markers: [], published: [], other: false };
+  var st = { v: 'mirror', p: 'home', d: 'desktop', edit: false, marks: true, tab: 'marks', sel: null, armed: null, markers: [], published: [], other: false, env: 'prod' };
   var frame = $('#frame'), wrap = $('#wrap'), stage = $('#stage'), ext = $('#ext'), hint = $('#hint');
   var live = null;
 
@@ -24,10 +24,11 @@
   }
   function strip(m) { var c = {}; Object.keys(m).forEach(function (k) { if (k !== 'no') c[k] = m[k]; }); return c; }
   function save() { store(KEY, JSON.stringify(st.markers.map(strip))); $('#draft').hidden = false; }
-  function mid() { return D.measurementId; }
+  st.env = store('ga-env') === 'test' ? 'test' : 'prod';
+  function mid() { return st.env === 'test' ? D.testMeasurementId : D.measurementId; }
   function baseCode() {
     var id = mid();
-    return '<!-- Google tag (gtag.js)：研究用 GA4 資源 -->\n' +
+    return '<!-- Google tag (gtag.js)：研究用 GA4 資源' + (st.env === 'test' ? '（測試站）' : '') + ' -->\n' +
       '<script async src="https://www.googletagmanager.com/gtag/js?id=' + id + '"><\/script>\n' +
       '<script>\n' +
       '  window.dataLayer = window.dataLayer || [];\n' +
@@ -105,14 +106,21 @@
   document.addEventListener('click', function (e) {
     var b = e.target.closest('.seg button'); if (!b) return;
     var g = b.parentNode.dataset.g;
+    if (g === 'env') { setEnv(b.dataset.v); return; }
     if (g === 'd') { st.d = b.dataset.v; if (st.p === 'menu') { go(); return; } st.sel = null; disarm(); renderBar(); writeHash(); layout(); setTimeout(function () { draw(); renderPanel(); }, 300); return; }
     st[g] = b.dataset.v; go();
   });
   $('#marks').addEventListener('change', function () { st.marks = this.checked; draw(); });
   $('#edit').addEventListener('change', function () { st.edit = this.checked; if (!st.edit) disarm(); draw(); renderPanel(); });
-  $('#mid').value = D.measurementId; $('#mid').readOnly = true;
+  $('#mid').readOnly = true;
+  function setEnv(v) {
+    st.env = v === 'test' ? 'test' : 'prod'; store('ga-env', st.env);
+    $('#mid').value = mid(); renderBase(); renderPanel();
+    document.querySelectorAll('#envSeg button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === st.env); });
+    $('#rulesBtn').textContent = st.env === 'test' ? '共通規則（測試站）' : '共通規則';
+  }
   $('#baseCopy').addEventListener('click', function () { copy(baseCode(), '已複製基礎追蹤碼'); });
-  renderBase();
+  setEnv(st.env);
   $('#rulesList').innerHTML = D.rules.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('');
   $('#rulesBtn').addEventListener('click', function () { $('#rulesModal').hidden = false; });
   $('#rulesClose').addEventListener('click', function () { $('#rulesModal').hidden = true; });

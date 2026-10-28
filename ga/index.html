@@ -62,9 +62,14 @@
     <button class="modal__x" id="rulesClose" aria-label="關閉">×</button>
     <h2>共通規則</h2>
     <div class="field">
+      <label>目前要埋設的站台</label>
+      <div class="seg" id="envSeg" data-g="env"><button data-v="prod" aria-pressed="true">正式站</button><button data-v="test" aria-pressed="false">測試站</button></div>
+      <div class="hintline">切換後，下方的 ID、基礎追蹤碼，以及所有事件的程式碼範本都會跟著換成該站台的 ID。</div>
+    </div>
+    <div class="field">
       <label for="mid">研究用 GA4 資源的評估 ID</label>
       <input id="mid" spellcheck="false" autocomplete="off">
-      <div class="hintline">所有事件程式碼與下方基礎追蹤碼都使用這個 ID。</div>
+      <div class="hintline">目前站台使用的 ID，事件程式碼與下方基礎追蹤碼都用它。</div>
     </div>
     <h3>GA 基礎追蹤碼（gtag.js）</h3>
     <pre class="code" id="baseCode"></pre>
