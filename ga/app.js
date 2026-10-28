@@ -117,7 +117,6 @@
     st.env = v === 'test' ? 'test' : 'prod'; store('ga-env', st.env);
     $('#mid').value = mid(); renderBase(); renderPanel();
     document.querySelectorAll('#envSeg button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === st.env); });
-    $('#rulesBtn').textContent = st.env === 'test' ? '共通規則（測試站）' : '共通規則';
   }
   $('#baseCopy').addEventListener('click', function () { copy(baseCode(), '已複製基礎追蹤碼'); });
   setEnv(st.env);
