@@ -108,7 +108,8 @@ pre.code { margin: 0; padding: 12px; border-radius: 8px; background: var(--code)
 .modal__box .d { display: grid; gap: 14px; }
 .modal__box .d > *, .d__body > * { min-width: 0; }
 .modal__box { overflow-x: hidden; }
-.d dd { overflow-wrap: anywhere; }
+.d dd { overflow-wrap: anywhere; white-space: pre-line; }
+.card .meta { white-space: pre-line; }
 .modal__box h3 { margin: 16px 0 6px; font-size: 13px; letter-spacing: .04em; }
 .field label { display: block; margin-bottom: 4px; color: var(--muted); }
 .field input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); font: 13px ui-monospace, Menlo, monospace; }

@@ -35,9 +35,9 @@ window.GA_DATA = {
   evt: {
     select_model:     { brief: '各入口導流到車款頁的比例', params: ['entry_point', 'model', 'slide_index'], trigger: '點擊', purpose: '了解各入口導流到車款頁的比例。首頁、選單、頁尾共用同一事件，以 entry_point 區分。' },
     spec_switch:      { brief: '舊版選單「售價&規格」開關的使用情況', only: 'mirror', params: ['state'], trigger: '點擊', purpose: '了解舊版車款選單上「售價&規格」切換開關的使用情況；state 記錄點擊後的狀態（on＝顯示售價與規格、off＝隱藏）。' },
-    banner_view:      { brief: '輪播中每張 Banner 被看到的次數與順序', params: ['carousel_id', 'banner_title', 'banner_index', 'model'], trigger: '曝光：每張 Banner 出現 0.5 秒就送出；每次頁面瀏覽同一張只送一次', purpose: '了解輪播中每張 Banner 實際被看到的次數與順序。' },
+    banner_view:      { brief: '輪播中每張 Banner 被看到的次數與順序', params: ['carousel_id', 'banner_title', 'banner_index', 'model'], trigger: '首頁封面輪播（曝光）：每張成為目前顯示的那張、且在畫面內停留 0.5 秒就送出；每次頁面瀏覽同一張只送一次。\n車款頁特色輪播（點擊）：點選標籤切換後 0.5 秒送出，0.5 秒內又切換則不送；第 1 張在所屬段落第一次送出 section_view 時自動送出（不是頁面載入時）。', purpose: '了解輪播中每張 Banner 實際被看到的次數與順序。車款頁特色輪播只能點標籤切換，所以以點擊視為看到。' },
     cta_click:        { brief: '預約試乘、優惠、型錄等按鈕的點擊位置', params: ['cta_type', 'cta_location', 'model'], trigger: '點擊', purpose: '了解預約試乘、優惠、型錄下載等按鈕的點擊位置。型錄若為 PDF 連結，GA4 加強型評估的 file_download 也會記錄，此事件用來補上車款與位置。在沒有指定車款的頁面（如首頁）點 FAB 時，model 可留空。' },
-    section_view:     { brief: '各內容段落是否被看到', params: ['section', 'model'], trigger: '曝光：以段落標題為準，畫面由下到上為 0–100，標題往上滑動到 30 的位置時送出；每次頁面瀏覽每段只送一次', purpose: '了解各段落有多少比例的人看到，即瀏覽深度。' },
+    section_view:     { brief: '各內容段落是否被看到', params: ['section', 'model'], trigger: '曝光：段落可見高度達一半（段落比畫面高時，以畫面高度的一半為準）並持續 1 秒送出；離開畫面後再回來會再送一次。', purpose: '了解各段落有多少比例的人看到，即瀏覽深度：分析時以工作階段去除重複。重複送出的次數則作為對該段落興趣程度的參考。' },
     variant_select:   { brief: '特色段落左方「車型」下拉選單的使用情況', params: ['section', 'model'], trigger: '點擊：在下拉選單中選了一個車型後送出（只打開選單不選不算）', purpose: '了解車款介紹頁各特色段落左方的車型下拉選單有沒有人使用、在哪個段落使用。section 帶該下拉選單所在的段落，model 帶目前的車款。' },
   }
 };
