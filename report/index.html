@@ -1,0 +1,552 @@
+<title>Lexus 官網行為報表</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one reading column of report sections on the MXON app background; sticky filter bar under the tabs. Tokens follow MXON Design System (CMS). */
+:root {
+  --app-bg: #f2f4f9;          /* mxon-app-bg-default */
+  --surface: #ffffff;         /* mxon-surface-bg-default */
+  --surface-pinned: #f3f6fb;  /* mxon-surface-bg-pinned */
+  --surface-inset: #e7ebf2;   /* mxon-surface-bg-inset */
+  --surface-muted: #f3f3f5;   /* mxon-surface-bg-muted */
+  --ink: #1e1e1e;             /* mxon-text-color-default */
+  --ink-muted: #727272;       /* mxon-text-color-muted */
+  --ink-faint: #9aa0ab;       /* mxon-text-color-faint */
+  --ink-cool: #4a5568;        /* mxon-text-color-cool */
+  --border-subtle: #eaeaea;   /* mxon-border-color-subtle */
+  --border: #c7c7c7;          /* mxon-border-color-default */
+  --primary: #00368f;         /* mxon-primary-text-default */
+  --primary-bg: #00368f;      /* mxon-primary-bg-default */
+  --primary-selected: rgba(0,54,143,0.12);
+  --on-filled: #ffffff;
+  --warn-text: #7a4e00;       /* mxon-warning-text-default */
+  --warn-bg: #fdf4e1;         /* mxon-tone-warning-bg-subtle */
+  --viz-1: #1b8cf5;           /* mxon-viz-series-1 */
+  --viz-8: #b93f7e;           /* mxon-viz-series-8 */
+  --viz-track: #ededf0;       /* mxon-viz-track-bg */
+  --shadow-card: 0 1px 2px rgba(72,72,72,0.10);
+  --font-tc: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-num: "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --fs-display: 32px; --fs-heading: 22px; --fs-title: 20px; --fs-body: 16px; --fs-small: 14px; --fs-xs: 12px;
+  --r-pill: 999px; --r-card: 16px; --r-control: 8px; --r-badge: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --app-bg: #1c1b1f; --surface: #2e2d38; --surface-pinned: #35343e; --surface-inset: #17161a; --surface-muted: #17161a;
+    --ink: #f4f4f6; --ink-muted: #b3b2bb; --ink-faint: #8e8d96; --ink-cool: #b3b2bb;
+    --border-subtle: #35343e; --border: #4b4a56;
+    --primary: #7c9de6; --primary-bg: #00368f; --primary-selected: #35384c; --on-filled: #ffffff;
+    --warn-text: #e7b85e; --warn-bg: #4a4132;
+    --viz-track: #3a3946;
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.40);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --app-bg: #1c1b1f; --surface: #2e2d38; --surface-pinned: #35343e; --surface-inset: #17161a; --surface-muted: #17161a;
+  --ink: #f4f4f6; --ink-muted: #b3b2bb; --ink-faint: #8e8d96; --ink-cool: #b3b2bb;
+  --border-subtle: #35343e; --border: #4b4a56;
+  --primary: #7c9de6; --primary-bg: #00368f; --primary-selected: #35384c; --on-filled: #ffffff;
+  --warn-text: #e7b85e; --warn-bg: #4a4132;
+  --viz-track: #3a3946;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.40);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--app-bg); color: var(--ink);
+  font-family: var(--font-tc); font-size: var(--fs-body); line-height: 1.6;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface-pinned); }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: 0.06em; line-height: 1.4; margin: 0; }
+p { margin: 0; }
+a { color: var(--primary); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* Header */
+.masthead { padding-block: 32px 20px; display: grid; gap: 8px; }
+.eyebrow { font-size: var(--fs-xs); letter-spacing: 0.12em; color: var(--ink-muted); font-weight: 500; }
+.masthead h1 { font-size: var(--fs-display); font-weight: 700; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: var(--fs-small); color: var(--ink-muted); }
+.meta b { color: var(--ink); font-weight: 500; }
+.sample-note {
+  display: flex; gap: 8px; align-items: baseline; margin-top: 8px;
+  background: var(--warn-bg); color: var(--warn-text); border-radius: var(--r-control);
+  padding: 8px 12px; font-size: var(--fs-small);
+}
+.sample-note strong { font-weight: 700; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; box-shadow: inset 0 -1px 0 var(--border); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  appearance: none; background: none; border: 0; cursor: pointer; font: inherit;
+  color: var(--ink-muted); padding: 10px 16px; font-size: var(--fs-body); font-weight: 500;
+  border-bottom: 2px solid transparent; white-space: nowrap; letter-spacing: 0.06em;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--primary); border-bottom-color: var(--primary); }
+.tab .soon { font-size: var(--fs-xs); color: var(--ink-faint); margin-left: 4px; }
+
+/* Filter bar */
+.filters {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--surface-pinned); border-bottom: 1px solid var(--border-subtle);
+}
+.filters .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; padding-block: 10px; }
+.field { display: flex; align-items: center; gap: 8px; font-size: var(--fs-small); color: var(--ink-cool); }
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-pill); padding: 2px; }
+.seg button {
+  appearance: none; border: 0; background: none; font: inherit; font-size: var(--fs-small); cursor: pointer;
+  color: var(--ink); padding: 4px 14px; border-radius: var(--r-pill); min-height: 30px;
+}
+.seg button:hover { background: var(--surface-muted); }
+.seg button[aria-pressed="true"] { background: var(--primary-bg); color: var(--on-filled); }
+select {
+  font: inherit; font-size: var(--fs-small); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--r-control); padding: 5px 10px; min-height: 36px;
+}
+.hint { font-size: var(--fs-xs); color: var(--ink-muted); }
+.model-group { display: grid; gap: 20px; min-width: 0; }
+.model-bar {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--filters-h, 52px)); z-index: 4;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  background: var(--surface-pinned); border: 1px solid var(--border-subtle); border-radius: var(--r-control);
+  box-shadow: var(--shadow-card); padding: 8px 12px; margin-bottom: -8px;
+}
+.model-group .card { scroll-margin-top: 124px; }
+
+/* Sections */
+main { display: grid; gap: 20px; padding-block: 24px 64px; }
+.card {
+  background: var(--surface); border-radius: var(--r-card); box-shadow: var(--shadow-card);
+  padding: 24px; display: grid; gap: 20px; min-width: 0; scroll-margin-top: 72px;
+}
+.sec-head { display: grid; gap: 6px; }
+.sec-no { font-family: var(--font-num); font-size: var(--fs-small); color: var(--primary); font-weight: 700; letter-spacing: 0.04em; }
+.sec-head h2 { font-size: var(--fs-heading); font-weight: 700; }
+.sec-head .sub { font-size: var(--fs-small); color: var(--ink-muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: var(--fs-xs); padding: 2px 8px; border-radius: var(--r-pill);
+  background: var(--surface-inset); color: var(--ink-cool);
+}
+.chip.warn { background: var(--warn-bg); color: var(--warn-text); }
+.conclusion {
+  background: var(--surface-pinned); border-radius: var(--r-control); padding: 12px 16px;
+  display: grid; gap: 2px; font-size: var(--fs-small);
+}
+.conclusion .lbl { font-size: var(--fs-xs); color: var(--ink-muted); letter-spacing: 0.08em; }
+.conclusion .txt { color: var(--ink-faint); }
+.block { display: grid; gap: 10px; min-width: 0; }
+.block h3 { font-size: var(--fs-body); font-weight: 700; }
+.block .desc { font-size: var(--fs-small); color: var(--ink-muted); }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.pending { font-size: var(--fs-small); color: var(--ink-muted); background: var(--surface-pinned); border-radius: var(--r-control); padding: 16px; text-align: center; }
+.notes { font-size: var(--fs-xs); color: var(--ink-muted); display: grid; gap: 2px; padding-left: 1.2em; margin: 0; }
+
+/* Stat tiles */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.stat { background: var(--surface-pinned); border-radius: 12px; padding: 14px 16px; display: grid; gap: 2px; }
+.stat .k { font-size: var(--fs-xs); color: var(--ink-muted); letter-spacing: 0.06em; }
+.stat .v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: 28px; font-weight: 700; line-height: 1.3; }
+.stat .s { font-size: var(--fs-xs); color: var(--ink-muted); }
+
+/* Bar rows */
+.bars { display: grid; gap: 8px; }
+.bar-row { display: grid; grid-template-columns: minmax(96px, 168px) 1fr 64px; gap: 12px; align-items: center; font-size: var(--fs-small); }
+.bar-row .name { color: var(--ink); overflow-wrap: anywhere; }
+.bar-row .name small { display: block; color: var(--ink-muted); font-size: var(--fs-xs); }
+.track { background: var(--viz-track); border-radius: 4px; height: 14px; position: relative; }
+.fill { background: var(--viz-1); height: 100%; border-radius: 4px; min-width: 2px; }
+.bar-row .val { text-align: right; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; min-width: 0; }
+table { border-collapse: collapse; width: 100%; font-size: var(--fs-small); min-width: 560px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border-subtle); vertical-align: middle; }
+th { font-size: var(--fs-xs); color: var(--ink-muted); font-weight: 500; letter-spacing: 0.06em; background: var(--surface-pinned); }
+th.n, td.n { text-align: right; font-family: var(--font-num); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.ref { color: var(--ink-muted); }
+.cell-bar { display: grid; grid-template-columns: 1fr 52px; gap: 8px; align-items: center; min-width: 140px; }
+.cell-bar .track { height: 10px; }
+.cell-bar span { text-align: right; font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.top { font-weight: 700; }
+.top-tag { font-size: 11px; color: var(--primary); border: 1px solid var(--primary); border-radius: var(--r-badge); padding: 0 4px; margin-left: 6px; white-space: nowrap; }
+
+/* Split bar */
+.split { display: flex; gap: 2px; height: 22px; border-radius: 4px; overflow: hidden; }
+.split div { height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: var(--fs-small); color: var(--ink); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+
+details { font-size: var(--fs-small); }
+details summary { cursor: pointer; color: var(--primary); }
+details[open] summary { margin-bottom: 10px; }
+
+.toc { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.toc li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; font-size: var(--fs-small); align-items: baseline; }
+.toc .no { font-family: var(--font-num); color: var(--primary); font-weight: 700; }
+.toc .line { color: var(--ink-faint); }
+.toc a { color: var(--ink); text-decoration: none; font-weight: 500; }
+.toc a:hover { text-decoration: underline; }
+
+.empty { text-align: center; padding-block: 56px; display: grid; gap: 8px; justify-items: center; }
+.empty h2 { font-size: var(--fs-title); }
+.empty p { color: var(--ink-muted); max-width: 32em; font-size: var(--fs-small); }
+
+@media (max-width: 560px) {
+  .masthead h1 { font-size: 26px; }
+  .card { padding: 18px 16px; }
+  .bar-row { grid-template-columns: 96px 1fr 52px; gap: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fill { transition: width 200ms cubic-bezier(.2,0,0,1); }
+}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">LEXUS 官網 GA4 前後測</div>
+    <h1>Lexus 官網行為報表</h1>
+    <div class="meta" id="meta"></div>
+  </header>
+  <div class="tabs" role="tablist" aria-label="報表頁籤">
+    <button class="tab" role="tab" id="tab-old" aria-selected="true" data-tab="old">現有網頁</button>
+    <button class="tab" role="tab" id="tab-new" aria-selected="false" data-tab="new">新版設計</button>
+    <button class="tab" role="tab" id="tab-cmp" aria-selected="false" data-tab="cmp">前後對照<span class="soon">預留</span></button>
+  </div>
+</div>
+
+<div class="filters" id="filters">
+  <div class="wrap">
+    <div class="field">
+      <div class="seg" role="group" aria-label="裝置" id="dev-seg">
+        <button type="button" data-dev="all" aria-pressed="true">全部</button>
+        <button type="button" data-dev="desktop" aria-pressed="false">桌機</button>
+        <button type="button" data-dev="mobile" aria-pressed="false">手機</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <main id="main" aria-live="polite"></main>
+</div>
+
+<script>
+(() => {
+  const state = { tab: 'old', dev: 'all', model: 'all' };
+  try {
+    const saved = JSON.parse(localStorage.getItem('lexus-report-ui') || '{}');
+    Object.assign(state, saved);
+  } catch (e) {}
+  const save = () => { try { localStorage.setItem('lexus-report-ui', JSON.stringify(state)); } catch (e) {} };
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const pct = (v, d = 1) => v == null ? '—' : (v * 100).toFixed(d) + '%';
+  const int = v => v == null ? '—' : Math.round(v).toLocaleString('zh-TW');
+  const DEV_LABEL = { all: '全部裝置', desktop: '桌機', mobile: '手機' };
+
+  let DATA = null;
+
+  const w = (v, max) => v == null || !max ? 0 : Math.max(0, Math.min(100, v / max * 100));
+  const barRow = (name, v, max, valText, sub) => `
+    <div class="bar-row" title="${esc(name)}：${esc(valText)}">
+      <div class="name">${esc(name)}${sub ? `<small>${esc(sub)}</small>` : ''}</div>
+      <div class="track">${v == null ? '' : `<div class="fill" style="width:${w(v, max).toFixed(1)}%"></div>`}</div>
+      <div class="val">${esc(valText)}</div>
+    </div>`;
+  const cellBar = (v, max, text) => `
+    <div class="cell-bar" title="${esc(text)}"><div class="track">${v == null ? '' : `<div class="fill" style="width:${w(v, max).toFixed(1)}%"></div>`}</div><span>${esc(text)}</span></div>`;
+  const conclusion = () => `<div class="conclusion"><span class="lbl">結論</span><span class="txt">資料出來後由 Claude 撰寫草稿，經你審核後填入。</span></div>`;
+  const head = (no, id, title, sub, chips = []) => `
+    <div class="sec-head">
+      <span class="sec-no">${esc(no)}</span>
+      <h2>${esc(title)}</h2>
+      ${sub ? `<p class="sub">${esc(sub)}</p>` : ''}
+      ${chips.length ? `<div class="chips">${chips.map(c => `<span class="chip${c.warn ? ' warn' : ''}">${esc(c.t)}</span>`).join('')}</div>` : ''}
+    </div>`;
+  const maxOf = (arr, k) => Math.max(0, ...arr.map(x => x[k]).filter(v => v != null)) || 1;
+  const pending = msg => `<p class="pending">${esc(msg)}</p>`;
+
+  const SECTIONS = [
+    { no: '1', id: 's-home', title: '大家怎麼看首頁？', line: '首頁各段落的到達率' },
+    { no: '2', id: 's-hero', title: '首頁輪播是否有效？', line: '封面輪播各張的實際曝光率' },
+    { no: '3', id: 's-entry', title: '怎麼把人拉進車款', line: '各導流入口的點擊占比與點擊率' },
+    { no: '4.1', id: 's-focus', title: '人們怎麼瀏覽一台車：特色段落的重視程度', line: '重複觀看、停留時間、輪播看完率' },
+    { no: '4.2', id: 's-order', title: '人們怎麼瀏覽一台車：切換標籤誤點與段落順序', line: '標籤誤點比例與跳序組合' },
+    { no: '5', id: 's-variant', title: '車型選單真的有用處嗎？', line: '各段落車型選單使用率' },
+    { no: '6', id: 's-cta', title: '車款介紹上的 CTA 狀態', line: 'FAB 與頁面內按鈕的點擊率' },
+    { no: '7.1', id: 's-spec', title: '舊版選單上的規格開關', line: '開啟率與開了又關的比例' },
+    { no: '7.2', id: 's-rec', title: '推薦組合的成效', line: '各車款頁推薦點擊率與推薦組合' },
+  ];
+
+  function renderOld() {
+    const d = DATA.old[state.dev];
+    const m = d.models[state.model] || d.models.all;
+    const ov = d.overview;
+    const modelName = state.model === 'all' ? '全部車款' : state.model;
+    const out = [];
+
+    // 0 overview
+    const ds = DATA.old.all.overview.device_share;
+    out.push(`<section class="card" id="s-overview" aria-labelledby="h-ov">
+      ${head('0', 's-overview', '總覽', `${DEV_LABEL[state.dev]}・${DATA.meta.period}`)}
+      <div class="stats">
+        <div class="stat"><span class="k">工作階段</span><span class="v">${int(ov.sessions)}</span><span class="s">${state.dev === 'all' ? '全部裝置' : `占全部工作階段 ${pct(ds[state.dev], 0)}`}</span></div>
+        <div class="stat"><span class="k">使用者</span><span class="v">${int(ov.users)}</span><span class="s">不重複使用者</span></div>
+        <div class="stat"><span class="k">頁面瀏覽</span><span class="v">${int(ov.pageviews)}</span><span class="s">page_view</span></div>
+        <div class="stat"><span class="k">裝置占比（工作階段）</span><span class="v" style="font-size:20px">${pct(ds.desktop, 0)} / ${pct(ds.mobile, 0)}</span><span class="s">桌機 / 手機（平板計入桌機）</span></div>
+      </div>
+    </section>`);
+
+    // 1 home depth
+    const hs = d.home_sections;
+    out.push(`<section class="card" id="s-home">
+      ${head('1', 's-home', '大家怎麼看首頁？', '首頁各段落的到達率，由上到下。')}
+      ${conclusion()}
+      <div class="block">
+        <h3>首頁段落到達率</h3>
+        <p class="desc">分母：首頁頁面瀏覽。同一次瀏覽重複看到同一段落只算一次。</p>
+        ${hs.length ? `<div class="bars">${hs.map(s => barRow(s.label, s.reach, 1, pct(s.reach), s.section)).join('')}</div>` : pending('首頁各段落的 section_view 尚未上線，上線後才會有資料。')}
+      </div>
+    </section>`);
+
+    // 2 hero
+    const hero = d.home_hero;
+    out.push(`<section class="card" id="s-hero">
+      ${head('2', 's-hero', '首頁輪播是否有效？', '封面輪播每一張實際被曝光的比例，以及曝光後被點擊的比例。')}
+      ${conclusion()}
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>張次</th><th>Banner 標題</th><th>曝光率</th><th class="n">曝光後點擊率</th></tr></thead>
+        <tbody>${hero.map(h => `<tr><td class="num">第 ${h.index} 張</td><td>${esc(h.title)}</td><td>${cellBar(h.exposure, 1, pct(h.exposure))}</td><td class="n">${pct(h.ctr, 2)}</td></tr>`).join('')}</tbody>
+      </table></div>
+      <ul class="notes">
+        <li>曝光率 = 該張有送出 banner_view 的首頁瀏覽 ÷ 首頁瀏覽。曝光指成為目前那張且停留 0.5 秒，不代表使用者真的看了。</li>
+        <li>以張次＋標題分組；輪播內容中途更換時，會列成不同的 Banner。</li>
+        <li>曝光後點擊率 = 該張的 select_model（home_hero）÷ 該張曝光次數。</li>
+      </ul>
+    </section>`);
+
+    // 3 entries
+    const en = d.entries;
+    const maxShare = maxOf(en, 'share');
+    out.push(`<section class="card" id="s-entry">
+      ${head('3', 's-entry', '怎麼把人拉進車款', '導進車款頁的點擊，來自哪些入口；以及每個入口被看到後有多少人點。')}
+      ${conclusion()}
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>入口</th><th>點擊占比</th><th class="n">看到後點擊率</th><th>點擊率分母</th></tr></thead>
+        <tbody>${en.map(e => `<tr><td>${esc(e.label)}</td><td>${cellBar(e.share, maxShare, pct(e.share))}</td><td class="n">${pct(e.ctr)}</td><td class="ref">${esc(e.denom)}</td></tr>`).join('')}</tbody>
+      </table></div>
+      <ul class="notes"><li>點擊占比的分母是全部入口的 select_model 點擊；各入口的點擊率分母不同，跨入口比較時請看分母欄。</li></ul>
+    </section>`);
+
+    // 4.1 focus
+    const f = m.feature;
+    const mx = { repeat: maxOf(f, 'repeat'), dwell: maxOf(f, 'dwell'), complete: maxOf(f, 'complete') };
+    const topTag = (v, k) => v != null && v === mx[k] ? '<span class="top-tag">最高</span>' : '';
+    out.push(`<div class="model-group">
+      <div class="model-bar">
+        <label class="field" for="model-sel">車款
+          <select id="model-sel">
+            <option value="all"${state.model === 'all' ? ' selected' : ''}>全部車款</option>
+            ${DATA.meta.models.map(x => `<option value="${esc(x)}"${state.model === x ? ' selected' : ''}>${esc(x)}</option>`).join('')}
+          </select>
+        </label>
+        <span class="hint">套用到 4.1 到 6 段</span>
+      </div>`);
+    out.push(`<section class="card" id="s-focus">
+      ${head('4.1', 's-focus', '人們怎麼瀏覽一台車：特色段落的重視程度', '大家最在意哪個特色段落：會重複回來看、停留久、輪播看到最後。')}
+      ${conclusion()}
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>特色段落</th><th class="n">到達率（參考）</th><th>重複觀看占比</th><th>停留時間中位數</th><th>輪播看完率</th></tr></thead>
+        <tbody>${f.map(s => `<tr>
+          <td>${esc(s.label)}</td>
+          <td class="n ref">${pct(s.reach)}</td>
+          <td class="${s.repeat === mx.repeat ? 'top' : ''}">${cellBar(s.repeat, mx.repeat, pct(s.repeat))}${topTag(s.repeat, 'repeat')}</td>
+          <td class="${s.dwell === mx.dwell ? 'top' : ''}">${cellBar(s.dwell, mx.dwell, s.dwell == null ? '—' : s.dwell.toFixed(1) + ' 秒')}${topTag(s.dwell, 'dwell')}</td>
+          <td class="${s.complete === mx.complete ? 'top' : ''}">${cellBar(s.complete, mx.complete, pct(s.complete))}${topTag(s.complete, 'complete')}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+      <ul class="notes">
+        <li>到達率受段落位置影響（越下面越低），只當參考，不用來排名。</li>
+        <li>重複觀看占比：看到該段落的工作階段中，section_view 送出 2 次以上的比例。來回捲動也會算入，視為興趣的參考訊號。</li>
+        <li>停留時間：該段落 section_view 到同一次瀏覽中下一個段落出現的秒數（中位數）。超過 300 秒視為離開座位而剔除；兩個段落同時進入畫面時共用同一段時間；離開頁面前的最後一個段落無法計算。</li>
+        <li>輪播看完率：看到該段落的工作階段中，點到最後一張的比例（總張數取資料中最大的張次）。</li>
+      </ul>
+      <details><summary>查看全部段落的到達率</summary>
+        <div class="bars">${m.sections.map(s => barRow(s.label, s.reach, 1, pct(s.reach))).join('')}</div>
+      </details>
+    </section>`);
+
+    // 4.2 misclick + order
+    const mc = [...f].sort((a, b) => (b.misclick ?? -1) - (a.misclick ?? -1));
+    const mcMax = maxOf(mc, 'misclick');
+    out.push(`<section class="card" id="s-order">
+      ${head('4.2', 's-order', '人們怎麼瀏覽一台車：切換標籤誤點與段落順序', `切換標籤在內容上方，使用者是否誤以為在操作下一個段落。${modelName}。`)}
+      ${conclusion()}
+      <div class="block">
+        <h3>切換標籤誤點比例</h3>
+        <p class="desc">各特色輪播的點擊中，點擊當下輪播圖片不在畫面內的比例，最嚴重的排最上面。${DATA.meta.tracking.content_in_view ? '' : '目前是推測值：content_in_view 尚未上線，改以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。'}</p>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>特色段落</th><th class="n">輪播點擊數</th><th>誤點比例</th><th class="n">誤點後捲回該段落</th></tr></thead>
+          <tbody>${mc.map(s => `<tr><td>${esc(s.label)}</td><td class="n">${int(s.clicks)}</td><td>${cellBar(s.misclick, mcMax, pct(s.misclick))}</td><td class="n">${pct(s.scroll_back)}</td></tr>`).join('')}</tbody>
+        </table></div>
+      </div>
+      <div class="two">
+        <div class="block">
+          <h3>照頁面順序瀏覽</h3>
+          <div class="stat"><span class="k">段落出現順序與頁面由上到下一致的頁面瀏覽</span><span class="v">${pct(m.order.in_order)}</span><span class="s">以每個段落第一次 section_view 的時間排序</span></div>
+        </div>
+        <div class="block">
+          <h3>最常見的跳序組合</h3>
+          <div class="bars">${m.order.skips.map(s => barRow(s.path, s.share, maxOf(m.order.skips, 'share'), pct(s.share))).join('')}</div>
+          <p class="desc">「A → B」表示先看到 A，之後才看到頁面上位置在 A 之前的 B。比例為跳序頁面瀏覽中的占比。</p>
+        </div>
+      </div>
+    </section>`);
+
+    // 5 variant
+    const vMax = maxOf(f, 'variant');
+    out.push(`<section class="card" id="s-variant">
+      ${head('5', 's-variant', '車型選單真的有用處嗎？', `各特色段落左方的車型下拉選單，看到段落的人有多少會去選。${modelName}。`)}
+      ${conclusion()}
+      <div class="bars">${f.map(s => barRow(s.label, s.variant, vMax, pct(s.variant))).join('')}</div>
+      <ul class="notes">
+        <li>使用率 = 在該段落選過車型的工作階段 ÷ 看到該段落的工作階段。只打開選單不選不會有事件。</li>
+        <li>以工作階段去重，同一段落選了幾次都只算一次，所以手機版重複送出不影響使用率。</li>
+      </ul>
+    </section>`);
+
+    // 6 CTA
+    const fab = m.cta.fab, pg = m.cta.page, sp = m.cta.test_drive_split;
+    const ctaMax = Math.max(maxOf(fab, 'rate'), maxOf(pg, 'rate'));
+    out.push(`<section class="card" id="s-cta">
+      ${head('6', 's-cta', '車款介紹上的 CTA 狀態', `只計車款頁上的點擊，首頁的 FAB 點擊不列入。${modelName}。`)}
+      ${conclusion()}
+      <div class="two">
+        <div class="block">
+          <h3>FAB（左側固定按鈕）</h3>
+          <p class="desc">點擊率分母：車款頁的頁面瀏覽。</p>
+          <div class="bars">${fab.map(c => barRow(c.label, c.rate, ctaMax, pct(c.rate, 2))).join('')}</div>
+        </div>
+        <div class="block">
+          <h3>頁面內按鈕</h3>
+          <p class="desc">點擊率分母：看到按鈕所在段落的車款頁瀏覽。</p>
+          <div class="bars">${pg.map(c => barRow(c.label, c.rate, ctaMax, pct(c.rate, 2), '所在段落：' + c.section)).join('')}</div>
+        </div>
+      </div>
+      <div class="block">
+        <h3>試乘諮詢從哪裡點</h3>
+        <p class="desc">FAB 與頁面內的點擊率分母不同，不能直接比大小，所以改看全部試乘點擊中各自的占比。</p>
+        <div class="split" role="img" aria-label="試乘諮詢點擊占比：FAB ${pct(sp.fab)}，頁面內 ${pct(sp.page)}">
+          <div style="width:${((sp.fab || 0) * 100).toFixed(1)}%;background:var(--viz-1)"></div>
+          <div style="width:${((sp.page || 0) * 100).toFixed(1)}%;background:var(--viz-8)"></div>
+        </div>
+        <div class="legend"><span><i style="background:var(--viz-1)"></i>FAB <b class="num">${pct(sp.fab)}</b></span><span><i style="background:var(--viz-8)"></i>頁面內（重點特色）<b class="num">${pct(sp.page)}</b></span></div>
+      </div>
+      <ul class="notes"><li>只有點擊、沒有試乘表單送出事件，所以這是點擊意圖，不是轉換。下載型錄只用 cta_click 計算，不重複計入 file_download。</li></ul>
+    </section>
+    </div>`);
+
+    // 7.1 spec switch
+    out.push(`<section class="card" id="s-spec">
+      ${head('7.1', 's-spec', '其他觀察：舊版選單上的規格開關', '「車款介紹」選單上的「售價&規格」開關，預設為關閉。')}
+      ${conclusion()}
+      <div class="stats">
+        <div class="stat"><span class="k">開啟率</span><span class="v">${pct(d.spec_switch.open_rate)}</span><span class="s">${d.spec_switch.open_rate == null ? 'menu_open 上線後才能計算' : '打開開關的次數 ÷ 車款介紹選單展開次數'}</span></div>
+        <div class="stat"><span class="k">打開後又關掉</span><span class="v">${pct(d.spec_switch.off_after_on)}</span><span class="s">state = off 的次數 ÷ state = on 的次數</span></div>
+      </div>
+    </section>`);
+
+    // 7.2 recommend
+    const src = d.recommend.sources;
+    const pairs = d.recommend.pairs;
+    const pairsShown = pairs.slice(0, 10);
+    const pMax = pairs.length ? maxOf(pairs, 'ctr') : 1;
+    out.push(`<section class="card" id="s-rec">
+      ${head('7.2', 's-rec', '其他觀察：推薦組合的成效', '車款頁底部「為您推薦」：哪些車款頁的推薦有人點，以及哪些推薦組合最有效。')}
+      ${conclusion()}
+      <div class="two">
+        <div class="block">
+          <h3>各車款頁的推薦點擊率</h3>
+          <p class="desc">分母：看到「為您推薦」段落的車款頁瀏覽。</p>
+          <div class="bars">${src.map(s => barRow(s.model + ' 車款頁', s.ctr, maxOf(src, 'ctr'), pct(s.ctr))).join('')}</div>
+        </div>
+        <div class="block">
+          <h3>推薦組合（點擊率前 10）</h3>
+          <div class="tbl-wrap"><table style="min-width:420px">
+            <thead><tr><th>來源 → 被推薦</th><th class="n">位置</th><th class="n">點擊</th><th>點擊率</th></tr></thead>
+            <tbody>${pairsShown.length ? pairsShown.map(p => `<tr><td>${esc(p.from)} → ${esc(p.to)}</td><td class="n">${p.pos ? `第 ${p.pos} 個` : '—'}</td><td class="n">${int(p.clicks)}</td><td>${cellBar(p.ctr, pMax, pct(p.ctr, 2))}</td></tr>`).join('') : `<tr><td colspan="4" class="ref">這個車款頁沒有「為您推薦」資料。</td></tr>`}</tbody>
+          </table></div>
+        </div>
+      </div>
+      <ul class="notes">
+        <li>沒有被點過的組合也會列出，推薦清單由各車款頁整理；正式站若在前測期間更換推薦車款，以正式站為準。</li>
+        <li>手機版推薦列需滑動，排在後面的車款點擊率會被位置拉低，請一併看「位置」欄。</li>
+      </ul>
+    </section>`);
+
+    return out.join('');
+  }
+
+  function renderEmpty(kind) {
+    if (kind === 'new') return `<section class="card"><div class="empty">
+      <h2>新版設計：尚無資料</h2>
+      <p>新站預計 2027 年 2 月底上線，穩定約一週後收集 30 天的 GA4 後測資料。段落與指標會和「現有網頁」相同，新站元件不同的段落再另外增減。</p>
+    </div></section>`;
+    return `<section class="card"><div class="empty">
+      <h2>前後對照：預留</h2>
+      <p>新舊站的後測資料都齊全後，這裡會把同一個指標並排比較，例如同一段落的重複觀看占比在新舊站的差異。</p>
+    </div></section>`;
+  }
+
+  function render() {
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === state.tab)));
+    document.querySelectorAll('#dev-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dev === state.dev)));
+    const isOld = state.tab === 'old';
+    document.getElementById('filters').hidden = !isOld;
+    const hadFocus = document.activeElement && document.activeElement.id === 'model-sel';
+    document.getElementById('main').innerHTML = isOld ? renderOld() : renderEmpty(state.tab);
+    if (hadFocus) { const s = document.getElementById('model-sel'); if (s) s.focus(); }
+    save();
+  }
+
+  function init(data) {
+    DATA = data;
+    const m = data.meta;
+    const partial = m.planned_end && !m.period.endsWith(m.planned_end);
+    document.getElementById('meta').innerHTML = `<span>資料期間 <b class="num">${esc(m.period)}</b>${partial ? `（共 ${m.days} 天，前測期至 ${esc(m.planned_end)}）` : ''}</span>`;
+    if (!['old', 'new', 'cmp'].includes(state.tab)) state.tab = 'old';
+    if (!['all', 'desktop', 'mobile'].includes(state.dev)) state.dev = 'all';
+    if (state.model !== 'all' && !m.models.includes(state.model)) state.model = 'all';
+    document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { state.tab = t.dataset.tab; render(); }));
+    document.querySelectorAll('#dev-seg button').forEach(b => b.addEventListener('click', () => { state.dev = b.dataset.dev; render(); }));
+    document.getElementById('main').addEventListener('change', e => {
+      if (e.target.id === 'model-sel') { state.model = e.target.value; render(); }
+    });
+    const filtersEl = document.getElementById('filters');
+    const setFiltersH = () => document.documentElement.style.setProperty('--filters-h', filtersEl.offsetHeight + 'px');
+    setFiltersH();
+    if (window.ResizeObserver) new ResizeObserver(setFiltersH).observe(filtersEl);
+    render();
+  }
+
+  fetch('data/report.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(init)
+    .catch(err => {
+      document.getElementById('main').innerHTML = `<section class="card"><div class="empty"><h2>資料載入失敗</h2><p>找不到 data/report.json（${esc(err.message)}）。請確認資料檔與頁面一起發佈。</p></div></section>`;
+    });
+})();
+</script>
