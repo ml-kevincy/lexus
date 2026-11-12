@@ -1,5 +1,5 @@
 -- 4.2 切換標籤誤點：特色輪播的點擊中，點擊當下輪播不在畫面內的比例
--- content_in_view 上線後直接用；之前用推測：點擊前最後一個 section_view 已是頁面上更下面的段落
+-- 兩種算法並列：est＝推測（點擊前最後一個 section_view 已是頁面上更下面的段落，全期可算）；civ＝content_in_view 直接量測（上線後才有）
 WITH base AS ({BASE}),
 rk AS (
   SELECT * FROM UNNEST([
@@ -22,7 +22,8 @@ seq AS (
 last_seen AS (SELECT pv, section, MAX(ts) AS last_ts FROM ev WHERE event_name = 'section_view' GROUP BY 1, 2),
 clk AS (
   SELECT q.pv, q.dev, q.model, q.carousel_id, q.ts,
-    COALESCE(q.content_in_view = 'no', q.last_sec IS NOT NULL AND q.last_sec != q.carousel_id AND r1.r > r2.r) AS mis
+    q.last_sec IS NOT NULL AND q.last_sec != q.carousel_id AND r1.r > r2.r AS est,
+    q.content_in_view AS civ
   FROM seq q
   LEFT JOIN rk r1 ON r1.s = q.last_sec
   LEFT JOIN rk r2 ON r2.s = q.carousel_id
@@ -30,8 +31,13 @@ clk AS (
 )
 SELECT d AS device, m AS model, c.carousel_id AS section,
   COUNT(*) AS clicks,
-  COUNTIF(c.mis) AS mis,
-  COUNTIF(c.mis AND l.last_ts > c.ts) AS mis_back
+  COUNTIF(c.est) AS est_mis,
+  COUNTIF(c.est AND l.last_ts > c.ts) AS est_back,
+  COUNTIF(c.civ IS NOT NULL) AS civ_n,
+  COUNTIF(c.civ = 'no') AS civ_no,
+  COUNTIF(c.civ = 'no' AND l.last_ts > c.ts) AS civ_back,
+  COUNTIF(c.civ IS NOT NULL AND c.est) AS both_est,
+  COUNTIF(c.civ = 'no' AND c.est) AS both_est_no
 FROM clk c
 LEFT JOIN last_seen l ON l.pv = c.pv AND l.section = c.carousel_id,
 UNNEST(['all', c.dev]) AS d, UNNEST(['all', c.model]) AS m

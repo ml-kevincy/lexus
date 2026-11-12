@@ -277,6 +277,8 @@ details[open] summary { margin-bottom: 10px; }
       ${chips.length ? `<div class="chips">${chips.map(c => `<span class="chip${c.warn ? ' warn' : ''}">${esc(c.t)}</span>`).join('')}</div>` : ''}
     </div>`;
   const maxOf = (arr, k) => Math.max(0, ...arr.map(x => x[k]).filter(v => v != null)) || 1;
+  // 新事件的上線時間（台灣時間），格式 11/10 17:26；尚未上線回傳 null
+  const since = key => { const t = DATA.meta.tracking_since && DATA.meta.tracking_since[key]; return t ? `${+t.slice(5, 7)}/${+t.slice(8, 10)} ${t.slice(11)}` : null; };
   const pending = msg => `<p class="pending">${esc(msg)}</p>`;
 
   const SECTIONS = [
@@ -313,11 +315,11 @@ details[open] summary { margin-bottom: 10px; }
     // 1 home depth
     const hs = d.home_sections;
     out.push(`<section class="card" id="s-home">
-      ${head('1', 's-home', '大家怎麼看首頁？', '首頁各段落的到達率，由上到下。')}
+      ${head('1', 's-home', '大家怎麼看首頁？', `首頁各段落的到達率，由上到下。${since('home_section_view') ? `資料自 ${since('home_section_view')} 起，目前樣本還少。` : ''}`)}
       ${conclusion()}
       <div class="block">
         <h3>首頁段落到達率</h3>
-        <p class="desc">分母：首頁頁面瀏覽。同一次瀏覽重複看到同一段落只算一次。</p>
+        <p class="desc">分母：${since('home_section_view') ? `${since('home_section_view')} 之後的` : ''}首頁頁面瀏覽。同一次瀏覽重複看到同一段落只算一次。</p>
         ${hs.length ? `<div class="bars">${hs.map(s => barRow(s.label, s.reach, 1, pct(s.reach), s.section)).join('')}</div>` : pending('首頁各段落的 section_view 尚未上線，上線後才會有資料。')}
       </div>
     </section>`);
@@ -348,7 +350,10 @@ details[open] summary { margin-bottom: 10px; }
         <thead><tr><th>入口</th><th>點擊占比</th><th class="n">看到後點擊率</th><th>點擊率分母</th></tr></thead>
         <tbody>${en.map(e => `<tr><td>${esc(e.label)}</td><td>${cellBar(e.share, maxShare, pct(e.share))}</td><td class="n">${pct(e.ctr)}</td><td class="ref">${esc(e.denom)}</td></tr>`).join('')}</tbody>
       </table></div>
-      <ul class="notes"><li>點擊占比的分母是全部入口的 select_model 點擊；各入口的點擊率分母不同，跨入口比較時請看分母欄。</li></ul>
+      <ul class="notes">
+        <li>點擊占比的分母是全部入口的 select_model 點擊；各入口的點擊率分母不同，跨入口比較時請看分母欄。</li>
+        ${since('menu_open') || since('home_section_view') ? `<li>主選單的點擊率只計 ${esc(since('menu_open') || '—')} 之後（menu_open 上線）、首頁底部車款入口只計 ${esc(since('home_section_view') || '—')} 之後的資料，樣本只有數小時，數字會隨資料累積而變動。</li>` : ''}
+      </ul>
     </section>`);
 
     // 4.1 focus
@@ -390,17 +395,21 @@ details[open] summary { margin-bottom: 10px; }
     </section>`);
 
     // 4.2 misclick + order
-    const mc = [...f].sort((a, b) => (b.misclick ?? -1) - (a.misclick ?? -1));
-    const mcMax = maxOf(mc, 'misclick');
+    const hasDirect = DATA.meta.tracking.content_in_view;
+    const mcKey = x => (hasDirect && x.misclick_direct != null ? x.misclick_direct : x.misclick) ?? -1;
+    const mc = [...f].sort((a, b) => mcKey(b) - mcKey(a));
+    const mcMax = Math.max(maxOf(mc, 'misclick'), hasDirect ? maxOf(mc, 'misclick_direct') : 0);
     out.push(`<section class="card" id="s-order">
       ${head('4.2', 's-order', '人們怎麼瀏覽一台車：切換標籤誤點與段落順序', `切換標籤在內容上方，使用者是否誤以為在操作下一個段落。${modelName}。`)}
       ${conclusion()}
       <div class="block">
         <h3>切換標籤誤點比例</h3>
-        <p class="desc">各特色輪播的點擊中，點擊當下輪播圖片不在畫面內的比例，最嚴重的排最上面。${DATA.meta.tracking.content_in_view ? '' : '目前是推測值：content_in_view 尚未上線，改以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。'}</p>
+        <p class="desc">各特色輪播的點擊中，點擊當下輪播圖片不在畫面內的比例，最嚴重的排最上面。${hasDirect ? `「直接量測」來自 content_in_view（${esc(since('content_in_view'))} 起，樣本只有數小時）；「推測值」是全期資料，以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。` : '目前是推測值：content_in_view 尚未上線，改以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。'}</p>
         <div class="tbl-wrap"><table>
-          <thead><tr><th>特色段落</th><th class="n">輪播點擊數</th><th>誤點比例</th><th class="n">誤點後捲回該段落</th></tr></thead>
-          <tbody>${mc.map(s => `<tr><td>${esc(s.label)}</td><td class="n">${int(s.clicks)}</td><td>${cellBar(s.misclick, mcMax, pct(s.misclick))}</td><td class="n">${pct(s.scroll_back)}</td></tr>`).join('')}</tbody>
+          ${hasDirect ? `<thead><tr><th>特色段落</th><th>誤點比例（直接量測）</th><th class="n">直接量測點擊數</th><th class="n">誤點後捲回該段落</th><th>誤點比例（推測值，全期）</th></tr></thead>
+          <tbody>${mc.map(s => `<tr><td>${esc(s.label)}</td><td>${cellBar(s.misclick_direct, mcMax, pct(s.misclick_direct))}</td><td class="n">${int(s.civ_clicks)}</td><td class="n">${pct(s.scroll_back_direct)}</td><td>${cellBar(s.misclick, mcMax, pct(s.misclick))}</td></tr>`).join('')}</tbody>`
+          : `<thead><tr><th>特色段落</th><th class="n">輪播點擊數</th><th>誤點比例</th><th class="n">誤點後捲回該段落</th></tr></thead>
+          <tbody>${mc.map(s => `<tr><td>${esc(s.label)}</td><td class="n">${int(s.clicks)}</td><td>${cellBar(s.misclick, mcMax, pct(s.misclick))}</td><td class="n">${pct(s.scroll_back)}</td></tr>`).join('')}</tbody>`}
         </table></div>
       </div>
       <div class="two">
@@ -464,7 +473,7 @@ details[open] summary { margin-bottom: 10px; }
       ${head('7.1', 's-spec', '其他觀察：舊版選單上的規格開關', '「車款介紹」選單上的「售價&規格」開關，預設為關閉。')}
       ${conclusion()}
       <div class="stats">
-        <div class="stat"><span class="k">開啟率</span><span class="v">${pct(d.spec_switch.open_rate)}</span><span class="s">${d.spec_switch.open_rate == null ? 'menu_open 上線後才能計算' : '打開開關的次數 ÷ 車款介紹選單展開次數'}</span></div>
+        <div class="stat"><span class="k">開啟率</span><span class="v">${pct(d.spec_switch.open_rate)}</span><span class="s">${d.spec_switch.open_rate == null ? 'menu_open 上線後才能計算' : `${since('menu_open') || ''} 起：打開開關的次數 ÷ 車款介紹選單展開次數（樣本只有數小時）`}</span></div>
         <div class="stat"><span class="k">打開後又關掉</span><span class="v">${pct(d.spec_switch.off_after_on)}</span><span class="s">state = off 的次數 ÷ state = on 的次數</span></div>
       </div>
     </section>`);

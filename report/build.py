@@ -11,7 +11,7 @@ in the shape report/index.html reads.
 """
 import argparse, json, re, subprocess, sys, urllib.request
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -49,8 +49,28 @@ def ratio(a, b, nd=4):
     return round(a / b, nd) if a is not None and b else None
 
 
-def run_query(name, base):
-    sql = (SQL / f'{name}.sql').read_text().replace('{BASE}', base)
+NEVER = 9223372036854775807  # "not live yet": denominators become empty
+
+
+def go_live_times(base):
+    """First event_timestamp (µs) of each tracking addition made after the pre-test started."""
+    sql = f"""WITH b AS ({base})
+SELECT MIN(IF(event_name = 'menu_open', ts, NULL)) AS menu_open,
+  MIN(IF(event_name = 'section_view' AND STARTS_WITH(section, 'home_'), ts, NULL)) AS home_section_view,
+  MIN(IF(content_in_view IS NOT NULL, ts, NULL)) AS content_in_view FROM b"""
+    res = subprocess.run(['bq', 'query', f'--project_id={PROJECT}', '--use_legacy_sql=false', '--format=json', '--quiet'],
+                         input=sql, capture_output=True, text=True)
+    if res.returncode != 0:
+        sys.exit('go-live query failed:\n' + (res.stderr or res.stdout))
+    row = json.loads(res.stdout)[0]
+    return {k: (int(v) if v else None) for k, v in row.items()}
+
+
+def run_query(name, base, live):
+    sql = (SQL / f'{name}.sql').read_text().replace('{BASE}', base) \
+        .replace('{MENU_LIVE}', str(live['menu_open'] or NEVER)) \
+        .replace('{HOME_LIVE}', str(live['home_section_view'] or NEVER)) \
+        .replace('{CIV_LIVE}', str(live['content_in_view'] or NEVER))
     cmd = ['bq', 'query', f'--project_id={PROJECT}', '--use_legacy_sql=false', '--format=json',
            '--max_rows=1000000', '--quiet']
     res = subprocess.run(cmd, input=sql, capture_output=True, text=True)
@@ -114,9 +134,11 @@ def main():
         .replace('{START}', args.start).replace('{END}', end)
     base = '\n'.join(l for l in base.splitlines() if not l.lstrip().startswith('--'))
 
+    live = go_live_times(base)
+    print('Go-live (µs):', live, file=sys.stderr)
     names = ['overview', 'home', 'hero', 'entries', 'feature', 'misclick', 'order', 'cta', 'spec', 'recommend']
     with ThreadPoolExecutor(max_workers=5) as ex:
-        R = dict(ex.map(lambda n: run_query(n, base), names))
+        R = dict(ex.map(lambda n: run_query(n, base, live), names))
 
     by = lambda rows, *keys: {tuple(r[k] for k in keys): r for r in rows}
 
@@ -154,8 +176,10 @@ def main():
         # 3 entries
         ent = {(r['entry'], r['kind']): r['n'] for r in R['entries'] if r['device'] == dev}
         total_clk = sum(n for (e, k), n in ent.items() if k == 'clk')
+        # entries whose denominator is a new event: only clicks after go-live count
+        click_for_ctr = lambda e: ent.get((e, 'clk_live'), 0) if e in ('menu', 'home_model_list') else ent.get((e, 'clk'), 0)
         entries = [{'entry': e, 'label': lbl, 'share': ratio(ent.get((e, 'clk'), 0), total_clk),
-                    'ctr': ratio(ent.get((e, 'clk'), 0), ent.get((e, 'den'))), 'denom': den}
+                    'ctr': ratio(click_for_ctr(e), ent.get((e, 'den'))), 'denom': den}
                    for e, lbl, den in ENTRIES]
         # 4–6 per model
         models = {}
@@ -176,8 +200,14 @@ def main():
                     'dwell': round(f['dwell'], 1) if f.get('dwell') is not None else None,
                     'complete': ratio(f.get('complete') or 0, f['seen']),
                     'variant': ratio(f.get('var') or 0, f['seen']),
-                    'clicks': mc.get('clicks', 0), 'misclick': ratio(mc.get('mis'), mc.get('clicks')),
-                    'scroll_back': ratio(mc.get('mis_back'), mc.get('mis')),
+                    'clicks': mc.get('clicks', 0),
+                    # estimate (whole window) and direct measure (content_in_view, since go-live)
+                    'misclick': ratio(mc.get('est_mis'), mc.get('clicks')),
+                    'scroll_back': ratio(mc.get('est_back'), mc.get('est_mis')),
+                    'civ_clicks': mc.get('civ_n', 0),
+                    'misclick_direct': ratio(mc.get('civ_no'), mc.get('civ_n')),
+                    'scroll_back_direct': ratio(mc.get('civ_back'), mc.get('civ_no')),
+                    'est_on_direct': ratio(mc.get('both_est_no'), mc.get('civ_n')),
                 })
             orows = [r for r in R['order'] if r['device'] == dev and r['model'] == m]
             opv = next((r for r in orows if r['path'] == '_pv'), {'n': 0, 'inv': 0})
@@ -200,7 +230,7 @@ def main():
         # 7.1 spec switch
         sp = {r['k']: r['n'] for r in R['spec'] if r['device'] == dev}
         spec = {'on': sp.get('on', 0), 'off': sp.get('off', 0),
-                'open_rate': ratio(sp.get('on', 0), sp.get('_menu_open')),
+                'open_rate': ratio(sp.get('on_live', 0), sp.get('_menu_open')),
                 'off_after_on': ratio(sp.get('off', 0), sp.get('on'))}
         # 7.2 recommend
         rrows = [r for r in R['recommend'] if r['device'] == dev]
@@ -232,6 +262,8 @@ def main():
             'sample': False, 'period': f'{fmt_day(args.start)} – {fmt_day(end)}', 'days': days,
             'planned_end': fmt_day(args.end), 'generated': datetime.now().strftime('%Y-%m-%d %H:%M'),
             'property': 'G-4DVH5EF2RM', 'host': 'www.lexus.com.tw', 'models': models_present, 'tracking': tracking,
+            'tracking_since': {k: (datetime.fromtimestamp(v / 1e6, tz=timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M') if v else None)
+                               for k, v in live.items()},
         },
         'old': out_dev, 'new': None,
     }

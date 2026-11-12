@@ -15,6 +15,12 @@ den AS (
 )
 SELECT d AS device, entry, kind, COUNT(*) AS n FROM clicks, UNNEST(['all', dev]) AS d GROUP BY 1, 2, 3
 UNION ALL
+-- 分母來自新事件的入口：只計上線後的點擊，才能和分母對齊
+SELECT d, entry_point, 'clk_live', COUNT(*) FROM base, UNNEST(['all', dev]) AS d
+WHERE event_name = 'select_model' AND model IN ('ES','IS','LS','LBX','UX','NX','RX','LM','RZ','LESC','LF-ZC')
+  AND ((entry_point = 'menu' AND ts >= {MENU_LIVE}) OR (entry_point = 'home_model_list' AND ts >= {HOME_LIVE}))
+GROUP BY 1, 2
+UNION ALL
 SELECT d, entry, 'den', COUNT(*) FROM den, UNNEST(['all', dev]) AS d GROUP BY 1, 2
 UNION ALL
 SELECT d, 'menu', 'den', COUNT(*) FROM base, UNNEST(['all', dev]) AS d WHERE event_name = 'menu_open' GROUP BY 1
