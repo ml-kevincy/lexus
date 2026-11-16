@@ -484,7 +484,7 @@ details[open] summary { margin-bottom: 10px; }
 
     // 7.1 spec switch
     out.push(`<section class="card" id="s-spec">
-      ${head('7.1', 's-spec', '其他觀察：舊版選單上的規格開關', '「車款介紹」選單上的「售價&規格」開關，預設為關閉。')}
+      ${head('7.1', 's-spec', '舊版選單上的規格開關', '「車款介紹」選單上的「售價&規格」開關，預設為關閉。')}
       ${conclusion('7.1')}
       <div class="stats">
         <div class="stat"><span class="k">開啟率${tip(`打開開關的次數（state = on）÷ 車款介紹選單展開次數（menu_open）。${lateStart('menu_open') ? `${lateStart('menu_open')} 起才有資料，樣本只有數小時。` : ''}`)}</span><span class="v">${pct(d.spec_switch.open_rate)}</span>${d.spec_switch.open_rate == null ? '<span class="s">menu_open 上線後才能計算</span>' : ''}</div>
@@ -498,7 +498,7 @@ details[open] summary { margin-bottom: 10px; }
     const pairsShown = pairs.slice(0, 10);
     const pMax = pairs.length ? maxOf(pairs, 'ctr') : 1;
     out.push(`<section class="card" id="s-rec">
-      ${head('7.2', 's-rec', '其他觀察：推薦組合的成效', '車款頁底部「為您推薦」：哪些車款頁的推薦有人點，以及哪些推薦組合最有效。')}
+      ${head('7.2', 's-rec', '推薦組合的成效', '車款頁底部「為您推薦」：哪些車款頁的推薦有人點，以及哪些推薦組合最有效。')}
       ${conclusion('7.2')}
       ${d.recommend.total ? `<div class="stats"><div class="stat"><span class="k">總體推薦點擊率${tip('「為您推薦」的點擊次數 ÷ 看到「為您推薦」段落的車款頁瀏覽。各車款頁加總後重新計算，不是各車款頁點擊率的平均。')}</span><span class="v">${pct(d.recommend.total.rate)}</span><span class="s">${int(d.recommend.total.seen)} 次看到、${int(d.recommend.total.clicks)} 次點擊</span></div></div>` : ''}
       <div class="two">
