@@ -239,8 +239,11 @@ def main():
         rrows = [r for r in R['recommend'] if r['device'] == dev]
         seen = {r['src']: r['n'] for r in rrows if r['kind'] == 'seen'}
         clk = {(r['src'], r['dst']): r['n'] for r in rrows if r['kind'] == 'clk' and r['dst'] in MODELS}
-        sources = sorted(({'model': s, 'seen': n, 'ctr': ratio(sum(v for (a, _), v in clk.items() if a == s), n)}
+        clicks_by_src = {s: sum(v for (a, _), v in clk.items() if a == s) for s in seen}
+        sources = sorted(({'model': s, 'seen': n, 'clicks': clicks_by_src[s], 'ctr': ratio(clicks_by_src[s], n)}
                           for s, n in seen.items() if s in MODELS), key=lambda x: -(x['ctr'] or 0))
+        rec_total = {'seen': sum(x['seen'] for x in sources), 'clicks': sum(x['clicks'] for x in sources)}
+        rec_total['rate'] = ratio(rec_total['clicks'], rec_total['seen'])
         pairs, done = [], set()
         for src, lst in rec_lists.items():
             for pos, dst in enumerate(lst, 1):
@@ -256,7 +259,7 @@ def main():
             'overview': {'sessions': ov.get('sessions'), 'users': ov.get('users'), 'pageviews': ov.get('pageviews'),
                          'device_share': {'desktop': ratio(ds['desktop'], ds['all'], 3), 'mobile': ratio(ds['mobile'], ds['all'], 3)}},
             'home_sections': home_sections, 'home_hero': hero, 'entries': entries, 'models': models,
-            'spec_switch': spec, 'recommend': {'sources': sources, 'pairs': pairs},
+            'spec_switch': spec, 'recommend': {'sources': sources, 'pairs': pairs, 'total': rec_total},
         }
 
     days = (date(int(end[:4]), int(end[4:6]), int(end[6:])) - date(int(args.start[:4]), int(args.start[4:6]), int(args.start[6:]))).days + 1
