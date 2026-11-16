@@ -2,7 +2,7 @@
 """Build report/data/report.json from the GA4 BigQuery export.
 
 Usage (run `gcloud auth login` first):
-  python3 report/build.py                       # pre-test window 2026-11-05 – 2026-12-04, clipped to the latest table
+  python3 report/build.py                       # pre-test window 2026-11-11 – 2026-12-10, clipped to the latest table
   python3 report/build.py --start 20261105 --end 20261107
   python3 report/build.py --refresh-recommend   # re-read the 為您推薦 lists from www.lexus.com.tw
 
@@ -122,8 +122,8 @@ def fmt_day(s):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--start', default='20261105')
-    ap.add_argument('--end', default='20261204')
+    ap.add_argument('--start', default='20261111')
+    ap.add_argument('--end', default='20261210')
     ap.add_argument('--refresh-recommend', action='store_true')
     args = ap.parse_args()
 
