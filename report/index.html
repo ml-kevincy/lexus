@@ -169,7 +169,6 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
   padding: 8px 12px; font-size: var(--fs-xs); line-height: 1.6; letter-spacing: 0; font-weight: 400;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
-.total td { background: var(--surface-pinned); font-weight: 700; }
 .pending { font-size: var(--fs-small); color: var(--ink-muted); background: var(--surface-pinned); border-radius: var(--r-control); padding: 16px; text-align: center; }
 .notes { font-size: var(--fs-xs); color: var(--ink-muted); display: grid; gap: 2px; padding-left: 1.2em; margin: 0; }
 
@@ -501,16 +500,7 @@ details[open] summary { margin-bottom: 10px; }
     out.push(`<section class="card" id="s-rec">
       ${head('7.2', 's-rec', '其他觀察：推薦組合的成效', '車款頁底部「為您推薦」：哪些車款頁的推薦有人點，以及哪些推薦組合最有效。')}
       ${conclusion('7.2')}
-      <div class="block">
-        <h3>為您推薦點擊率整理${tip('點擊率 = 「為您推薦」的點擊次數 ÷ 看到「為您推薦」段落的車款頁瀏覽。「全部車款頁」是各車款頁加總後重新計算，不是各車款頁點擊率的平均。')}</h3>
-        <div class="tbl-wrap"><table style="min-width:460px">
-          <thead><tr>${th('車款頁')}${th('看到次數', '看到「為您推薦」段落的車款頁瀏覽數。', 'n')}${th('點擊次數', '「為您推薦」的點擊次數。', 'n')}${th('點擊率')}</tr></thead>
-          <tbody>
-            ${d.recommend.total ? `<tr class="total"><td>全部車款頁</td><td class="n">${int(d.recommend.total.seen)}</td><td class="n">${int(d.recommend.total.clicks)}</td><td>${cellBar(d.recommend.total.rate, maxOf(src, 'ctr'), pct(d.recommend.total.rate))}</td></tr>` : ''}
-            ${src.map(x => `<tr><td>${esc(x.model)}</td><td class="n">${int(x.seen)}</td><td class="n">${int(x.clicks)}</td><td>${cellBar(x.ctr, maxOf(src, 'ctr'), pct(x.ctr))}</td></tr>`).join('')}
-          </tbody>
-        </table></div>
-      </div>
+      ${d.recommend.total ? `<div class="stats"><div class="stat"><span class="k">總體推薦點擊率${tip('「為您推薦」的點擊次數 ÷ 看到「為您推薦」段落的車款頁瀏覽。各車款頁加總後重新計算，不是各車款頁點擊率的平均。')}</span><span class="v">${pct(d.recommend.total.rate)}</span><span class="s">${int(d.recommend.total.seen)} 次看到、${int(d.recommend.total.clicks)} 次點擊</span></div></div>` : ''}
       <div class="two">
         <div class="block">
           <h3>各車款頁的推薦點擊率${tip('該車款頁「為您推薦」的點擊 ÷ 看到「為您推薦」段落的車款頁瀏覽。')}</h3>
