@@ -2,7 +2,7 @@
 """Turn report/data/conclusions-draft.md into report/data/conclusions.json (what the page shows).
 
 Draft format: a first line containing "資料：<period>", then one "## <section no> <title>" heading per
-section followed by "- " bullets. A trailing （…） in a heading is dropped.
+section, then an optional "重點：<one sentence>" line (shown directly) and "- " bullets (collapsed details).
 Usage: python3 report/conclusions.py
 """
 import json, re
@@ -18,11 +18,13 @@ for line in text.splitlines():
     h = re.match(r'##\s+([\d.]+)\s', line)
     if h:
         cur = h.group(1)
-        out['sections'][cur] = []
+        out['sections'][cur] = {'summary': '', 'details': []}
+    elif cur and line.startswith('重點：'):
+        out['sections'][cur]['summary'] = line[len('重點：'):].strip()
     elif cur and line.startswith('- '):
-        out['sections'][cur].append(line[2:].strip())
-    elif cur and line.strip() and not line.startswith('#') and out['sections'][cur]:
-        out['sections'][cur][-1] += line.strip()  # wrapped bullet
+        out['sections'][cur]['details'].append(line[2:].strip())
+    elif cur and line.strip() and not line.startswith('#') and out['sections'][cur]['details']:
+        out['sections'][cur]['details'][-1] += line.strip()  # wrapped bullet
 
 (DATA / 'conclusions.json').write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
-print({k: len(v) for k, v in out['sections'].items()}, 'asof', out['asof'])
+print({k: (bool(v['summary']), len(v['details'])) for k, v in out['sections'].items()}, 'asof', out['asof'])

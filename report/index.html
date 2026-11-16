@@ -150,6 +150,11 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
 }
 .conclusion .lbl { font-size: var(--fs-xs); color: var(--ink-muted); letter-spacing: 0.08em; }
 .conclusion .txt { color: var(--ink-faint); }
+.conclusion { gap: 6px; }
+.conclusion .summary { font-size: var(--fs-body); font-weight: 700; line-height: 1.6; color: var(--ink); }
+.conclusion details.more { font-size: var(--fs-small); }
+.conclusion details.more summary { font-size: var(--fs-xs); }
+.conclusion details.more[open] summary { margin-bottom: 4px; }
 .concl { margin: 4px 0 0; padding-left: 1.2em; display: grid; gap: 4px; color: var(--ink); }
 .stale { font-size: var(--fs-xs); color: var(--warn-text); background: var(--warn-bg); border-radius: var(--r-badge); padding: 2px 8px; justify-self: start; margin-top: 4px; }
 .block { display: grid; gap: 10px; min-width: 0; }
@@ -290,12 +295,16 @@ details[open] summary { margin-bottom: 10px; }
     </div>`;
   const cellBar = (v, max, text) => `
     <div class="cell-bar" title="${esc(text)}"><div class="track">${v == null ? '' : `<div class="fill" style="width:${w(v, max).toFixed(1)}%"></div>`}</div><span>${esc(text)}</span></div>`;
+  // 結論區：先顯示一句重點，詳細說明預設收起，想看的人再展開
   const conclusion = key => {
-    const c = DATA.conclusions && DATA.conclusions.sections[key];
-    if (!c || !c.length) return `<div class="conclusion"><span class="lbl">結論</span><span class="txt">結論待撰寫。</span></div>`;
+    const raw = DATA.conclusions && DATA.conclusions.sections[key];
+    const c = Array.isArray(raw) ? { summary: '', details: raw } : raw;
+    if (!c || (!c.summary && !(c.details || []).length)) return `<div class="conclusion"><span class="lbl">結論</span><span class="txt">結論待撰寫。</span></div>`;
     const stale = DATA.conclusions.asof && DATA.conclusions.asof !== DATA.meta.period;
+    const details = c.details || [];
     return `<div class="conclusion"><span class="lbl">結論${DATA.conclusions.asof ? `（全部裝置、全部車款；依 ${esc(DATA.conclusions.asof)} 資料撰寫）` : ''}</span>
-      <ul class="concl">${c.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      ${c.summary ? `<p class="summary">${esc(c.summary)}</p>` : ''}
+      ${details.length ? `<details class="more"${c.summary ? '' : ' open'}><summary>查看詳細說明</summary><ul class="concl">${details.map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>` : ''}
       ${stale ? `<span class="stale">資料已更新到 ${esc(DATA.meta.period)}，結論尚未重寫，數字可能和下方圖表不同。</span>` : ''}</div>`;
   };
   const head = (no, id, title, sub, chips = [], tipText = '') => `
