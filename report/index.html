@@ -330,7 +330,7 @@ details[open] summary { margin-bottom: 10px; }
     { no: '2', id: 's-hero', title: '首頁輪播是否有效？', line: '封面輪播各張的實際曝光率' },
     { no: '3', id: 's-entry', title: '怎麼把人拉進車款', line: '各導流入口的點擊占比與點擊率' },
     { no: '4.1', id: 's-focus', title: '人們怎麼瀏覽一台車：特色段落的重視程度', line: '重複觀看、停留時間、輪播看完率' },
-    { no: '4.2', id: 's-order', title: '人們怎麼瀏覽一台車：切換標籤誤點與段落順序', line: '標籤誤點比例與跳序組合' },
+    { no: '4.2', id: 's-order', title: '人們錯誤操作特色輪播切換的狀態？', line: '標籤誤點比例與跳序組合' },
     { no: '5', id: 's-variant', title: '車型下拉選單真的有用處嗎？', line: '各段落車型下拉選單使用率' },
     { no: '6', id: 's-cta', title: '車款介紹上的 CTA 狀態', line: 'FAB 與頁面內按鈕的點擊率' },
     { no: '7.1', id: 's-spec', title: '舊版選單上的規格開關', line: '開啟率與開了又關的比例' },
@@ -429,7 +429,7 @@ details[open] summary { margin-bottom: 10px; }
     const mc = [...f].sort((a, b) => mcKey(b) - mcKey(a));
     const mcMax = Math.max(maxOf(mc, 'misclick'), hasDirect ? maxOf(mc, 'misclick_direct') : 0);
     out.push(`<section class="card" id="s-order">
-      ${head('4.2', 's-order', '人們怎麼瀏覽一台車：切換標籤誤點與段落順序', `切換標籤在內容上方，使用者是否誤以為在操作下一個段落。${modelName}。`)}
+      ${head('4.2', 's-order', '人們錯誤操作特色輪播切換的狀態？', `切換標籤在內容上方，使用者是否誤以為在操作下一個段落。${modelName}。`)}
       ${conclusion('4.2')}
       <div class="block">
         <h3>切換標籤誤點比例${tip('各特色輪播的點擊中，點擊當下輪播圖片不在畫面內的比例，最嚴重的排最上面。')}</h3>
