@@ -153,7 +153,6 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
 .conclusion { gap: 6px; }
 .conclusion .summary { font-size: var(--fs-body); font-weight: 700; line-height: 1.6; color: var(--ink); }
 .conclusion details.more { font-size: var(--fs-small); }
-.concl .scope { list-style: none; margin-left: -1.2em; font-size: var(--fs-xs); color: var(--ink-muted); }
 .conclusion details.more summary { font-size: var(--fs-xs); }
 .conclusion details.more[open] summary { margin-bottom: 4px; }
 .concl { margin: 4px 0 0; padding-left: 1.2em; display: grid; gap: 4px; color: var(--ink); }
@@ -175,6 +174,7 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
   padding: 8px 12px; font-size: var(--fs-xs); line-height: 1.6; letter-spacing: 0; font-weight: 400;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
+.sub { display: block; font-family: var(--font-tc); font-size: var(--fs-xs); font-weight: 400; color: var(--ink-muted); }
 .pending { font-size: var(--fs-small); color: var(--ink-muted); background: var(--surface-pinned); border-radius: var(--r-control); padding: 16px; text-align: center; }
 .notes { font-size: var(--fs-xs); color: var(--ink-muted); display: grid; gap: 2px; padding-left: 1.2em; margin: 0; }
 
@@ -303,10 +303,9 @@ details[open] summary { margin-bottom: 10px; }
     if (!c || (!c.summary && !(c.details || []).length)) return `<div class="conclusion"><span class="lbl">結論</span><span class="txt">結論待撰寫。</span></div>`;
     const stale = DATA.conclusions.asof && DATA.conclusions.asof !== DATA.meta.period;
     const details = c.details || [];
-    const scope = DATA.conclusions.asof ? `<li class="scope">適用全部裝置、全部車款；依 ${esc(DATA.conclusions.asof)} 資料撰寫。</li>` : '';
     return `<div class="conclusion">
       ${c.summary ? `<p class="summary">${esc(c.summary)}</p>` : ''}
-      ${details.length ? `<details class="more"${c.summary ? '' : ' open'}><summary>查看詳細說明</summary><ul class="concl">${details.map(t => `<li>${esc(t)}</li>`).join('')}${scope}</ul></details>` : ''}
+      ${details.length ? `<details class="more"${c.summary ? '' : ' open'}><summary>查看詳細說明</summary><ul class="concl">${details.map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>` : ''}
       ${stale ? `<span class="stale">資料已更新到 ${esc(DATA.meta.period)}，結論尚未重寫，數字可能和下方圖表不同。</span>` : ''}</div>`;
   };
   const head = (no, id, title, sub, chips = [], tipText = '') => `
@@ -409,12 +408,13 @@ details[open] summary { margin-bottom: 10px; }
       ${head('4.1', 's-focus', '人們怎麼瀏覽一台車：特色段落的重視程度', '大家最在意哪個特色段落：會重複回來看、停留久、輪播看到最後。')}
       ${conclusion('4.1')}
       <div class="tbl-wrap"><table>
-        <thead><tr>${th('特色段落')}${th('到達率（參考）', '看到該段落的工作階段 ÷ 看過車款頁的工作階段。受段落位置影響（越下面越低），只當參考，不用來排名。', 'n')}${th('重複觀看占比', '看到該段落的工作階段中，section_view 送出 2 次以上的比例。來回捲動也會算入，視為興趣的參考訊號。')}${th('停留時間中位數', '該段落 section_view 到同一次瀏覽中下一個段落出現的秒數（中位數）。超過 300 秒視為離開座位而剔除；兩個段落同時進入畫面時共用同一段時間；離開頁面前的最後一個段落無法計算。')}${th('輪播看完率', '看到該段落的工作階段中，點到最後一張的比例（總張數取資料中最大的張次）。')}</tr></thead>
+        <thead><tr>${th('特色段落')}${th('到達率（參考）', '看到該段落的工作階段 ÷ 看過車款頁的工作階段。受段落位置影響（越下面越低），只當參考，不用來排名。', 'n')}${th('重複觀看占比', '看到該段落的工作階段中，section_view 送出 2 次以上的比例。來回捲動也會算入，視為興趣的參考訊號。')}${th('停留時間中位數', '該段落 section_view 到同一次瀏覽中下一個段落出現的秒數（中位數）。超過 300 秒視為離開座位而剔除；兩個段落同時進入畫面時共用同一段時間；離開頁面前的最後一個段落無法計算。')}${th('平均觀看張次', '看到該段落的工作階段中，每個人「最遠點到第幾張」的平均。沒有點切換標籤的人算第 1 張（第 1 張會在段落出現時自動送出），所以數字通常接近 1，代表多數人沒有互動。各段落的輪播張數不同，不能直接比較，請看數字下方的「共 N 張」。', 'n')}${th('輪播看完率', '看到該段落的工作階段中，點到最後一張的比例（總張數取資料中最大的張次）。')}</tr></thead>
         <tbody>${f.map(s => `<tr>
           <td>${esc(s.label)}</td>
           <td class="n ref">${pct(s.reach)}</td>
           <td class="${s.repeat === mx.repeat ? 'top' : ''}">${cellBar(s.repeat, mx.repeat, pct(s.repeat))}${topTag(s.repeat, 'repeat')}</td>
           <td class="${s.dwell === mx.dwell ? 'top' : ''}">${cellBar(s.dwell, mx.dwell, s.dwell == null ? '—' : s.dwell.toFixed(1) + ' 秒')}${topTag(s.dwell, 'dwell')}</td>
+          <td class="n">${s.avg_slide == null ? '—' : `${s.avg_slide.toFixed(1)} 張`}${s.avg_total == null ? '' : `<small class="sub">${Math.abs(s.avg_total - Math.round(s.avg_total)) < 0.05 ? '共' : '共約'} ${Math.round(s.avg_total)} 張</small>`}</td>
           <td class="${s.complete === mx.complete ? 'top' : ''}">${cellBar(s.complete, mx.complete, pct(s.complete))}${topTag(s.complete, 'complete')}</td>
         </tr>`).join('')}</tbody>
       </table></div>

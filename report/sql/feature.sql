@@ -37,7 +37,7 @@ agg_dw AS (
   FROM dw, UNNEST(['all', dev]) AS d, UNNEST(['all', model]) AS m GROUP BY 1, 2, 3
 ),
 agg_cp AS (
-  SELECT d, m, s.section, COUNTIF(b.mx >= t.total) AS complete
+  SELECT d, m, s.section, COUNTIF(b.mx >= t.total) AS complete, AVG(b.mx) AS avg_slide, AVG(t.total) AS avg_total
   FROM seen s
   JOIN bv b ON b.sess = s.sess AND b.model = s.model AND b.carousel_id = s.section
   JOIN tot t ON t.model = b.model AND t.carousel_id = b.carousel_id,
@@ -50,7 +50,7 @@ agg_vs AS (
   UNNEST(['all', s.dev]) AS d, UNNEST(['all', s.model]) AS m
   GROUP BY 1, 2, 3
 )
-SELECT a.d AS device, a.m AS model, a.section, u.units, a.seen, a.rep, w.dwell, c.complete, v.var
+SELECT a.d AS device, a.m AS model, a.section, u.units, a.seen, a.rep, w.dwell, c.complete, c.avg_slide, c.avg_total, v.var
 FROM agg_seen a
 JOIN agg_units u USING (d, m)
 LEFT JOIN agg_dw w USING (d, m, section)

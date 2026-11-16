@@ -199,6 +199,8 @@ def main():
                     'reach': ratio(f['seen'], units), 'repeat': ratio(f['rep'], f['seen']),
                     'dwell': round(f['dwell'], 1) if f.get('dwell') is not None else None,
                     'complete': ratio(f.get('complete') or 0, f['seen']),
+                    'avg_slide': round(f['avg_slide'], 2) if f.get('avg_slide') is not None else None,
+                    'avg_total': round(f['avg_total'], 1) if f.get('avg_total') is not None else None,
                     'variant': ratio(f.get('var') or 0, f['seen']),
                     'clicks': mc.get('clicks', 0),
                     # estimate (whole window) and direct measure (content_in_view, since go-live)
