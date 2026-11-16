@@ -26,6 +26,7 @@
   --viz-1: #1b8cf5;           /* mxon-viz-series-1 */
   --viz-8: #b93f7e;           /* mxon-viz-series-8 */
   --viz-track: #ededf0;       /* mxon-viz-track-bg */
+  --tip-bg: #1e1e1e; --tip-fg: #ffffff;
   --shadow-card: 0 1px 2px rgba(72,72,72,0.10);
   --font-tc: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
   --font-num: "Noto Sans", "Helvetica Neue", Arial, sans-serif;
@@ -40,6 +41,7 @@
     --primary: #7c9de6; --primary-bg: #00368f; --primary-selected: #35384c; --on-filled: #ffffff;
     --warn-text: #e7b85e; --warn-bg: #4a4132;
     --viz-track: #3a3946;
+    --tip-bg: #f4f4f6; --tip-fg: #1e1e1e;
     --shadow-card: 0 1px 2px rgba(0,0,0,0.40);
     color-scheme: dark;
   }
@@ -51,6 +53,7 @@
   --primary: #7c9de6; --primary-bg: #00368f; --primary-selected: #35384c; --on-filled: #ffffff;
   --warn-text: #e7b85e; --warn-bg: #4a4132;
   --viz-track: #3a3946;
+  --tip-bg: #f4f4f6; --tip-fg: #1e1e1e;
   --shadow-card: 0 1px 2px rgba(0,0,0,0.40);
   color-scheme: dark;
 }
@@ -153,6 +156,19 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
 .block h3 { font-size: var(--fs-body); font-weight: 700; }
 .block .desc { font-size: var(--fs-small); color: var(--ink-muted); }
 .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.info {
+  appearance: none; display: inline-grid; place-items: center; vertical-align: middle;
+  width: 18px; height: 18px; margin-left: 6px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink-muted);
+  font: 700 11px/1 var(--font-num); letter-spacing: 0; text-transform: none; cursor: help;
+}
+.info:hover, .info:focus-visible { color: var(--primary); border-color: var(--primary); }
+#tip {
+  position: fixed; z-index: 30; max-width: min(320px, calc(100vw - 16px)); pointer-events: none;
+  background: var(--tip-bg); color: var(--tip-fg); border-radius: var(--r-control);
+  padding: 8px 12px; font-size: var(--fs-xs); line-height: 1.6; letter-spacing: 0; font-weight: 400;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
 .pending { font-size: var(--fs-small); color: var(--ink-muted); background: var(--surface-pinned); border-radius: var(--r-control); padding: 16px; text-align: center; }
 .notes { font-size: var(--fs-xs); color: var(--ink-muted); display: grid; gap: 2px; padding-left: 1.2em; margin: 0; }
 
@@ -282,10 +298,10 @@ details[open] summary { margin-bottom: 10px; }
       <ul class="concl">${c.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
       ${stale ? `<span class="stale">資料已更新到 ${esc(DATA.meta.period)}，結論尚未重寫，數字可能和下方圖表不同。</span>` : ''}</div>`;
   };
-  const head = (no, id, title, sub, chips = []) => `
+  const head = (no, id, title, sub, chips = [], tipText = '') => `
     <div class="sec-head">
       <span class="sec-no">${esc(no)}</span>
-      <h2>${esc(title)}</h2>
+      <h2>${esc(title)}${tipText ? tip(tipText) : ''}</h2>
       ${sub ? `<p class="sub">${esc(sub)}</p>` : ''}
       ${chips.length ? `<div class="chips">${chips.map(c => `<span class="chip${c.warn ? ' warn' : ''}">${esc(c.t)}</span>`).join('')}</div>` : ''}
     </div>`;
@@ -294,6 +310,9 @@ details[open] summary { margin-bottom: 10px; }
   const since = key => { const t = DATA.meta.tracking_since && DATA.meta.tracking_since[key]; return t ? `${+t.slice(5, 7)}/${+t.slice(8, 10)} ${t.slice(11)}` : null; };
   // 只有在新事件比資料區間的第一天還晚上線時才回傳上線時間（區間從上線後的完整日開始就不需要再標示）
   const lateStart = key => { const t = DATA.meta.tracking_since && DATA.meta.tracking_since[key]; return t && t.slice(0, 10) > DATA.meta.period.slice(0, 10) ? since(key) : null; };
+  // 指標定義：標題旁的「i」圖示，滑過、點一下或用鍵盤聚焦時，以提示框顯示
+  const tip = text => `<button type="button" class="info" aria-label="指標定義" data-tip="${esc(text)}">i</button>`;
+  const th = (label, text, cls = '') => `<th${cls ? ` class="${cls}"` : ''}>${esc(label)}${text ? tip(text) : ''}</th>`;
   const pending = msg => `<p class="pending">${esc(msg)}</p>`;
 
   const SECTIONS = [
@@ -333,8 +352,7 @@ details[open] summary { margin-bottom: 10px; }
       ${head('1', 's-home', '大家怎麼看首頁？', `首頁各段落的到達率，由上到下。${lateStart('home_section_view') ? `資料自 ${lateStart('home_section_view')} 起，樣本還少。` : ''}`)}
       ${conclusion('1')}
       <div class="block">
-        <h3>首頁段落到達率</h3>
-        <p class="desc">分母：${lateStart('home_section_view') ? `${lateStart('home_section_view')} 之後的` : ''}首頁頁面瀏覽。同一次瀏覽重複看到同一段落只算一次。</p>
+        <h3>首頁段落到達率${tip(`看到該段落的首頁頁面瀏覽 ÷ ${lateStart('home_section_view') ? `${lateStart('home_section_view')} 之後的` : ''}首頁頁面瀏覽。同一次瀏覽重複看到同一段落只算一次。`)}</h3>
         ${hs.length ? `<div class="bars">${hs.map(s => barRow(s.label, s.reach, 1, pct(s.reach), s.section)).join('')}</div>` : pending('首頁各段落的 section_view 尚未上線，上線後才會有資料。')}
       </div>
     </section>`);
@@ -345,14 +363,9 @@ details[open] summary { margin-bottom: 10px; }
       ${head('2', 's-hero', '首頁輪播是否有效？', '封面輪播每一張實際被曝光的比例，以及曝光後被點擊的比例。')}
       ${conclusion('2')}
       <div class="tbl-wrap"><table>
-        <thead><tr><th>張次</th><th>Banner 標題</th><th>曝光率</th><th class="n">曝光後點擊率</th></tr></thead>
+        <thead><tr>${th('張次')}${th('Banner 標題', '以張次＋標題分組；輪播內容中途更換時，會列成不同的 Banner。')}${th('曝光率', '該張有送出 banner_view 的首頁瀏覽 ÷ 首頁瀏覽。曝光指成為目前那張且停留 0.5 秒，不代表使用者真的看了。')}${th('曝光後點擊率', '該張的 select_model（home_hero）點擊 ÷ 該張的曝光次數。', 'n')}</tr></thead>
         <tbody>${hero.map(h => `<tr><td class="num">第 ${h.index} 張</td><td>${esc(h.title)}</td><td>${cellBar(h.exposure, 1, pct(h.exposure))}</td><td class="n">${pct(h.ctr, 2)}</td></tr>`).join('')}</tbody>
       </table></div>
-      <ul class="notes">
-        <li>曝光率 = 該張有送出 banner_view 的首頁瀏覽 ÷ 首頁瀏覽。曝光指成為目前那張且停留 0.5 秒，不代表使用者真的看了。</li>
-        <li>以張次＋標題分組；輪播內容中途更換時，會列成不同的 Banner。</li>
-        <li>曝光後點擊率 = 該張的 select_model（home_hero）÷ 該張曝光次數。</li>
-      </ul>
     </section>`);
 
     // 3 entries
@@ -362,13 +375,9 @@ details[open] summary { margin-bottom: 10px; }
       ${head('3', 's-entry', '怎麼把人拉進車款', '導進車款頁的點擊，來自哪些入口；以及每個入口被看到後有多少人點。')}
       ${conclusion('3')}
       <div class="tbl-wrap"><table>
-        <thead><tr><th>入口</th><th>點擊占比</th><th class="n">看到後點擊率</th><th>點擊率分母</th></tr></thead>
+        <thead><tr>${th('入口')}${th('點擊占比', '該入口的 select_model 點擊 ÷ 全部入口的 select_model 點擊。')}${th('看到後點擊率', `該入口的點擊 ÷ 該入口被看到的次數，各入口的分母不同，請看右邊「點擊率分母」欄。${lateStart('menu_open') || lateStart('home_section_view') ? `主選單只計 ${lateStart('menu_open') || '資料區間起'} 之後、首頁底部車款入口只計 ${lateStart('home_section_view') || '資料區間起'} 之後的資料，樣本只有數小時，數字會隨資料累積而變動。` : ''}`, 'n')}${th('點擊率分母')}</tr></thead>
         <tbody>${en.map(e => `<tr><td>${esc(e.label)}</td><td>${cellBar(e.share, maxShare, pct(e.share))}</td><td class="n">${pct(e.ctr)}</td><td class="ref">${esc(e.denom)}</td></tr>`).join('')}</tbody>
       </table></div>
-      <ul class="notes">
-        <li>點擊占比的分母是全部入口的 select_model 點擊；各入口的點擊率分母不同，跨入口比較時請看分母欄。</li>
-        ${lateStart('menu_open') || lateStart('home_section_view') ? `<li>主選單的點擊率只計 ${esc(lateStart('menu_open') || '資料區間起')} 之後（menu_open 上線）、首頁底部車款入口只計 ${esc(lateStart('home_section_view') || '資料區間起')} 之後的資料，樣本只有數小時，數字會隨資料累積而變動。</li>` : ''}
-      </ul>
     </section>`);
 
     // 4.1 focus
@@ -389,7 +398,7 @@ details[open] summary { margin-bottom: 10px; }
       ${head('4.1', 's-focus', '人們怎麼瀏覽一台車：特色段落的重視程度', '大家最在意哪個特色段落：會重複回來看、停留久、輪播看到最後。')}
       ${conclusion('4.1')}
       <div class="tbl-wrap"><table>
-        <thead><tr><th>特色段落</th><th class="n">到達率（參考）</th><th>重複觀看占比</th><th>停留時間中位數</th><th>輪播看完率</th></tr></thead>
+        <thead><tr>${th('特色段落')}${th('到達率（參考）', '看到該段落的工作階段 ÷ 看過車款頁的工作階段。受段落位置影響（越下面越低），只當參考，不用來排名。', 'n')}${th('重複觀看占比', '看到該段落的工作階段中，section_view 送出 2 次以上的比例。來回捲動也會算入，視為興趣的參考訊號。')}${th('停留時間中位數', '該段落 section_view 到同一次瀏覽中下一個段落出現的秒數（中位數）。超過 300 秒視為離開座位而剔除；兩個段落同時進入畫面時共用同一段時間；離開頁面前的最後一個段落無法計算。')}${th('輪播看完率', '看到該段落的工作階段中，點到最後一張的比例（總張數取資料中最大的張次）。')}</tr></thead>
         <tbody>${f.map(s => `<tr>
           <td>${esc(s.label)}</td>
           <td class="n ref">${pct(s.reach)}</td>
@@ -398,12 +407,6 @@ details[open] summary { margin-bottom: 10px; }
           <td class="${s.complete === mx.complete ? 'top' : ''}">${cellBar(s.complete, mx.complete, pct(s.complete))}${topTag(s.complete, 'complete')}</td>
         </tr>`).join('')}</tbody>
       </table></div>
-      <ul class="notes">
-        <li>到達率受段落位置影響（越下面越低），只當參考，不用來排名。</li>
-        <li>重複觀看占比：看到該段落的工作階段中，section_view 送出 2 次以上的比例。來回捲動也會算入，視為興趣的參考訊號。</li>
-        <li>停留時間：該段落 section_view 到同一次瀏覽中下一個段落出現的秒數（中位數）。超過 300 秒視為離開座位而剔除；兩個段落同時進入畫面時共用同一段時間；離開頁面前的最後一個段落無法計算。</li>
-        <li>輪播看完率：看到該段落的工作階段中，點到最後一張的比例（總張數取資料中最大的張次）。</li>
-      </ul>
       <details><summary>查看全部段落的到達率</summary>
         <div class="bars">${m.sections.map(s => barRow(s.label, s.reach, 1, pct(s.reach))).join('')}</div>
       </details>
@@ -418,24 +421,22 @@ details[open] summary { margin-bottom: 10px; }
       ${head('4.2', 's-order', '人們怎麼瀏覽一台車：切換標籤誤點與段落順序', `切換標籤在內容上方，使用者是否誤以為在操作下一個段落。${modelName}。`)}
       ${conclusion('4.2')}
       <div class="block">
-        <h3>切換標籤誤點比例</h3>
-        <p class="desc">各特色輪播的點擊中，點擊當下輪播圖片不在畫面內的比例，最嚴重的排最上面。${hasDirect ? `「直接量測」來自 content_in_view${lateStart('content_in_view') ? `（${esc(lateStart('content_in_view'))} 起，樣本只有數小時）` : ''}；「推測值」是同一段期間的資料，以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。` : '目前是推測值：content_in_view 尚未上線，改以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。'}</p>
+        <h3>切換標籤誤點比例${tip('各特色輪播的點擊中，點擊當下輪播圖片不在畫面內的比例，最嚴重的排最上面。')}</h3>
         <div class="tbl-wrap"><table>
-          ${hasDirect ? `<thead><tr><th>特色段落</th><th>誤點比例（直接量測）</th><th class="n">直接量測點擊數</th><th class="n">誤點後捲回該段落</th><th>誤點比例（推測值，全期）</th></tr></thead>
+          ${hasDirect ? `<thead><tr>${th('特色段落')}${th('誤點比例（直接量測）', `content_in_view = no 的點擊 ÷ 有 content_in_view 的點擊。${lateStart('content_in_view') ? `${lateStart('content_in_view')} 起才有資料，樣本只有數小時。` : ''}`)}${th('直接量測點擊數', '有 content_in_view 的輪播點擊次數，用來判斷樣本大小。', 'n')}${th('誤點後捲回該段落', '誤點之後，同一次瀏覽中該段落又被看到（section_view 再送出一次）的比例。', 'n')}${th('誤點比例（推測值）', '以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷，與直接量測是同一段期間。手機容易低估、桌機容易高估，只適合看大方向。')}</tr></thead>
           <tbody>${mc.map(s => `<tr><td>${esc(s.label)}</td><td>${cellBar(s.misclick_direct, mcMax, pct(s.misclick_direct))}</td><td class="n">${int(s.civ_clicks)}</td><td class="n">${pct(s.scroll_back_direct)}</td><td>${cellBar(s.misclick, mcMax, pct(s.misclick))}</td></tr>`).join('')}</tbody>`
-          : `<thead><tr><th>特色段落</th><th class="n">輪播點擊數</th><th>誤點比例</th><th class="n">誤點後捲回該段落</th></tr></thead>
+          : `<thead><tr>${th('特色段落')}${th('輪播點擊數', '', 'n')}${th('誤點比例（推測值）', 'content_in_view 尚未上線，改以「點擊前最後看到的段落，已經是頁面上更下面的段落」判斷。')}${th('誤點後捲回該段落', '誤點之後，同一次瀏覽中該段落又被看到的比例。', 'n')}</tr></thead>
           <tbody>${mc.map(s => `<tr><td>${esc(s.label)}</td><td class="n">${int(s.clicks)}</td><td>${cellBar(s.misclick, mcMax, pct(s.misclick))}</td><td class="n">${pct(s.scroll_back)}</td></tr>`).join('')}</tbody>`}
         </table></div>
       </div>
       <div class="two">
         <div class="block">
-          <h3>照頁面順序瀏覽</h3>
-          <div class="stat"><span class="k">段落出現順序與頁面由上到下一致的頁面瀏覽</span><span class="v">${pct(m.order.in_order)}</span><span class="s">以每個段落第一次 section_view 的時間排序</span></div>
+          <h3>照頁面順序瀏覽${tip('段落出現順序與頁面由上到下一致的頁面瀏覽 ÷ 看到 2 個以上段落的頁面瀏覽。以每個段落第一次 section_view 的時間排序。')}</h3>
+          <div class="stat"><span class="k">照順序瀏覽的頁面瀏覽占比</span><span class="v">${pct(m.order.in_order)}</span></div>
         </div>
         <div class="block">
-          <h3>最常見的跳序組合</h3>
+          <h3>最常見的跳序組合${tip('「A → B」表示先看到 A，之後才看到頁面上位置在 A 之前的 B。比例為跳序頁面瀏覽中的占比。頁面上方有段落導覽列，點導覽跳段落也會造成跳序，所以跳序不全是排列問題。')}</h3>
           <div class="bars">${m.order.skips.map(s => barRow(s.path, s.share, maxOf(m.order.skips, 'share'), pct(s.share))).join('')}</div>
-          <p class="desc">「A → B」表示先看到 A，之後才看到頁面上位置在 A 之前的 B。比例為跳序頁面瀏覽中的占比。</p>
         </div>
       </div>
     </section>`);
@@ -445,41 +446,36 @@ details[open] summary { margin-bottom: 10px; }
     out.push(`<section class="card" id="s-variant">
       ${head('5', 's-variant', '車型選單真的有用處嗎？', `各特色段落左方的車型下拉選單，看到段落的人有多少會去選。${modelName}。`)}
       ${conclusion('5')}
-      <div class="bars">${f.map(s => barRow(s.label, s.variant, vMax, pct(s.variant))).join('')}</div>
-      <ul class="notes">
-        <li>使用率 = 在該段落選過車型的工作階段 ÷ 看到該段落的工作階段。只打開選單不選不會有事件。</li>
-        <li>以工作階段去重，同一段落選了幾次都只算一次，所以手機版重複送出不影響使用率。</li>
-      </ul>
+      <div class="block">
+        <h3>各段落的車型選單使用率${tip('在該段落選過車型的工作階段 ÷ 看到該段落的工作階段。只打開選單不選不會有事件；以工作階段去重，同一段落選幾次都只算一次，所以手機版重複送出不影響使用率。')}</h3>
+        <div class="bars">${f.map(s => barRow(s.label, s.variant, vMax, pct(s.variant))).join('')}</div>
+      </div>
     </section>`);
 
     // 6 CTA
     const fab = m.cta.fab, pg = m.cta.page, sp = m.cta.test_drive_split;
     const ctaMax = Math.max(maxOf(fab, 'rate'), maxOf(pg, 'rate'));
     out.push(`<section class="card" id="s-cta">
-      ${head('6', 's-cta', '車款介紹上的 CTA 狀態', `只計車款頁上的點擊，首頁的 FAB 點擊不列入。${modelName}。`)}
+      ${head('6', 's-cta', '車款介紹上的 CTA 狀態', `只計車款頁上的點擊，首頁的 FAB 點擊不列入。${modelName}。`, [], '這些都是點擊意圖，不是轉換：沒有試乘表單送出的事件。下載型錄只用 cta_click 計算，不重複計入 file_download。')}
       ${conclusion('6')}
       <div class="two">
         <div class="block">
-          <h3>FAB（左側固定按鈕）</h3>
-          <p class="desc">點擊率分母：車款頁的頁面瀏覽。</p>
+          <h3>FAB（左側固定按鈕）${tip('點擊率 = 該按鈕的點擊 ÷ 車款頁的頁面瀏覽。')}</h3>
           <div class="bars">${fab.map(c => barRow(c.label, c.rate, ctaMax, pct(c.rate, 2))).join('')}</div>
         </div>
         <div class="block">
-          <h3>頁面內按鈕</h3>
-          <p class="desc">點擊率分母：看到按鈕所在段落的車款頁瀏覽。</p>
+          <h3>頁面內按鈕${tip('點擊率 = 該按鈕的點擊 ÷ 看到按鈕所在段落的車款頁瀏覽。')}</h3>
           <div class="bars">${pg.map(c => barRow(c.label, c.rate, ctaMax, pct(c.rate, 2), '所在段落：' + c.section)).join('')}</div>
         </div>
       </div>
       <div class="block">
-        <h3>試乘諮詢從哪裡點</h3>
-        <p class="desc">FAB 與頁面內的點擊率分母不同，不能直接比大小，所以改看全部試乘點擊中各自的占比。</p>
+        <h3>試乘諮詢從哪裡點${tip('FAB 與頁面內的點擊率分母不同，不能直接比大小，所以改看全部試乘點擊中各自的占比。')}</h3>
         <div class="split" role="img" aria-label="試乘諮詢點擊占比：FAB ${pct(sp.fab)}，頁面內 ${pct(sp.page)}">
           <div style="width:${((sp.fab || 0) * 100).toFixed(1)}%;background:var(--viz-1)"></div>
           <div style="width:${((sp.page || 0) * 100).toFixed(1)}%;background:var(--viz-8)"></div>
         </div>
         <div class="legend"><span><i style="background:var(--viz-1)"></i>FAB <b class="num">${pct(sp.fab)}</b></span><span><i style="background:var(--viz-8)"></i>頁面內（重點特色）<b class="num">${pct(sp.page)}</b></span></div>
       </div>
-      <ul class="notes"><li>只有點擊、沒有試乘表單送出事件，所以這是點擊意圖，不是轉換。下載型錄只用 cta_click 計算，不重複計入 file_download。</li></ul>
     </section>
     </div>`);
 
@@ -488,8 +484,8 @@ details[open] summary { margin-bottom: 10px; }
       ${head('7.1', 's-spec', '其他觀察：舊版選單上的規格開關', '「車款介紹」選單上的「售價&規格」開關，預設為關閉。')}
       ${conclusion('7.1')}
       <div class="stats">
-        <div class="stat"><span class="k">開啟率</span><span class="v">${pct(d.spec_switch.open_rate)}</span><span class="s">${d.spec_switch.open_rate == null ? 'menu_open 上線後才能計算' : `打開開關的次數 ÷ 車款介紹選單展開次數${lateStart('menu_open') ? `（${lateStart('menu_open')} 起，樣本只有數小時）` : ''}`}</span></div>
-        <div class="stat"><span class="k">打開後又關掉</span><span class="v">${pct(d.spec_switch.off_after_on)}</span><span class="s">state = off 的次數 ÷ state = on 的次數</span></div>
+        <div class="stat"><span class="k">開啟率${tip(`打開開關的次數（state = on）÷ 車款介紹選單展開次數（menu_open）。${lateStart('menu_open') ? `${lateStart('menu_open')} 起才有資料，樣本只有數小時。` : ''}`)}</span><span class="v">${pct(d.spec_switch.open_rate)}</span>${d.spec_switch.open_rate == null ? '<span class="s">menu_open 上線後才能計算</span>' : ''}</div>
+        <div class="stat"><span class="k">打開後又關掉${tip('state = off 的次數 ÷ state = on 的次數。')}</span><span class="v">${pct(d.spec_switch.off_after_on)}</span></div>
       </div>
     </section>`);
 
@@ -503,22 +499,17 @@ details[open] summary { margin-bottom: 10px; }
       ${conclusion('7.2')}
       <div class="two">
         <div class="block">
-          <h3>各車款頁的推薦點擊率</h3>
-          <p class="desc">分母：看到「為您推薦」段落的車款頁瀏覽。</p>
+          <h3>各車款頁的推薦點擊率${tip('該車款頁「為您推薦」的點擊 ÷ 看到「為您推薦」段落的車款頁瀏覽。')}</h3>
           <div class="bars">${src.map(s => barRow(s.model + ' 車款頁', s.ctr, maxOf(src, 'ctr'), pct(s.ctr))).join('')}</div>
         </div>
         <div class="block">
-          <h3>推薦組合（點擊率前 10）</h3>
+          <h3>推薦組合（點擊率前 10）${tip('「來源 → 被推薦」的點擊 ÷ 看到來源車款頁「為您推薦」的車款頁瀏覽。沒有被點過的組合也會列出，推薦清單由各車款頁整理；正式站若在前測期間更換推薦車款，以正式站為準。手機版推薦列需滑動，排在後面的車款點擊率會被位置拉低，請一併看「位置」欄。')}</h3>
           <div class="tbl-wrap"><table style="min-width:420px">
-            <thead><tr><th>來源 → 被推薦</th><th class="n">位置</th><th class="n">點擊</th><th>點擊率</th></tr></thead>
+            <thead><tr>${th('來源 → 被推薦')}${th('位置', '被推薦車款在推薦列中的順序。', 'n')}${th('點擊', '', 'n')}${th('點擊率')}</tr></thead>
             <tbody>${pairsShown.length ? pairsShown.map(p => `<tr><td>${esc(p.from)} → ${esc(p.to)}</td><td class="n">${p.pos ? `第 ${p.pos} 個` : '—'}</td><td class="n">${int(p.clicks)}</td><td>${cellBar(p.ctr, pMax, pct(p.ctr, 2))}</td></tr>`).join('') : `<tr><td colspan="4" class="ref">這個車款頁沒有「為您推薦」資料。</td></tr>`}</tbody>
           </table></div>
         </div>
       </div>
-      <ul class="notes">
-        <li>沒有被點過的組合也會列出，推薦清單由各車款頁整理；正式站若在前測期間更換推薦車款，以正式站為準。</li>
-        <li>手機版推薦列需滑動，排在後面的車款點擊率會被位置拉低，請一併看「位置」欄。</li>
-      </ul>
     </section>`);
 
     return out.join('');
@@ -581,6 +572,29 @@ details[open] summary { margin-bottom: 10px; }
     if (window.ResizeObserver) new ResizeObserver(setFiltersH).observe(filtersEl);
     render();
   }
+
+  // 指標定義提示框：同一個浮動元素，避免被表格的捲動區域裁掉
+  const tipEl = document.createElement('div');
+  tipEl.id = 'tip'; tipEl.setAttribute('role', 'tooltip'); tipEl.hidden = true;
+  document.body.appendChild(tipEl);
+  let tipFor = null;
+  const showTip = el => {
+    tipEl.textContent = el.dataset.tip; tipEl.hidden = false;
+    const r = el.getBoundingClientRect(), tw = tipEl.offsetWidth, th = tipEl.offsetHeight;
+    tipEl.style.left = Math.max(8, Math.min(r.left + r.width / 2 - tw / 2, innerWidth - tw - 8)) + 'px';
+    tipEl.style.top = (r.top - th - 8 < 8 ? r.bottom + 8 : r.top - th - 8) + 'px';
+    if (tipFor && tipFor !== el) tipFor.removeAttribute('aria-describedby');
+    tipFor = el; el.setAttribute('aria-describedby', 'tip');
+  };
+  const hideTip = () => { tipEl.hidden = true; if (tipFor) { tipFor.removeAttribute('aria-describedby'); tipFor = null; } };
+  const infoOf = e => e.target.closest && e.target.closest('.info');
+  document.addEventListener('mouseover', e => { const el = infoOf(e); if (el) showTip(el); });
+  document.addEventListener('mouseout', e => { if (infoOf(e)) hideTip(); });
+  document.addEventListener('focusin', e => { const el = infoOf(e); if (el) showTip(el); });
+  document.addEventListener('focusout', hideTip);
+  document.addEventListener('click', e => { const el = infoOf(e); if (el) showTip(el); else hideTip(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
+  window.addEventListener('scroll', hideTip, true);
 
   const getJson = (url, optional) => fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).catch(e => { if (optional) return null; throw e; });
   Promise.all([getJson('data/report.json'), getJson('data/conclusions.json', true)])
