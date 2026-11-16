@@ -136,7 +136,7 @@ def main():
 
     live = go_live_times(base)
     print('Go-live (µs):', live, file=sys.stderr)
-    names = ['overview', 'home', 'hero', 'entries', 'feature', 'misclick', 'order', 'cta', 'spec', 'recommend']
+    names = ['overview', 'home', 'hero', 'entries', 'feature', 'misclick', 'order', 'cta', 'spec', 'recommend', 'variant_total']
     with ThreadPoolExecutor(max_workers=5) as ex:
         R = dict(ex.map(lambda n: run_query(n, base, live), names))
 
@@ -226,7 +226,10 @@ def main():
                           'rate': ratio(cclk.get((t, 'page'), 0), csec.get(s))} for t, l, s in CTA_PAGE],
                 'test_drive_split': {'fab': ratio(td_fab, td_fab + td_page), 'page': ratio(td_page, td_fab + td_page)},
             }
-            models[m] = {'units': units, 'sections': sections, 'feature': feature, 'order': order, 'cta': cta}
+            vt = next((r for r in R['variant_total'] if r['device'] == dev and r['model'] == m), {})
+            variant_total = {'saw': vt.get('saw', 0), 'used': vt.get('used', 0), 'rate': ratio(vt.get('used', 0), vt.get('saw'))}
+            models[m] = {'units': units, 'sections': sections, 'feature': feature, 'order': order, 'cta': cta,
+                         'variant_total': variant_total}
         # 7.1 spec switch
         sp = {r['k']: r['n'] for r in R['spec'] if r['device'] == dev}
         spec = {'on': sp.get('on', 0), 'off': sp.get('off', 0),

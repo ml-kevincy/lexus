@@ -337,7 +337,7 @@ details[open] summary { margin-bottom: 10px; }
     // 0 overview
     const ds = DATA.old.all.overview.device_share;
     out.push(`<section class="card" id="s-overview" aria-labelledby="h-ov">
-      ${head('0', 's-overview', '總覽', `${DEV_LABEL[state.dev]}・${DATA.meta.period}`)}
+      ${head('0', 's-overview', '總覽')}
       <div class="stats">
         <div class="stat"><span class="k">工作階段</span><span class="v">${int(ov.sessions)}</span><span class="s">${state.dev === 'all' ? '全部裝置' : `占全部工作階段 ${pct(ds[state.dev], 0)}`}</span></div>
         <div class="stat"><span class="k">使用者</span><span class="v">${int(ov.users)}</span><span class="s">不重複使用者</span></div>
@@ -446,6 +446,7 @@ details[open] summary { margin-bottom: 10px; }
     out.push(`<section class="card" id="s-variant">
       ${head('5', 's-variant', '車型選單真的有用處嗎？', `各特色段落左方的車型下拉選單，看到段落的人有多少會去選。${modelName}。`)}
       ${conclusion('5')}
+      ${m.variant_total ? `<div class="stats"><div class="stat"><span class="k">車型選單總使用率${tip('看過任一特色段落的工作階段中，至少選過一次車型的比例（以工作階段 × 車款計）。同一個工作階段在多個段落選過，只算一次，所以會高於單一段落的使用率。')}</span><span class="v">${pct(m.variant_total.rate)}</span><span class="s">${int(m.variant_total.saw)} 個工作階段中有 ${int(m.variant_total.used)} 個用過</span></div></div>` : ''}
       <div class="block">
         <h3>各段落的車型選單使用率${tip('在該段落選過車型的工作階段 ÷ 看到該段落的工作階段。只打開選單不選不會有事件；以工作階段去重，同一段落選幾次都只算一次，所以手機版重複送出不影響使用率。')}</h3>
         <div class="bars">${f.map(s => barRow(s.label, s.variant, vMax, pct(s.variant))).join('')}</div>
