@@ -1,5 +1,6 @@
 -- 3 導流入口：各入口點擊數，以及各入口「被看到」的次數（點擊率分母）
-WITH base AS ({BASE}),
+-- 為您推薦埋點於 11/16 修正（修正前只送第 1 位的點擊），整張表只用修正後的資料（{REC_FROM} 起），占比與點擊率才可比
+WITH base AS (SELECT * FROM ({BASE}) WHERE ts >= {REC_FROM}),
 clicks AS (
   SELECT dev, entry_point AS entry, 'clk' AS kind FROM base
   WHERE event_name = 'select_model' AND model IN ('ES','IS','LS','LBX','UX','NX','RX','LM','RZ','LESC','LF-ZC')

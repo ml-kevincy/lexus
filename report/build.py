@@ -50,6 +50,7 @@ def ratio(a, b, nd=4):
 
 
 NEVER = 9223372036854775807  # "not live yet": denominators become empty
+REC_FROM_US = [0]  # µs; set from --recommend-from in main()
 
 
 def go_live_times(base):
@@ -70,7 +71,8 @@ def run_query(name, base, live):
     sql = (SQL / f'{name}.sql').read_text().replace('{BASE}', base) \
         .replace('{MENU_LIVE}', str(live['menu_open'] or NEVER)) \
         .replace('{HOME_LIVE}', str(live['home_section_view'] or NEVER)) \
-        .replace('{CIV_LIVE}', str(live['content_in_view'] or NEVER))
+        .replace('{CIV_LIVE}', str(live['content_in_view'] or NEVER)) \
+        .replace('{REC_FROM}', str(REC_FROM_US[0]))
     cmd = ['bq', 'query', f'--project_id={PROJECT}', '--use_legacy_sql=false', '--format=json',
            '--max_rows=1000000', '--quiet']
     res = subprocess.run(cmd, input=sql, capture_output=True, text=True)
@@ -125,8 +127,11 @@ def main():
     ap.add_argument('--start', default='20261111')
     ap.add_argument('--end', default='20261210')
     ap.add_argument('--refresh-recommend', action='store_true')
+    ap.add_argument('--recommend-from', default='20261117', help='first full day after the 為您推薦 tracking fix (Taipei time)')
     args = ap.parse_args()
 
+    rf = args.recommend_from
+    REC_FROM_US[0] = int(datetime(int(rf[:4]), int(rf[4:6]), int(rf[6:]), tzinfo=timezone(timedelta(hours=8))).timestamp() * 1e6)
     latest = latest_table()
     end = min(args.end, latest) if latest else args.end
     print(f'Window {args.start} – {end} (latest table {latest})', file=sys.stderr)
@@ -268,7 +273,7 @@ def main():
     data = {
         'meta': {
             'sample': False, 'period': f'{fmt_day(args.start)} – {fmt_day(end)}', 'days': days,
-            'planned_end': fmt_day(args.end), 'generated': datetime.now().strftime('%Y-%m-%d %H:%M'),
+            'planned_end': fmt_day(args.end), 'recommend_from': fmt_day(rf), 'generated': datetime.now().strftime('%Y-%m-%d %H:%M'),
             'property': 'G-4DVH5EF2RM', 'host': 'www.lexus.com.tw', 'models': models_present, 'tracking': tracking,
             'tracking_since': {k: (datetime.fromtimestamp(v / 1e6, tz=timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M') if v else None)
                                for k, v in live.items()},

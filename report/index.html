@@ -323,6 +323,8 @@ details[open] summary { margin-bottom: 10px; }
   // 指標定義：標題旁的「i」圖示，滑過、點一下或用鍵盤聚焦時，以提示框顯示
   const tip = text => `<button type="button" class="info" aria-label="指標定義" data-tip="${esc(text)}">i</button>`;
   const th = (label, text, cls = '') => `<th${cls ? ` class="${cls}"` : ''}>${esc(label)}${text ? tip(text) : ''}</th>`;
+  // 「為您推薦」埋點在 11/16 修正（修正前只送第 1 位的點擊），相關數字只用修正後的資料
+  const recNote = () => DATA.meta.recommend_from ? `只計 ${+DATA.meta.recommend_from.slice(5, 7)}/${+DATA.meta.recommend_from.slice(8, 10)} 起（為您推薦埋點修正後）的資料，樣本天數較少，數字會隨資料累積而變動。` : '';
   const pending = msg => `<p class="pending">${esc(msg)}</p>`;
 
   const SECTIONS = [
@@ -385,7 +387,7 @@ details[open] summary { margin-bottom: 10px; }
       ${head('3', 's-entry', '怎麼把人拉進車款', '導進車款頁的點擊，來自哪些入口；以及每個入口被看到後有多少人點。')}
       ${conclusion('3')}
       <div class="tbl-wrap"><table>
-        <thead><tr>${th('入口')}${th('點擊占比', '該入口的 select_model 點擊 ÷ 全部入口的 select_model 點擊。')}${th('看到後點擊率', `該入口的點擊 ÷ 該入口被看到的次數，各入口的分母不同，請看右邊「點擊率分母」欄。${lateStart('menu_open') || lateStart('home_section_view') ? `主選單只計 ${lateStart('menu_open') || '資料區間起'} 之後、首頁底部車款入口只計 ${lateStart('home_section_view') || '資料區間起'} 之後的資料，樣本只有數小時，數字會隨資料累積而變動。` : ''}`, 'n')}${th('點擊率分母')}</tr></thead>
+        <thead><tr>${th('入口')}${th('點擊占比', `該入口的 select_model 點擊 ÷ 全部入口的 select_model 點擊。整張表${recNote()}`)}${th('看到後點擊率', `該入口的點擊 ÷ 該入口被看到的次數，各入口的分母不同，請看右邊「點擊率分母」欄。整張表${recNote()}${lateStart('menu_open') || lateStart('home_section_view') ? `主選單只計 ${lateStart('menu_open') || '資料區間起'} 之後、首頁底部車款入口只計 ${lateStart('home_section_view') || '資料區間起'} 之後的資料，樣本只有數小時，數字會隨資料累積而變動。` : ''}`, 'n')}${th('點擊率分母')}</tr></thead>
         <tbody>${en.map(e => `<tr><td>${esc(e.label)}</td><td>${cellBar(e.share, maxShare, pct(e.share))}</td><td class="n">${pct(e.ctr)}</td><td class="ref">${esc(e.denom)}</td></tr>`).join('')}</tbody>
       </table></div>
     </section>`);
@@ -511,14 +513,14 @@ details[open] summary { margin-bottom: 10px; }
     out.push(`<section class="card" id="s-rec">
       ${head('7.2', 's-rec', '推薦組合的成效', '車款頁底部「為您推薦」：哪些車款頁的推薦有人點，以及哪些推薦組合最有效。')}
       ${conclusion('7.2')}
-      ${d.recommend.total ? `<div class="stats"><div class="stat"><span class="k">總體推薦點擊率${tip('「為您推薦」的點擊次數 ÷ 看到「為您推薦」段落的車款頁瀏覽。各車款頁加總後重新計算，不是各車款頁點擊率的平均。')}</span><span class="v">${pct(d.recommend.total.rate)}</span><span class="s">${int(d.recommend.total.seen)} 次看到、${int(d.recommend.total.clicks)} 次點擊</span></div></div>` : ''}
+      ${d.recommend.total ? `<div class="stats"><div class="stat"><span class="k">總體推薦點擊率${tip('「為您推薦」的點擊次數 ÷ 看到「為您推薦」段落的車款頁瀏覽。各車款頁加總後重新計算，不是各車款頁點擊率的平均。' + recNote())}</span><span class="v">${pct(d.recommend.total.rate)}</span><span class="s">${int(d.recommend.total.seen)} 次看到、${int(d.recommend.total.clicks)} 次點擊</span></div></div>` : ''}
       <div class="two">
         <div class="block">
-          <h3>各車款頁的推薦點擊率${tip('該車款頁「為您推薦」的點擊 ÷ 看到「為您推薦」段落的車款頁瀏覽。')}</h3>
+          <h3>各車款頁的推薦點擊率${tip(`該車款頁「為您推薦」的點擊（含第 1 到第 3 個推薦位）÷ 看到「為您推薦」段落的車款頁瀏覽。${recNote()}`)}</h3>
           <div class="bars">${src.map(s => barRow(s.model + ' 車款頁', s.ctr, maxOf(src, 'ctr'), pct(s.ctr))).join('')}</div>
         </div>
         <div class="block">
-          <h3>推薦組合（點擊率前 10）${tip('「來源 → 被推薦」的點擊 ÷ 看到來源車款頁「為您推薦」的車款頁瀏覽。沒有被點過的組合也會列出，推薦清單由各車款頁整理；正式站若在前測期間更換推薦車款，以正式站為準。手機版推薦列需滑動，排在後面的車款點擊率會被位置拉低，請一併看「位置」欄。')}</h3>
+          <h3>推薦組合（點擊率前 10）${tip(recNote() + '「來源 → 被推薦」的點擊 ÷ 看到來源車款頁「為您推薦」的車款頁瀏覽。沒有被點過的組合也會列出，推薦清單由各車款頁整理；正式站若在前測期間更換推薦車款，以正式站為準。手機版推薦列需滑動，排在後面的車款點擊率會被位置拉低，請一併看「位置」欄。')}</h3>
           <div class="tbl-wrap"><table style="min-width:420px">
             <thead><tr>${th('來源 → 被推薦')}${th('位置', '被推薦車款在推薦列中的順序。', 'n')}${th('點擊', '', 'n')}${th('點擊率')}</tr></thead>
             <tbody>${pairsShown.length ? pairsShown.map(p => `<tr><td>${esc(p.from)} → ${esc(p.to)}</td><td class="n">${p.pos ? `第 ${p.pos} 個` : '—'}</td><td class="n">${int(p.clicks)}</td><td>${cellBar(p.ctr, pMax, pct(p.ctr, 2))}</td></tr>`).join('') : `<tr><td colspan="4" class="ref">這個車款頁沒有「為您推薦」資料。</td></tr>`}</tbody>
