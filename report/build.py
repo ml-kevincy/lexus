@@ -122,40 +122,8 @@ def fmt_day(s):
     return f'{s[:4]}-{s[4:6]}-{s[6:]}'
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--start', default='20261111')
-    ap.add_argument('--end', default='20261210')
-    ap.add_argument('--refresh-recommend', action='store_true')
-    ap.add_argument('--recommend-from', default='20261117', help='first full day after the 為您推薦 tracking fix (Taipei time)')
-    args = ap.parse_args()
-
-    rf = args.recommend_from
-    REC_FROM_US[0] = int(datetime(int(rf[:4]), int(rf[4:6]), int(rf[6:]), tzinfo=timezone(timedelta(hours=8))).timestamp() * 1e6)
-    latest = latest_table()
-    end = min(args.end, latest) if latest else args.end
-    print(f'Window {args.start} – {end} (latest table {latest})', file=sys.stderr)
-    base = (SQL / '_base.sql').read_text().replace('{DATASET}', DATASET) \
-        .replace('{START}', args.start).replace('{END}', end)
-    base = '\n'.join(l for l in base.splitlines() if not l.lstrip().startswith('--'))
-
-    live = go_live_times(base)
-    print('Go-live (µs):', live, file=sys.stderr)
-    names = ['overview', 'home', 'hero', 'entries', 'feature', 'misclick', 'order', 'cta', 'spec', 'recommend', 'variant_total']
-    with ThreadPoolExecutor(max_workers=5) as ex:
-        R = dict(ex.map(lambda n: run_query(n, base, live), names))
-
-    by = lambda rows, *keys: {tuple(r[k] for k in keys): r for r in rows}
-
-    # model list = models with model-page data
-    models_present = [m for m in MODELS if any(r['model'] == m for r in R['feature'])]
-    rec_lists = recommend_lists(models_present, args.refresh_recommend)
-    tracking = {
-        'menu_open': any(r['entry'] == 'menu' and r['kind'] == 'den' for r in R['entries']),
-        'home_section_view': any(r['section'] != '_pv' for r in R['home']),
-        'content_in_view': any((r.get('civ') or 0) > 0 for r in R['overview']),
-    }
-
+def assemble(R, models_present, rec_lists, tracking):
+    """Turn one set of query results (one source group) into the {all, desktop, mobile} blocks the page reads."""
     out_dev = {}
     for dev in DEVICES:
         ov = next((r for r in R['overview'] if r['device'] == dev), {})
@@ -268,6 +236,48 @@ def main():
             'home_sections': home_sections, 'home_hero': hero, 'entries': entries, 'models': models,
             'spec_switch': spec, 'recommend': {'sources': sources, 'pairs': pairs, 'total': rec_total},
         }
+    return out_dev
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--start', default='20261111')
+    ap.add_argument('--end', default='20261210')
+    ap.add_argument('--refresh-recommend', action='store_true')
+    ap.add_argument('--recommend-from', default='20261117', help='first full day after the 為您推薦 tracking fix (Taipei time)')
+    args = ap.parse_args()
+
+    rf = args.recommend_from
+    REC_FROM_US[0] = int(datetime(int(rf[:4]), int(rf[4:6]), int(rf[6:]), tzinfo=timezone(timedelta(hours=8))).timestamp() * 1e6)
+    latest = latest_table()
+    end = min(args.end, latest) if latest else args.end
+    print(f'Window {args.start} – {end} (latest table {latest})', file=sys.stderr)
+    base_tpl = (SQL / '_base.sql').read_text().replace('{DATASET}', DATASET) \
+        .replace('{START}', args.start).replace('{END}', end)
+
+    def make_base(sg_filter):
+        b = base_tpl.replace('{SG_FILTER}', sg_filter)
+        return '\n'.join(l for l in b.splitlines() if not l.lstrip().startswith('--'))
+
+    live = go_live_times(make_base('TRUE'))
+    print('Go-live (µs):', live, file=sys.stderr)
+    names = ['overview', 'home', 'hero', 'entries', 'feature', 'misclick', 'order', 'cta', 'spec', 'recommend', 'variant_total']
+    # source groups: all traffic, Own Media (not paid) and Paid Media; the query set runs once per group
+    groups, models_present, rec_lists, tracking = {}, None, None, None
+    for sg, flt in [('all', 'TRUE'), ('own', "sg = 'own'"), ('paid', "sg = 'paid'")]:
+        print(f'== source group: {sg}', file=sys.stderr)
+        base = make_base(flt)
+        with ThreadPoolExecutor(max_workers=5) as ex:
+            R = dict(ex.map(lambda n: run_query(n, base, live), names))
+        if sg == 'all':
+            models_present = [m for m in MODELS if any(r['model'] == m for r in R['feature'])]
+            rec_lists = recommend_lists(models_present, args.refresh_recommend)
+            tracking = {
+                'menu_open': any(r['entry'] == 'menu' and r['kind'] == 'den' for r in R['entries']),
+                'home_section_view': any(r['section'] != '_pv' for r in R['home']),
+                'content_in_view': any((r.get('civ') or 0) > 0 for r in R['overview']),
+            }
+        groups[sg] = assemble(R, models_present, rec_lists, tracking)
 
     days = (date(int(end[:4]), int(end[4:6]), int(end[6:])) - date(int(args.start[:4]), int(args.start[4:6]), int(args.start[6:]))).days + 1
     data = {
@@ -278,7 +288,7 @@ def main():
             'tracking_since': {k: (datetime.fromtimestamp(v / 1e6, tz=timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M') if v else None)
                                for k, v in live.items()},
         },
-        'old': out_dev, 'new': None,
+        'old': groups, 'new': None,
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')))
     print(f'Wrote {OUT} ({OUT.stat().st_size // 1024} KB)', file=sys.stderr)
