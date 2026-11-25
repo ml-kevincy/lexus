@@ -174,7 +174,7 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
 #tip {
   position: fixed; z-index: 30; max-width: min(320px, calc(100vw - 16px)); pointer-events: none;
   background: var(--tip-bg); color: var(--tip-fg); border-radius: var(--r-control);
-  padding: 8px 12px; font-size: var(--fs-xs); line-height: 1.6; letter-spacing: 0; font-weight: 400;
+  padding: 8px 12px; font-size: var(--fs-xs); line-height: 1.6; letter-spacing: 0; font-weight: 400; white-space: pre-line;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 .sub { display: block; font-family: var(--font-tc); font-size: var(--fs-xs); font-weight: 400; color: var(--ink-muted); }
@@ -312,7 +312,7 @@ details[open] summary { margin-bottom: 10px; }
       ${details.length ? `<details class="more"${c.summary ? '' : ' open'}><summary>查看詳細說明</summary><ul class="concl">${details.map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>` : ''}
       ${stale ? `<span class="stale">資料已更新到 ${esc(DATA.meta.period)}，結論尚未重寫，數字可能和下方圖表不同。</span>` : ''}</div>`;
   };
-  const SRC_TIP = '流量來源以工作階段進站時的來源判斷。Own Media（沒花錢）：直接進站、自然搜尋（Google、Yahoo、Bing）、社群、站外連結（含和泰會員系統、短網址）、AI 助理。Paid Media（花錢）：Google 付費搜尋（含 Google Ads 自動標記）、各家廣告素材（Yahoo、Clickforce、ONEAD、ELTA、TAMedia、UDN、ETtoday、Mobile01 等）、LINE 廣告、Facebook 廣告，以及 LINE 與活動代碼連結（ES2611 開頭）。約 0.6% 的工作階段查不到來源，只計入「全部」。';
+  const SRC_TIP = "Own Media（沒花錢）\n直接進站、自然搜尋（Google、Yahoo、Bing）、社群、站外連結（含和泰會員系統、短網址）、AI 助理。\n\nPaid Media（花錢）\nGoogle 付費搜尋（含 Google Ads 自動標記）、各家廣告素材（Yahoo、Clickforce、ONEAD、ELTA、TAMedia、UDN、ETtoday、Mobile01 等）、LINE 廣告、Facebook 廣告，以及 LINE 與活動代碼連結（ES2611 開頭）。\n\n其他備註\n以工作階段進站時的來源判斷；約 0.6% 的工作階段查不到來源，只計入「全部」。兩組的裝置組成不同（Paid 手機占 87%、Own 約 68%），比較時建議同時固定裝置。";
   const sgOf = id => state.cardSrc[id] || 'all';
   const srcSwitch = id => `<div class="src-wrap"><div class="seg card-src" role="group" aria-label="流量來源">${[['all', '全部'], ['own', 'Own Media'], ['paid', 'Paid Media']].map(([k, l]) => `<button type="button" data-card="${id}" data-src="${k}" aria-pressed="${sgOf(id) === k}">${l}</button>`).join('')}</div>${tip(SRC_TIP)}</div>`;
   const head = (no, id, title, sub, chips = [], tipText = '') => `
