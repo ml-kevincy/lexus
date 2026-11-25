@@ -137,6 +137,9 @@ main { display: grid; gap: 20px; padding-block: 24px 64px; }
 .sec-head { display: grid; gap: 6px; }
 .sec-no { font-family: var(--font-num); font-size: var(--fs-small); color: var(--primary); font-weight: 700; letter-spacing: 0.04em; }
 .sec-head h2 { font-size: var(--fs-heading); font-weight: 700; }
+.sec-top { display: flex; justify-content: space-between; align-items: center; gap: 8px 12px; flex-wrap: wrap; }
+.src-wrap { display: inline-flex; align-items: center; }
+.card-src button { font-size: var(--fs-xs); padding: 2px 10px; min-height: 26px; }
 .sec-head .sub { font-size: var(--fs-small); color: var(--ink-muted); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {
@@ -264,14 +267,6 @@ details[open] summary { margin-bottom: 10px; }
         <button type="button" data-dev="mobile" aria-pressed="false">手機</button>
       </div>
     </div>
-    <div class="field">
-      <div class="seg" role="group" aria-label="流量來源" id="src-seg">
-        <button type="button" data-src="all" aria-pressed="true">全部</button>
-        <button type="button" data-src="own" aria-pressed="false">Own Media</button>
-        <button type="button" data-src="paid" aria-pressed="false">Paid Media</button>
-      </div>
-      <button type="button" class="info" aria-label="流量來源分組說明" data-tip="流量來源以工作階段進站時的來源判斷。Own Media（沒花錢）：直接進站、自然搜尋（Google、Yahoo、Bing）、社群、站外連結（含和泰會員系統、短網址）、AI 助理。Paid Media（花錢）：Google 付費搜尋（含 Google Ads 自動標記）、各家廣告素材（Yahoo、Clickforce、ONEAD、ELTA、TAMedia、UDN、ETtoday、Mobile01 等）、LINE 廣告、Facebook 廣告，以及 LINE 與活動代碼連結（ES2611 開頭）。約 0.6% 的工作階段查不到來源，只計入「全部」。">i</button>
-    </div>
   </div>
 </div>
 
@@ -281,7 +276,7 @@ details[open] summary { margin-bottom: 10px; }
 
 <script>
 (() => {
-  const state = { tab: 'old', dev: 'all', src: 'all', model: 'all' };
+  const state = { tab: 'old', dev: 'all', cardSrc: {}, model: 'all' };
   try {
     const saved = JSON.parse(localStorage.getItem('lexus-report-ui') || '{}');
     Object.assign(state, saved);
@@ -294,6 +289,7 @@ details[open] summary { margin-bottom: 10px; }
   const DEV_LABEL = { all: '全部裝置', desktop: '桌機', mobile: '手機' };
 
   let DATA = null;
+  let pendingFocus = null;
 
   const w = (v, max) => v == null || !max ? 0 : Math.max(0, Math.min(100, v / max * 100));
   const barRow = (name, v, max, valText, sub) => `
@@ -316,9 +312,12 @@ details[open] summary { margin-bottom: 10px; }
       ${details.length ? `<details class="more"${c.summary ? '' : ' open'}><summary>查看詳細說明</summary><ul class="concl">${details.map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>` : ''}
       ${stale ? `<span class="stale">資料已更新到 ${esc(DATA.meta.period)}，結論尚未重寫，數字可能和下方圖表不同。</span>` : ''}</div>`;
   };
+  const SRC_TIP = '流量來源以工作階段進站時的來源判斷。Own Media（沒花錢）：直接進站、自然搜尋（Google、Yahoo、Bing）、社群、站外連結（含和泰會員系統、短網址）、AI 助理。Paid Media（花錢）：Google 付費搜尋（含 Google Ads 自動標記）、各家廣告素材（Yahoo、Clickforce、ONEAD、ELTA、TAMedia、UDN、ETtoday、Mobile01 等）、LINE 廣告、Facebook 廣告，以及 LINE 與活動代碼連結（ES2611 開頭）。約 0.6% 的工作階段查不到來源，只計入「全部」。';
+  const sgOf = id => state.cardSrc[id] || 'all';
+  const srcSwitch = id => `<div class="src-wrap"><div class="seg card-src" role="group" aria-label="流量來源">${[['all', '全部'], ['own', 'Own Media'], ['paid', 'Paid Media']].map(([k, l]) => `<button type="button" data-card="${id}" data-src="${k}" aria-pressed="${sgOf(id) === k}">${l}</button>`).join('')}</div>${tip(SRC_TIP)}</div>`;
   const head = (no, id, title, sub, chips = [], tipText = '') => `
     <div class="sec-head">
-      <span class="sec-no">${esc(no)}</span>
+      <div class="sec-top"><span class="sec-no">${esc(no)}</span>${srcSwitch(id)}</div>
       <h2>${esc(title)}${tipText ? tip(tipText) : ''}</h2>
       ${sub ? `<p class="sub">${esc(sub)}</p>` : ''}
       ${chips.length ? `<div class="chips">${chips.map(c => `<span class="chip${c.warn ? ' warn' : ''}">${esc(c.t)}</span>`).join('')}</div>` : ''}
@@ -348,25 +347,29 @@ details[open] summary { margin-bottom: 10px; }
   ];
 
   function renderOld() {
-    const d = DATA.old[state.src][state.dev];
-    const m = d.models[state.model] || d.models.all;
-    const ov = d.overview;
+    // 每張卡片各自選流量來源（state.cardSrc[卡片 id]），預設為全部
+    const ctx = id => { const sg = sgOf(id); const d = DATA.old[sg][state.dev]; const m = d.models[state.model] || d.models.all; return { sg, d, m, f: m.feature, ov: d.overview }; };
     const modelName = state.model === 'all' ? '全部車款' : state.model;
     const out = [];
 
     // 0 overview
-    const ds = DATA.old[state.src].all.overview.device_share;
+    {
+    const { sg, d, m, f, ov } = ctx('s-overview');
+    const ds = DATA.old[sg].all.overview.device_share;
     out.push(`<section class="card" id="s-overview" aria-labelledby="h-ov">
       ${head('0', 's-overview', '總覽')}
       <div class="stats">
-        <div class="stat"><span class="k">工作階段</span><span class="v">${int(ov.sessions)}</span><span class="s">${state.dev === 'all' && state.src === 'all' ? '全部裝置' : `占全部工作階段 ${pct(ov.sessions / DATA.old.all.all.overview.sessions, 0)}`}</span></div>
+        <div class="stat"><span class="k">工作階段</span><span class="v">${int(ov.sessions)}</span><span class="s">${state.dev === 'all' && sg === 'all' ? '全部裝置' : `占全部工作階段 ${pct(ov.sessions / DATA.old.all.all.overview.sessions, 0)}`}</span></div>
         <div class="stat"><span class="k">使用者</span><span class="v">${int(ov.users)}</span><span class="s">不重複使用者</span></div>
         <div class="stat"><span class="k">頁面瀏覽</span><span class="v">${int(ov.pageviews)}</span><span class="s">page_view</span></div>
         <div class="stat"><span class="k">裝置占比（工作階段）</span><span class="v" style="font-size:20px">${pct(ds.desktop, 0)} / ${pct(ds.mobile, 0)}</span><span class="s">桌機 / 手機（平板計入桌機）</span></div>
       </div>
     </section>`);
+    }
 
     // 1 home depth
+    {
+    const { sg, d, m, f, ov } = ctx('s-home');
     const hs = d.home_sections;
     out.push(`<section class="card" id="s-home">
       ${head('1', 's-home', '大家怎麼看首頁？', `首頁各段落的到達率，由上到下。${lateStart('home_section_view') ? `資料自 ${lateStart('home_section_view')} 起，樣本還少。` : ''}`)}
@@ -376,8 +379,11 @@ details[open] summary { margin-bottom: 10px; }
         ${hs.length ? `<div class="bars">${hs.map(s => barRow(s.label, s.reach, 1, pct(s.reach), s.section)).join('')}</div>` : pending('首頁各段落的 section_view 尚未上線，上線後才會有資料。')}
       </div>
     </section>`);
+    }
 
     // 2 hero
+    {
+    const { sg, d, m, f, ov } = ctx('s-hero');
     const hero = d.home_hero;
     out.push(`<section class="card" id="s-hero">
       ${head('2', 's-hero', '首頁輪播是否有效？', '封面輪播每一張實際被曝光的比例，以及曝光後被點擊的比例。')}
@@ -387,8 +393,11 @@ details[open] summary { margin-bottom: 10px; }
         <tbody>${hero.map(h => `<tr><td class="num">第 ${h.index} 張</td><td>${esc(h.title)}</td><td>${cellBar(h.exposure, 1, pct(h.exposure))}</td><td class="n">${pct(h.ctr, 2)}</td></tr>`).join('')}</tbody>
       </table></div>
     </section>`);
+    }
 
     // 3 entries
+    {
+    const { sg, d, m, f, ov } = ctx('s-entry');
     const en = d.entries;
     const maxShare = maxOf(en, 'share');
     out.push(`<section class="card" id="s-entry">
@@ -399,9 +408,11 @@ details[open] summary { margin-bottom: 10px; }
         <tbody>${en.map(e => `<tr><td>${esc(e.label)}</td><td>${cellBar(e.share, maxShare, pct(e.share))}</td><td class="n">${pct(e.ctr)}</td><td class="ref">${esc(e.denom)}</td></tr>`).join('')}</tbody>
       </table></div>
     </section>`);
+    }
 
     // 4.1 focus
-    const f = m.feature;
+    {
+    const { sg, d, m, f, ov } = ctx('s-focus');
     const mx = { repeat: maxOf(f, 'repeat'), dwell: maxOf(f, 'dwell'), complete: maxOf(f, 'complete') };
     const topTag = () => '';  // 最高值改用橘色長條標示，不再顯示「最高」標籤
     out.push(`<div class="model-group">
@@ -432,8 +443,11 @@ details[open] summary { margin-bottom: 10px; }
         <div class="bars">${m.sections.map(s => barRow(s.label, s.reach, 1, pct(s.reach))).join('')}</div>
       </details>
     </section>`);
+    }
 
     // 4.2 misclick + order
+    {
+    const { sg, d, m, f, ov } = ctx('s-order');
     const hasDirect = DATA.meta.tracking.content_in_view;
     const mcKey = x => (hasDirect && x.misclick_direct != null ? x.misclick_direct : x.misclick) ?? -1;
     const mc = [...f].sort((a, b) => mcKey(b) - mcKey(a));
@@ -461,8 +475,11 @@ details[open] summary { margin-bottom: 10px; }
         </div>
       </div>
     </section>`);
+    }
 
     // 5 variant
+    {
+    const { sg, d, m, f, ov } = ctx('s-variant');
     const vMax = maxOf(f, 'variant');
     out.push(`<section class="card" id="s-variant">
       ${head('5', 's-variant', '車型下拉選單真的有用處嗎？', `各特色段落左方的車型下拉選單，看到段落的人有多少會去選。${modelName}。`)}
@@ -475,8 +492,11 @@ details[open] summary { margin-bottom: 10px; }
       </div>
       </div>
     </section>`);
+    }
 
     // 6 CTA
+    {
+    const { sg, d, m, f, ov } = ctx('s-cta');
     const fab = m.cta.fab, pg = m.cta.page, sp = m.cta.test_drive_split;
     const ctaMax = Math.max(maxOf(fab, 'rate'), maxOf(pg, 'rate'));
     out.push(`<section class="card" id="s-cta">
@@ -502,8 +522,11 @@ details[open] summary { margin-bottom: 10px; }
       </div>
     </section>
     </div>`);
+    }
 
     // 7.1 spec switch
+    {
+    const { sg, d, m, f, ov } = ctx('s-spec');
     out.push(`<section class="card" id="s-spec">
       ${head('7.1', 's-spec', '舊版選單上的規格開關', '「車款介紹」選單上的「售價&規格」開關，預設為關閉。')}
       ${conclusion('7.1')}
@@ -512,8 +535,11 @@ details[open] summary { margin-bottom: 10px; }
         <div class="stat"><span class="k">打開後又關掉${tip('state = off 的次數 ÷ state = on 的次數。')}</span><span class="v">${pct(d.spec_switch.off_after_on)}</span></div>
       </div>
     </section>`);
+    }
 
     // 7.2 recommend
+    {
+    const { sg, d, m, f, ov } = ctx('s-rec');
     const src = d.recommend.sources;
     const pairs = d.recommend.pairs;
     const pairsShown = pairs.slice(0, 10);
@@ -536,6 +562,7 @@ details[open] summary { margin-bottom: 10px; }
         </div>
       </div>
     </section>`);
+    }
 
     return out.join('');
   }
@@ -554,7 +581,6 @@ details[open] summary { margin-bottom: 10px; }
   function render() {
     document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === state.tab)));
     document.querySelectorAll('#dev-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.dev === state.dev)));
-    document.querySelectorAll('#src-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.src === state.src)));
     const isOld = state.tab === 'old';
     document.getElementById('filters').hidden = !isOld;
     const hadFocus = document.activeElement && document.activeElement.id === 'model-sel';
@@ -576,6 +602,7 @@ details[open] summary { margin-bottom: 10px; }
       }
     });
     if (hadFocus) { const s = document.getElementById('model-sel'); if (s) s.focus(); }
+    if (pendingFocus) { const b = document.querySelector(`.card-src button[data-card="${pendingFocus.card}"][data-src="${pendingFocus.src}"]`); if (b) b.focus({ preventScroll: true }); pendingFocus = null; }
     save();
   }
 
@@ -586,11 +613,18 @@ details[open] summary { margin-bottom: 10px; }
     document.getElementById('meta').innerHTML = `<span>資料期間 <b class="num">${esc(m.period)}</b>${partial ? `（共 ${m.days} 天，前測期至 ${esc(m.planned_end)}）` : ''}</span>`;
     if (!['old', 'new', 'cmp'].includes(state.tab)) state.tab = 'old';
     if (!['all', 'desktop', 'mobile'].includes(state.dev)) state.dev = 'all';
-    if (!['all', 'own', 'paid'].includes(state.src) || !data.old[state.src]) state.src = 'all';
+    if (!state.cardSrc || typeof state.cardSrc !== 'object') state.cardSrc = {};
+    Object.keys(state.cardSrc).forEach(k => { if (!['own', 'paid'].includes(state.cardSrc[k]) || !data.old[state.cardSrc[k]]) delete state.cardSrc[k]; });
     if (state.model !== 'all' && !m.models.includes(state.model)) state.model = 'all';
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { state.tab = t.dataset.tab; render(); }));
     document.querySelectorAll('#dev-seg button').forEach(b => b.addEventListener('click', () => { state.dev = b.dataset.dev; render(); }));
-    document.querySelectorAll('#src-seg button').forEach(b => b.addEventListener('click', () => { state.src = b.dataset.src; render(); }));
+    document.getElementById('main').addEventListener('click', e => {
+      const b = e.target.closest && e.target.closest('.card-src button[data-card]');
+      if (!b) return;
+      if (b.dataset.src === 'all') delete state.cardSrc[b.dataset.card]; else state.cardSrc[b.dataset.card] = b.dataset.src;
+      pendingFocus = { card: b.dataset.card, src: b.dataset.src };
+      render();
+    });
     document.getElementById('main').addEventListener('change', e => {
       if (e.target.id === 'model-sel') { state.model = e.target.value; render(); }
     });
